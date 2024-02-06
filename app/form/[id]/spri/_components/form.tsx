@@ -28,6 +28,7 @@ const SpriForm = () => {
   const {
     register,
     setValue,
+    trigger,
     handleSubmit,
     formState: {
       errors,
@@ -39,6 +40,8 @@ const SpriForm = () => {
     },
   } = useForm<FormData>({
     resolver: zodResolver(spriSchema),
+    //reValidateMode: "onChange",
+    mode: "all",
   });
 
   const onSubmit = async (data: FormData) => {
@@ -48,12 +51,16 @@ const SpriForm = () => {
 
   return (
     <div className="py-10">
-      <h1 className="text-lg font-semibold mb-4 w-full text-center">
-        Formulir Surat Perjalanan Republik Indonesia untuk Warga Negara
-        Indonesia di Luar Negeri
-      </h1>
-      <form className="flex flex-col gap-2" noValidate>
-        <h1 className="text-md font-semibold">Data Permohonan</h1>
+      <form
+        className="flex flex-col gap-2 border shadow-lg p-6 rounded-md"
+        noValidate
+      >
+        <h1 className="text-2xl font-semibold mb-4 w-full text-center">
+          Formulir Surat Perjalanan Republik Indonesia untuk Warga Negara
+          Indonesia di Luar Negeri
+        </h1>
+        <Separator />
+        <h1 className="text-md font-semibold">Data Pemohon</h1>
         <FormRow>
           <SelectForm
             label="Jenis Permohonan"
@@ -82,12 +89,21 @@ const SpriForm = () => {
         </FormRow>
         <FormRow>
           <InputForm
-            label="namaLengkap"
+            label="Nama Lengkap"
             register={register}
             name="namaLengkap"
             error={errors.namaLengkap}
             className="md:w-9/12"
           />
+          <InputForm
+            label="Alias"
+            register={register}
+            name="alias"
+            error={errors.alias}
+            className="md:w-3/12"
+          />
+        </FormRow>
+        <FormRow>
           <SelectForm
             label="Jenis Kelamin"
             name="jenisKelamin"
@@ -99,15 +115,6 @@ const SpriForm = () => {
             <option value="1">Laki-laki</option>
             <option value="2">Perempuan</option>
           </SelectForm>
-        </FormRow>
-        <FormRow>
-          <InputForm
-            label="Alias"
-            register={register}
-            name="alias"
-            error={errors.alias}
-            className="md:w-3/4"
-          />
           <InputForm
             label="Tinggi Badan (cm)"
             register={register}
@@ -116,14 +123,12 @@ const SpriForm = () => {
             className="md:w-1/4"
             pattern="[0-9]*"
           />
-        </FormRow>
-        <FormRow>
           <InputForm
             label="Tempat Lahir"
             register={register}
             name="tempatLahir"
             error={errors.tempatLahir}
-            className="md:w-2/3"
+            className="md:w-1/3"
           />
           <InputDatePicker
             label="Tanggal Lahir"
@@ -131,7 +136,7 @@ const SpriForm = () => {
             setValue={setValue}
             name="tanggalLahir"
             error={errors.tanggalLahir}
-            className="md:w-1/3"
+            className="md:w-1/4"
             fromDate={new Date(1900, 1, 1)}
             toDate={new Date()}
           />
@@ -142,49 +147,50 @@ const SpriForm = () => {
             register={register}
             name="identitasNomor"
             error={errors.identitasNomor}
-            className="md:w-2/3"
+            className="md:w-1/4"
             maxLength={16}
           />
-          <InputForm
-            label="Tanggal dikeluarkan"
-            register={register}
-            name="identitasTanggalDikeluarkan"
-            error={errors.identitasTanggalDikeluarkan}
-            className="md:w-1/3"
-          />
-        </FormRow>
-        <FormRow>
           <InputForm
             label="Tempat dikeluarkan"
             register={register}
             name="identitasTempatDikeluarkan"
             error={errors.identitasTempatDikeluarkan}
-            className="md:w-2/3"
+            className="md:w-1/4"
           />
-          <InputForm
+          <InputDatePicker
+            fromDate={new Date(2000, 1, 1)}
+            label="Tanggal dikeluarkan"
+            register={register}
+            setValue={setValue}
+            name="identitasTanggalDikeluarkan"
+            error={errors.identitasTanggalDikeluarkan}
+            className="md:w-1/4"
+          />
+          <InputDatePicker
+            fromDate={new Date(2000, 1, 1)}
             label="Berlaku hingga"
             register={register}
+            setValue={setValue}
             name="identitasBerlakuHingga"
             error={errors.identitasBerlakuHingga}
             className="md:w-1/3"
           />
         </FormRow>
+
         <FormRow>
           <InputForm
             label="Pekerjaan"
             register={register}
             name="pekerjaan"
             error={errors.pekerjaan}
-            className="md:w-full"
+            className="md:w-1/4"
           />
-        </FormRow>
-        <FormRow>
           <InputForm
-            label="Alamat Kantor/Pekerjaan/Perguruan Tinggi"
+            label="Alamat Pekerjaan/Perguruan Tinggi"
             register={register}
             name="pekejerjaanAlamat"
             error={errors.pekejerjaanAlamat}
-            className="md:w-3/4"
+            className="md:w-2/4"
           />
           <InputForm
             label="Telp/hp"
@@ -241,7 +247,13 @@ const SpriForm = () => {
             register={register}
             className="md:w-1/2"
             //value={statusSipil}
-            onChange={(e) => setStatusSipil(Number(e.target.value))}
+            onChange={(e) => {
+              setStatusSipil(Number(e.target.value));
+              //trigger("statusSipil");
+              // setValue("statusSipil", e.target.value as StatusSipil, {
+              //   shouldValidate: true,
+              // });
+            }}
           >
             <option value="0">Pilih Status Sipil</option>
             <option value="1">Kawin</option>
@@ -258,30 +270,29 @@ const SpriForm = () => {
             register={register}
             name="ibuNama"
             error={errors.ibuNama}
-            className="md:w-2/3"
+            className="md:w-1/4"
           />
           <InputForm
             label="Kewarganegaraan Ibu"
             register={register}
             name="ibuKewarganegaraan"
             error={errors.ibuKewarganegaraan}
-            className="md:w-1/3"
+            className="md:w-1/4"
           />
-        </FormRow>
-        <FormRow>
           <InputForm
             label="Tempat Lahir Ibu"
             register={register}
             name="ibuTempatLahir"
             error={errors.ibuTempatLahir}
-            className="md:w-2/3"
+            className="md:w-1/4"
           />
-          <InputForm
+          <InputDatePicker
             label="Tanggal Lahir Ibu"
             register={register}
+            setValue={setValue}
             name="ibuTanggalLahir"
             error={errors.ibuTanggalLahir}
-            className="md:w-1/3"
+            className="md:w-1/4"
           />
         </FormRow>
         <FormRow>
@@ -290,30 +301,29 @@ const SpriForm = () => {
             register={register}
             name="ayahNama"
             error={errors.ayahNama}
-            className="md:w-2/3"
+            className="md:w-1/4"
           />
           <InputForm
             label="Kewarganegaraan Ayah"
             register={register}
             name="ayahKewarganegaraan"
             error={errors.ayahKewarganegaraan}
-            className="md:w-1/3"
+            className="md:w-1/4"
           />
-        </FormRow>
-        <FormRow>
           <InputForm
             label="Tempat Lahir Ayah"
             register={register}
             name="ayahTempatLahir"
             error={errors.ayahTempatLahir}
-            className="md:w-2/3"
+            className="md:w-1/4"
           />
-          <InputForm
+          <InputDatePicker
             label="Tanggal Lahir Ayah"
             register={register}
+            setValue={setValue}
             name="ayahTanggalLahir"
             error={errors.ayahTanggalLahir}
-            className="md:w-1/3"
+            className="md:w-1/4"
           />
         </FormRow>
         <FormRow>
@@ -360,9 +370,10 @@ const SpriForm = () => {
                 error={errors.suamiIstriTempatLahir}
                 className="md:w-2/3"
               />
-              <InputForm
+              <InputDatePicker
                 label="Tanggal Lahir"
                 register={register}
+                setValue={setValue}
                 name="suamiIstriTanggalLahir"
                 error={errors.suamiIstriTanggalLahir}
                 className="md:w-1/3"
@@ -424,32 +435,24 @@ const SpriForm = () => {
             register={register}
             name="darurat1Nama"
             error={errors.darurat1Nama}
+            className="md:w-1/4"
           />
-        </FormRow>
-        <FormRow>
           <InputForm
             label="Alamat Tinggal di Luar Negeri"
             register={register}
             name="darurat1Alamat"
             error={errors.darurat1Alamat}
-          />
-        </FormRow>
-        <FormRow>
-          <InputForm
-            label="Telp"
-            register={register}
-            name="darurat1Telp"
-            error={errors.darurat1Telp}
-            className="md:w-2/3"
+            className="md:w-2/4"
           />
           <InputForm
-            label="hp"
+            label="Telp/hp"
             register={register}
             name="darurat1Hp"
             error={errors.darurat1Hp}
-            className="md:w-1/3"
+            className="md:w-1/4"
           />
         </FormRow>
+
         <h1 className="text-sm font-semibold">Kontak di Indonesia</h1>
         <FormRow>
           <InputForm
@@ -457,23 +460,14 @@ const SpriForm = () => {
             register={register}
             name="darurat2Nama"
             error={errors.darurat2Nama}
+            className="md:w-1/4"
           />
-        </FormRow>
-        <FormRow>
           <InputForm
             label="Alamat Tinggal di Indonesia"
             register={register}
             name="darurat2Alamat"
             error={errors.darurat2Alamat}
-          />
-        </FormRow>
-        <FormRow>
-          <InputForm
-            label="Telp"
-            register={register}
-            name="darurat2Telp"
-            error={errors.darurat2Telp}
-            className="md:w-2/3"
+            className="md:w-2/4"
           />
           <InputForm
             label="hp"
@@ -483,10 +477,11 @@ const SpriForm = () => {
             className="md:w-1/3"
           />
         </FormRow>
+
         <Separator />
         <h1 className="text-sm font-semibold">Pernyataan keterangan</h1>
 
-        <FormRow>
+        <div className="flex flex-row gap-2 mt-4">
           <Checkbox id="terms" />
           <label
             htmlFor="terms"
@@ -498,10 +493,10 @@ const SpriForm = () => {
             dituntut sesuai dengan ketentuan peraturan perundang-undangan yang
             berlaku.
           </label>
-        </FormRow>
+        </div>
         <FormRow>
           <Button
-            className=" w-full py-6"
+            className=" w-full py-6 mt-6 "
             disabled={isSubmitting}
             type="button"
             onClick={() => {

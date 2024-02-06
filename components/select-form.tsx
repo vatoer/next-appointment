@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { SelectHTMLAttributes } from "react";
-import { FieldError, UseFormRegister } from "react-hook-form";
+import { FieldError, UseFormRegister, UseFormSetValue } from "react-hook-form";
 
 interface SelectFormProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label: string;

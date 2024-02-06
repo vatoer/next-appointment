@@ -35,7 +35,7 @@ export type InputDatePickerProps = IDatePickerProps & CalendarProps;
 
 export const InputDatePicker = ({
   date: Initdate,
-  dateFormat = "dd-MM-yyyy", // 'dd-MM-yyyy' or 'yyyy-MM-dd
+  dateFormat = "yyyy-MM-dd", // 'dd-MM-yyyy' or 'yyyy-MM-dd
   label,
   register,
   setValue,
@@ -66,59 +66,56 @@ export const InputDatePicker = ({
   defaultEndDate.setMonth(defaultEndDate.getMonth() + 1);
 
   return (
-    <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-      <PopoverTrigger asChild>
-        <div
-          className={cn(
-            "flex flex-col w-full mt-1 md:mt-0",
-            className && className
-          )}
-        >
-          <label htmlFor={name} className="text-sm">
-            {label}
-          </label>
-          <div className="relative group">
-            <CalendarIcon className="absolute top-2 ml-2 text-gray-700" />
-            <input
-              placeholder="dd-mm-yyyy"
-              readOnly
-              type={"text"}
-              id={name}
-              {...register(name, {
-                onChange: (e) => {
-                  console.log("e", e);
-                },
-              })}
-              className={cn(
-                "form-control block w-full px-1 pl-10 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none peer"
-              )}
-            />
+    <div className={cn("flex flex-col mt-1 md:mt-0", className && className)}>
+      <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+        <PopoverTrigger asChild>
+          <div className={cn("flex flex-col w-full mt-1 md:mt-0")}>
+            <label htmlFor={name} className="text-sm">
+              {label}
+            </label>
+            <div className="relative group">
+              <CalendarIcon className="absolute top-2 ml-2 text-gray-300" />
+              <input
+                placeholder="yyyy-mm-dd"
+                readOnly
+                type={"text"}
+                id={name}
+                {...register(name, {
+                  onChange: (e) => {
+                    console.log("e", e);
+                  },
+                })}
+                className={cn(
+                  "form-control block w-full px-1 pl-10 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none peer"
+                )}
+              />
+            </div>
           </div>
-          {error && <span className="text-red-500">{error.message}</span>}
-        </div>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
-        {withYmPicker && (
-          <YmPicker
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0">
+          {withYmPicker && (
+            <YmPicker
+              fromDate={props.fromDate ?? defaultStartDate}
+              toDate={props.toDate ?? defaultEndDate}
+              onSelect={setYmDate}
+              date={date}
+              locale={props.locale ?? id}
+            />
+          )}
+          <Calendar
+            mode="single"
+            locale={props.locale ?? id}
+            selected={date}
+            onSelect={handleSelect}
             fromDate={props.fromDate ?? defaultStartDate}
             toDate={props.toDate ?? defaultEndDate}
-            onSelect={setYmDate}
-            date={date}
-            locale={props.locale ?? id}
+            month={ymDate ?? date}
+            onMonthChange={setYmDate}
           />
-        )}
-        <Calendar
-          mode="single"
-          locale={props.locale ?? id}
-          selected={date}
-          onSelect={handleSelect}
-          fromDate={props.fromDate ?? defaultStartDate}
-          toDate={props.toDate ?? defaultEndDate}
-          month={ymDate ?? date}
-          onMonthChange={setYmDate}
-        />
-      </PopoverContent>
-    </Popover>
+        </PopoverContent>
+      </Popover>
+      {error && <span className="text-red-500">{error.message}</span>}
+    </div>
   );
 };
 

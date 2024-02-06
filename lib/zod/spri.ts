@@ -22,6 +22,11 @@ export enum StatusSipil {
   "CERAI_HIDUP" = "4",
 }
 
+export enum JenisKelamin {
+  "LAKI_LAKI" = "1",
+  "PEREMPUAN" = "2",
+}
+
 export const jenisPermohononSchema = z.nativeEnum(JenisPermohonon, {
   errorMap: (issue, ctx) => ({ message: "Pilih Jenis Permohonan" }),
 });
@@ -30,17 +35,21 @@ export const statusSipilSchema = z.nativeEnum(StatusSipil, {
   errorMap: (issue, ctx) => ({ message: "Pilih status Sipil" }),
 });
 
+export const jenisKelaminSchema = z.nativeEnum(JenisKelamin, {
+  errorMap: (issue, ctx) => ({ message: "Pilih Jenis kelamin" }),
+});
+
 export const genericStringSchema = z.string().min(3).max(25);
 
 export const genericTanggalSchema = z
   .string()
   .min(10, {
-    message: "Please input with format dd-mm-yyyy",
+    message: "Please select a date",
   })
   .pipe(
     z.coerce
       .date({
-        required_error: "Please select a date and time",
+        required_error: "Please select a date",
         invalid_type_error: "That's not a date!",
       })
       .min(new Date("1900-01-01"), { message: "Too old" })
@@ -52,10 +61,8 @@ export const spriSchema = z
   .object({
     jenisPermohonan: jenisPermohononSchema,
     namaLengkap: z.string().min(3),
-    jenisKelamin: z.enum(["1", "2"], {
-      errorMap: (issue, ctx) => ({ message: "Pilih Jenis kelamin" }),
-    }),
-    alias: z.string().min(3).max(25),
+    jenisKelamin: jenisKelaminSchema,
+    alias: z.string().optional(),
     tinggiBadan: z.coerce.number().min(20).max(250),
     tempatLahir: z.string().min(3),
     tanggalLahir: genericTanggalSchema,
@@ -92,11 +99,11 @@ export const spriSchema = z
     perubahanTelp: z.string().optional(),
     darurat1Nama: z.string(),
     darurat1Alamat: z.string(),
-    darurat1Telp: z.string(),
+    darurat1Telp: z.string().optional(),
     darurat1Hp: z.string(),
     darurat2Nama: z.string(),
     darurat2Alamat: z.string(),
-    darurat2Telp: z.string(),
+    darurat2Telp: z.string().optional(),
     darurat2Hp: z.string(),
   })
   .superRefine(({ jenisPermohonan, perubahanNama, perubahanAlamat }, ctx) => {
