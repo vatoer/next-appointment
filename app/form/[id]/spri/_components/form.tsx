@@ -273,21 +273,21 @@ const SpriForm = () => {
             className="md:w-1/4"
           />
           <InputForm
-            label="Kewarganegaraan Ibu"
+            label="Kewarganegaraan "
             register={register}
             name="ibuKewarganegaraan"
             error={errors.ibuKewarganegaraan}
             className="md:w-1/4"
           />
           <InputForm
-            label="Tempat Lahir Ibu"
+            label="Tempat Lahir "
             register={register}
             name="ibuTempatLahir"
             error={errors.ibuTempatLahir}
             className="md:w-1/4"
           />
           <InputDatePicker
-            label="Tanggal Lahir Ibu"
+            label="Tanggal Lahir "
             register={register}
             setValue={setValue}
             name="ibuTanggalLahir"
@@ -304,21 +304,21 @@ const SpriForm = () => {
             className="md:w-1/4"
           />
           <InputForm
-            label="Kewarganegaraan Ayah"
+            label="Kewarganegaraan "
             register={register}
             name="ayahKewarganegaraan"
             error={errors.ayahKewarganegaraan}
             className="md:w-1/4"
           />
           <InputForm
-            label="Tempat Lahir Ayah"
+            label="Tempat Lahir "
             register={register}
             name="ayahTempatLahir"
             error={errors.ayahTempatLahir}
             className="md:w-1/4"
           />
           <InputDatePicker
-            label="Tanggal Lahir Ayah"
+            label="Tanggal Lahir "
             register={register}
             setValue={setValue}
             name="ayahTanggalLahir"
