@@ -8,11 +8,15 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { JenisPermohonon, StatusSipil, spriSchema } from "@/lib/zod/spri";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { getYear } from "date-fns";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
+import { createSpri, updateSpri } from "../_actions";
+import CheckboxPersetujuan from "./persetujuan";
 
 type FormData = z.infer<typeof spriSchema>;
 
@@ -40,11 +44,19 @@ const SpriForm = () => {
     },
   } = useForm<FormData>({
     resolver: zodResolver(spriSchema),
-    //reValidateMode: "onChange",
+    //reValidateMode: "onChange" || "onBlur",
     mode: "all",
   });
 
   const onSubmit = async (data: FormData) => {
+    const result = await createSpri(data).then((res) => {
+      console.log(res);
+      if (res.type === "SPRI_CREATE") {
+        //router.push("/form/" + res.payload.data.name);
+        toast.success("Data berhasil disimpan");
+      }
+    });
+
     console.log("oie");
     console.log(data);
   };
@@ -67,7 +79,7 @@ const SpriForm = () => {
             name="jenisPermohonan"
             error={errors.jenisPermohonan}
             register={register}
-            //value={jenisPermohonan}
+            className="md:w-1/2"
             onChange={(e) =>
               setJenisPermohonan(e.target.value as JenisPermohonon)
             }
@@ -137,8 +149,10 @@ const SpriForm = () => {
             name="tanggalLahir"
             error={errors.tanggalLahir}
             className="md:w-1/4"
-            fromDate={new Date(1900, 1, 1)}
-            toDate={new Date()}
+            calendarOptions={{
+              fromDate: new Date(getYear(Date()) - 100, 1, 1),
+              toDate: new Date(),
+            }}
           />
         </FormRow>
         <FormRow>
@@ -165,6 +179,10 @@ const SpriForm = () => {
             name="identitasTanggalDikeluarkan"
             error={errors.identitasTanggalDikeluarkan}
             className="md:w-1/4"
+            calendarOptions={{
+              fromDate: new Date(1945, 1, 1),
+              toDate: new Date(),
+            }}
           />
           <InputDatePicker
             fromDate={new Date(2000, 1, 1)}
@@ -174,6 +192,10 @@ const SpriForm = () => {
             name="identitasBerlakuHingga"
             error={errors.identitasBerlakuHingga}
             className="md:w-1/3"
+            calendarOptions={{
+              fromDate: new Date(getYear(Date()) - 25, 1, 1),
+              toDate: new Date(getYear(Date()) + 11, 1, 1),
+            }}
           />
         </FormRow>
 
@@ -248,11 +270,9 @@ const SpriForm = () => {
             className="md:w-1/2"
             //value={statusSipil}
             onChange={(e) => {
-              setStatusSipil(Number(e.target.value));
-              //trigger("statusSipil");
-              // setValue("statusSipil", e.target.value as StatusSipil, {
-              //   shouldValidate: true,
-              // });
+              setValue("statusSipil", e.target.value as StatusSipil, {
+                shouldValidate: true,
+              });
             }}
           >
             <option value="0">Pilih Status Sipil</option>
@@ -264,7 +284,7 @@ const SpriForm = () => {
         </FormRow>
         <Separator />
         <h1 className="text-md font-semibold">Identitas Orang Tua</h1>
-        <FormRow>
+        <FormRow title="Identitas Ibu">
           <InputForm
             label="Nama Ibu"
             register={register}
@@ -293,9 +313,14 @@ const SpriForm = () => {
             name="ibuTanggalLahir"
             error={errors.ibuTanggalLahir}
             className="md:w-1/4"
+            calendarOptions={{
+              date: new Date(getYear(Date()) - 17, 0, 1),
+              fromDate: new Date(getYear(Date()) - 150, 1, 1),
+              toDate: new Date(getYear(Date()) - 14, 1, 1),
+            }}
           />
         </FormRow>
-        <FormRow>
+        <FormRow title="Identitas Ayah">
           <InputForm
             label="Nama Ayah"
             register={register}
@@ -324,6 +349,11 @@ const SpriForm = () => {
             name="ayahTanggalLahir"
             error={errors.ayahTanggalLahir}
             className="md:w-1/4"
+            calendarOptions={{
+              date: new Date(getYear(Date()) - 18, 1, 1),
+              fromDate: new Date(getYear(Date()) - 150, 1, 1),
+              toDate: new Date(getYear(Date()) - 14, 1, 1),
+            }}
           />
         </FormRow>
         <FormRow>
@@ -428,8 +458,7 @@ const SpriForm = () => {
           Bila terjadi permasalahan, Harap Hubungi
         </h1>
 
-        <h1 className="text-sm font-semibold">Kontak di Luar Negeri</h1>
-        <FormRow>
+        <FormRow title="Kontak di Luar Negeri">
           <InputForm
             label="Nama"
             register={register}
@@ -453,8 +482,7 @@ const SpriForm = () => {
           />
         </FormRow>
 
-        <h1 className="text-sm font-semibold">Kontak di Indonesia</h1>
-        <FormRow>
+        <FormRow title="Kontak di Indonesia">
           <InputForm
             label="Nama"
             register={register}
@@ -479,21 +507,19 @@ const SpriForm = () => {
         </FormRow>
 
         <Separator />
-        <h1 className="text-sm font-semibold">Pernyataan keterangan</h1>
-
-        <div className="flex flex-row gap-2 mt-4">
-          <Checkbox id="terms" />
-          <label
-            htmlFor="terms"
-            className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        <FormRow title="Pernyataan keterangan">
+          <CheckboxPersetujuan
+            name="setuju"
+            register={register}
+            trigger={trigger}
+            setValue={setValue}
+            error={errors.setuju}
           >
-            Seluruh keterangan dan data yang saya nyatakan dalam formulir ini
-            adalah sah dan sesuai dengan keadaan yang sebenarnya, dan apabila
-            dikemudian hari ternyata pernyataan ini tidak benar, saya bersedia
-            dituntut sesuai dengan ketentuan peraturan perundang-undangan yang
-            berlaku.
-          </label>
-        </div>
+            Saya menyatakan bahwa data yang saya isi adalah benar dan menyetujui
+            syarat dan ketentuan yang berlaku
+          </CheckboxPersetujuan>
+        </FormRow>
+
         <FormRow>
           <Button
             className=" w-full py-6 mt-6 "

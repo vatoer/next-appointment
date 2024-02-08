@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { format, getYear } from "date-fns";
+import { Locale, format, getYear } from "date-fns";
 import { enGB, id } from "date-fns/locale";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { useState } from "react";
@@ -18,9 +18,17 @@ import YmPicker from "./ym-date-picker";
 
 //export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
-interface IDatePickerProps {
+export interface ICalendarOptions {
+  locale?: Locale;
   date?: Date;
+  fromDate?: Date;
+  toDate?: Date;
   dateFormat?: string;
+}
+
+interface IDatePickerProps {
+  calendarOptions?: ICalendarOptions;
+  date?: Date;
   label: string;
   type?: string;
   register: UseFormRegister<any>;
@@ -33,9 +41,16 @@ interface IDatePickerProps {
 
 export type InputDatePickerProps = IDatePickerProps & CalendarProps;
 
+export const defaultCalendarOptions: ICalendarOptions = {
+  locale: id,
+  date: new Date(),
+  fromDate: new Date(getYear(new Date()), 0, 1),
+  toDate: new Date(getYear(new Date()), 11, 31),
+  dateFormat: "yyyy-MM-dd", // 'dd-MM-yyyy' or 'yyyy-MM-dd
+};
+
 export const InputDatePicker = ({
-  date: Initdate,
-  dateFormat = "yyyy-MM-dd", // 'dd-MM-yyyy' or 'yyyy-MM-dd
+  calendarOptions = defaultCalendarOptions,
   label,
   register,
   setValue,
@@ -46,7 +61,7 @@ export const InputDatePicker = ({
   withYmPicker = true,
   ...props
 }: InputDatePickerProps) => {
-  const [date, setDate] = useState<Date | undefined>(Initdate);
+  const [date, setDate] = useState<Date | undefined>(calendarOptions.date);
   const [ymDate, setYmDate] = useState<Date | undefined>(date);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
@@ -54,9 +69,13 @@ export const InputDatePicker = ({
     setDate(newDate ?? date);
     setIsPopoverOpen(false);
     if (newDate) {
-      const newDateStr = format(newDate, dateFormat, {
-        locale: props.locale ?? id,
-      });
+      const newDateStr = format(
+        newDate,
+        calendarOptions?.dateFormat ?? "yyyy-MM-dd",
+        {
+          locale: calendarOptions.locale,
+        }
+      );
       setValue(name, newDateStr, { shouldValidate: true });
     }
   };
@@ -78,6 +97,8 @@ export const InputDatePicker = ({
               <input
                 placeholder="yyyy-mm-dd"
                 readOnly
+                required
+                pattern="\d{4}-\d{2}-\d{2}"
                 type={"text"}
                 id={name}
                 {...register(name, {
@@ -95,20 +116,20 @@ export const InputDatePicker = ({
         <PopoverContent className="w-auto p-0">
           {withYmPicker && (
             <YmPicker
-              fromDate={props.fromDate ?? defaultStartDate}
-              toDate={props.toDate ?? defaultEndDate}
+              fromDate={calendarOptions.fromDate}
+              toDate={calendarOptions.toDate}
               onSelect={setYmDate}
               date={date}
-              locale={props.locale ?? id}
+              locale={calendarOptions.locale}
             />
           )}
           <Calendar
             mode="single"
-            locale={props.locale ?? id}
+            locale={calendarOptions.locale}
             selected={date}
             onSelect={handleSelect}
-            fromDate={props.fromDate ?? defaultStartDate}
-            toDate={props.toDate ?? defaultEndDate}
+            fromDate={calendarOptions.fromDate}
+            toDate={calendarOptions.toDate}
             month={ymDate ?? date}
             onMonthChange={setYmDate}
           />

@@ -89,9 +89,9 @@ export const spriSchema = z
     ayahTanggalLahir: z.coerce.date(),
     ortuAlamat: z.string().min(10),
     ortuTelp: z.string(),
-    suamiIstriNama: z.string(),
+    suamiIstriNama: z.string().optional(),
     suamiIstriTempatLahir: z.string().optional(),
-    suamiIstriTanggalLahir: z.coerce.date().optional(),
+    suamiIstriTanggalLahir: genericTanggalSchema.optional(),
     suamiIstriKewarganegaraan: z.string().optional(),
     suamiIstriAlamat: z.string().optional(),
     perubahanNama: z.string().optional(),
@@ -105,6 +105,12 @@ export const spriSchema = z
     darurat2Alamat: z.string(),
     darurat2Telp: z.string().optional(),
     darurat2Hp: z.string(),
+    setuju: z.literal<boolean>(true, {
+      errorMap: () => ({
+        message:
+          "untuk melanjutkan, Anda harus menyetujui syarat dan ketentuan",
+      }),
+    }),
   })
   .superRefine(({ jenisPermohonan, perubahanNama, perubahanAlamat }, ctx) => {
     if (jenisPermohonan.charAt(0) === "C") {
