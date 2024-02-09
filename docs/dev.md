@@ -77,3 +77,23 @@ CREATE TABLE "FilledForm" (
 -     "id" TEXT NOT NULL,
 +    "id" uuid NOT NULL DEFAULT UUID_GENERATE_V4(),
 ```
+
+reset migrations
+
+```sh
+pnpm prisma migrate reset --schema=prisma\db-appointment\schema.prisma
+```
+
+## seed database
+
+```sh
+pnpm add -D tsx
+```
+
+```sh
+pnpm prisma db seed
+```
+
+atau langsung saja push
+
+pnpm prisma db push --schema=prisma\db-appointment\schema.prisma

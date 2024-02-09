@@ -16,13 +16,12 @@ model Form {
 }
 
 model FilledForm {
-  id         String    @id @default(cuid())
-  formId     String
-  bookedId   String
-  filledBy   String
-  filledWith Json
-  status     String    @default("draft")
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime? @updatedAt
-  form       Form      @relation(fields: [formId], references: [id])
+  id           String    @id @default(uuid())
+  formId       String
+  formDataJson Json
+  status       String    @default("draft")
+  createdBy    String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime? @updatedAt
+  form         Form      @relation(fields: [formId], references: [id])
 }

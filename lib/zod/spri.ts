@@ -41,19 +41,23 @@ export const jenisKelaminSchema = z.nativeEnum(JenisKelamin, {
 
 export const genericStringSchema = z.string().min(3).max(25);
 
-export const genericTanggalSchema = z
-  .string()
-  .min(10, {
-    message: "Please select a date",
-  })
-  .pipe(
-    z.coerce
-      .date({
-        required_error: "Please select a date",
-        invalid_type_error: "That's not a date!",
-      })
-      .min(new Date("1900-01-01"), { message: "Too old" })
-  );
+// export const genericTanggalSchema = z
+//   .string()
+//   .min(10, {
+//     message: "Please select a date",
+//   })
+//   .pipe(
+//     z.coerce
+//       .date({
+//         required_error: "Please select a date",
+//         invalid_type_error: "That's not a date!",
+//       })
+//       .min(new Date("1900-01-01"), { message: "Too old" })
+//   );
+
+export const genericTanggalSchema = z.coerce
+  .date()
+  .min(new Date("1900-01-01"), { message: "Too old" });
 
 export const perubahanNamaSchema = z.string().min(3).max(25);
 
