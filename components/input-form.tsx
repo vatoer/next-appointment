@@ -22,12 +22,7 @@ const InputForm = ({
 }: InputFormProps) => {
   return (
     <>
-      <div
-        className={cn(
-          "flex flex-col w-full mt-1 md:mt-0",
-          className && className
-        )}
-      >
+      <div className={cn("flex flex-col w-full mb-2", className && className)}>
         <label htmlFor={name} className="text-sm">
           {label}
         </label>

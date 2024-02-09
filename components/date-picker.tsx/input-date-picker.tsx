@@ -85,10 +85,10 @@ export const InputDatePicker = ({
   defaultEndDate.setMonth(defaultEndDate.getMonth() + 1);
 
   return (
-    <div className={cn("flex flex-col mt-1 md:mt-0", className && className)}>
+    <div className={cn("flex flex-col mb-2", className && className)}>
       <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
         <PopoverTrigger asChild>
-          <div className={cn("flex flex-col w-full mt-1 md:mt-0")}>
+          <div className={cn("flex flex-col w-full ")}>
             <label htmlFor={name} className="text-sm">
               {label}
             </label>
