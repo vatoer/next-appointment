@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Form {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  FilledForm  FilledForm[]
+}
+
+model FilledForm {
+  id         String    @id @default(cuid())
+  formId     String
+  bookedId   String
+  filledBy   String
+  filledWith Json
+  status     String    @default("draft")
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime? @updatedAt
+  form       Form      @relation(fields: [formId], references: [id])
+}
