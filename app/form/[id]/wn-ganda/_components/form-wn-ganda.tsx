@@ -14,7 +14,11 @@ import { z } from "zod";
 
 type TFormWnGanda = z.infer<typeof wnGandaSchema>;
 
-const WnGandaForm = () => {
+interface IWnGandaFormProps {
+  onSubmit: (data: TFormWnGanda) => void;
+}
+
+const WnGandaForm = ({ onSubmit }: IWnGandaFormProps) => {
   const {
     register,
     setValue,
@@ -24,10 +28,6 @@ const WnGandaForm = () => {
     resolver: zodResolver(wnGandaSchema),
     mode: "all",
   });
-
-  const onSubmit = (data: TFormWnGanda) => {
-    console.log(data);
-  };
 
   const today = new Date();
 
