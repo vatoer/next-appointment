@@ -97,3 +97,9 @@ pnpm prisma db seed
 atau langsung saja push
 
 pnpm prisma db push --schema=prisma\db-appointment\schema.prisma
+
+## service
+
+```sh
+pnpm dlx shadcn-ui@latest add accordion
+```

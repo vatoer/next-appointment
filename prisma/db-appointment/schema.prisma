@@ -9,10 +9,11 @@ datasource db {
 }
 
 model Form {
-  id          String       @id @default(cuid())
-  name        String
-  description String?
-  FilledForm  FilledForm[]
+  id              String            @id @default(cuid())
+  name            String
+  description     String?
+  FilledForm      FilledForm[]
+  FormsForService FormsForService[]
 }
 
 model FilledForm {
@@ -24,4 +25,51 @@ model FilledForm {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime? @updatedAt
   form         Form      @relation(fields: [formId], references: [id])
+}
+
+model BookedService {
+  id              String    @id @default(uuid())
+  code            String?
+  appointmentDate DateTime?
+  serviceId       String
+  service         Service   @relation(fields: [serviceId], references: [id])
+  createdBy       String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime? @updatedAt
+}
+
+model Service {
+  id                 String               @id @default(cuid())
+  name               String
+  description        String?
+  ServiceRequirement ServiceRequirement[]
+  BookedService      BookedService[]
+  FormsForService    FormsForService[]
+  Category           Category?            @relation(fields: [categoryId], references: [id])
+  categoryId         String?
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String
+  services Service[]
+}
+
+model FormsForService {
+  formId    String
+  serviceId String
+  formOrder Int?
+  form      Form    @relation(fields: [formId], references: [id])
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  @@id([formId, serviceId])
+}
+
+model ServiceRequirement {
+  id          String  @id @default(cuid())
+  name        String
+  type        String
+  description String?
+  serviceId   String
+  service     Service @relation(fields: [serviceId], references: [id])
 }
