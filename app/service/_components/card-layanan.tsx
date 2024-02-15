@@ -25,7 +25,7 @@ export const CardLayanan = ({ layanan, syarat }: ICardLayananProps) => {
   const router = useRouter();
   const handleApply = async () => {
     console.log("Apply");
-    const bs = await bookService();
+    const bs = await bookService(layanan.id);
 
     if (bs.errors) {
       console.log("Error");

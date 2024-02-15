@@ -25,11 +25,11 @@ const ServicePage = async () => {
           Persyaratan Umum
         </h1>
         <SyaratUmum />
-        <h1 className="text-xl font-bold text-gray-900 m-10">
-          Pilih layanan yang anda butuhkan
-        </h1>
       </div>
-      <div className="w-full grid md:grid-cols-3 gap-8">
+      <h1 className="text-center text-xl font-bold text-gray-900 m-10">
+        Pilih layanan yang anda butuhkan
+      </h1>
+      <div className="w-full grid md:grid-cols-3 gap-8 ">
         {layananPaspor.map((service) => (
           <CardLayanan
             key={service.id}
@@ -38,6 +38,9 @@ const ServicePage = async () => {
           />
         ))}
       </div>
+      <h1 className="text-center text-xl font-bold text-gray-900 m-10">
+        Biaya Layanan
+      </h1>
     </div>
   );
 };

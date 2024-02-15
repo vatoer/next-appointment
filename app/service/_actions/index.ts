@@ -2,19 +2,23 @@
 import { dbAppointment } from "@/lib/db-appointment";
 import { Prisma } from "@/prisma/db-appointment/generated/client";
 
-export const bookService = async () => {
+export interface IBookServiceParams {
+  serviceId: string;
+}
+
+export const bookService = async (serviceId: string) => {
   console.log("Book Service");
   try {
     const bookedService = await dbAppointment.bookedService.create({
       data: {
-        serviceId: "wn-ganda",
+        serviceId,
         createdBy: "tes",
       },
     });
 
     const formToFill = await dbAppointment.formsForService.findMany({
       where: {
-        serviceId: "wn-ganda",
+        serviceId,
       },
       orderBy: {
         formOrder: "asc",
