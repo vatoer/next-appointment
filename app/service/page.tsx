@@ -1,9 +1,22 @@
+import { dbAppointment } from "@/lib/db-appointment";
 import Card from "./_components/card";
 import CardContent from "./_components/card-content";
+import CardLayanan from "./_components/card-layanan";
 import CardWnGanda from "./_components/card-wn-ganda";
 import SyaratUmum from "./_components/syarat-umum";
 
-const ServicePage = () => {
+const ServicePage = async () => {
+  const layananPaspor = await dbAppointment.service.findMany({
+    where: {
+      categoryId: "paspor",
+    },
+    include: {
+      ServiceRequirement: true,
+    },
+  });
+
+  console.log(layananPaspor);
+
   return (
     <div className="w-full items-center">
       <div className="w-full flex flex-col items-center">
@@ -16,9 +29,14 @@ const ServicePage = () => {
           Pilih layanan yang anda butuhkan
         </h1>
       </div>
-      <div className="w-full grid md:grid-cols-2 gap-8">
-        <CardWnGanda />
-        <CardWnGanda />
+      <div className="w-full grid md:grid-cols-3 gap-8">
+        {layananPaspor.map((service) => (
+          <CardLayanan
+            key={service.id}
+            layanan={service}
+            syarat={service.ServiceRequirement}
+          />
+        ))}
       </div>
     </div>
   );

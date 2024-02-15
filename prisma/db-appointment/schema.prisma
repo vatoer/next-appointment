@@ -66,10 +66,22 @@ model FormsForService {
 }
 
 model ServiceRequirement {
-  id          String  @id @default(cuid())
-  name        String
-  type        String
-  description String?
-  serviceId   String
-  service     Service @relation(fields: [serviceId], references: [id])
+  id                            String                          @id @default(uuid())
+  name                          String
+  type                          String
+  required                      Boolean                         @default(false)
+  description                   String?
+  serviceId                     String
+  service                       Service                         @relation(fields: [serviceId], references: [id])
+  ServiceRequirementTranslation ServiceRequirementTranslation[]
+}
+
+model ServiceRequirementTranslation {
+  id                   String             @id @default(uuid())
+  name                 String
+  description          String?
+  language             String
+  locale               String?
+  serviceRequirementId String
+  serviceRequirement   ServiceRequirement @relation(fields: [serviceRequirementId], references: [id])
 }

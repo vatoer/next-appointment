@@ -131,6 +131,167 @@ async function main() {
     ],
   });
 
+  const serviceRequirement = await dbAppointment.serviceRequirement.createMany({
+    data: [
+      {
+        serviceId: "wn-ganda",
+        name: "form-spri",
+        type: "form",
+        description: "Formulir Permohonan Paspor RI yang sudah diisi lengkap",
+        required: true,
+      },
+      {
+        serviceId: "wn-ganda",
+        name: "form-wn-ganda",
+        description:
+          "Formulir WN Ganda yang sudah diisi lengkap sebagai permohonan kewarganegaraan ganda terbatas dan ditandangani kedua orang tua",
+        type: "form",
+        required: true,
+      },
+      {
+        serviceId: "wn-ganda",
+        name: "surat-pernyataan-dari-ayah-ibu-wna",
+        description:
+          "Surat pernyataan dari Ayah atau Ibu WNA bahwa menyetujui anaknya memperoleh paspor Indonesia sampai batas umur 18 tahun (kecuali orang tua sudah bercerai)",
+        type: "form",
+        required: true,
+      },
+      {
+        serviceId: "wn-ganda",
+        name: "paspor-lama",
+        description: "Paspor RI lama (bila sudah memiliki paspor RI). ",
+        type: "document",
+        required: false,
+      },
+      {
+        serviceId: "wn-ganda",
+        name: "fotokopi-akta-kelahiran-anak",
+        description: "Fotokopi Akta Kelahiran anak. ",
+        type: "copy",
+        required: false,
+      },
+      {
+        serviceId: "wn-ganda",
+        name: "fotokopi-akta-perkawinan-orang-tua",
+        description: "Fotokopi Akta Perkawinan orang tua",
+        type: "copy",
+        required: false,
+      },
+      {
+        serviceId: "wn-ganda",
+        name: "fotokopi-paspor-orang-tua",
+        description:
+          "Fotokopi paspor orang tua (halaman identitas dan catatan resmi)",
+        type: "copy",
+        required: false,
+      },
+      {
+        serviceId: "wn-ganda",
+        name: "fotokopi-kartu-izin-tinggal-orang-tua-wni",
+        description: "Fotokopi bolak-balik kartu izin tinggal orang tua WNI",
+        type: "copy",
+        required: false,
+      },
+
+      {
+        serviceId: "paspor-anak",
+        name: "form-spri",
+        type: "form",
+        description: "Formulir Permohonan Paspor RI yang sudah diisi lengkap",
+        required: true,
+      },
+      {
+        serviceId: "paspor-anak",
+        name: "surat-pernyataan-tidak-berkewarganegaraan-asing",
+        description:
+          "Surat Pernyataan Tidak Berkewarganegaraan Asing yang sudah diisi lengkap",
+        type: "form",
+        required: true,
+      },
+      {
+        serviceId: "paspor-anak",
+        name: "paspor-lama",
+        description: "Paspor RI lama (bila sudah memiliki paspor RI). ",
+        type: "document",
+        required: false,
+      },
+      {
+        serviceId: "paspor-anak",
+        name: "fotokopi-akta-kelahiran-anak",
+        description: "Fotokopi Akta Kelahiran anak. ",
+        type: "copy",
+        required: true,
+      },
+      {
+        serviceId: "paspor-anak",
+        name: "fotokopi-akta-perkawinan-orang-tua",
+        description: "Fotokopi Akta Perkawinan orang tua",
+        type: "copy",
+        required: true,
+      },
+      {
+        serviceId: "paspor-anak",
+        name: "fotokopi-paspor-orang-tua",
+        description:
+          "Fotokopi paspor orang tua (halaman identitas dan catatan resmi)",
+        type: "copy",
+        required: true,
+      },
+      {
+        serviceId: "paspor-anak",
+        name: "fotokopi-kartu-izin-tinggal-orang-tua-wni",
+        description: "Fotokopi bolak-balik kartu izin tinggal orang tua WNI",
+        type: "copy",
+        required: true,
+      },
+      {
+        serviceId: "paspor-dewasa",
+        name: "form-spri",
+        description: "Formulir Permohonan Paspor RI yang sudah diisi lengkap",
+        type: "form",
+        required: true,
+      },
+      {
+        serviceId: "paspor-dewasa",
+        name: "surat-pernyataan-tidak-berkewarganegaraan-asing",
+        description:
+          "Surat Pernyataan Tidak Berkewarganegaraan Asing yang sudah diisi lengkap",
+        type: "form",
+        required: true,
+      },
+      {
+        serviceId: "paspor-dewasa",
+        name: "paspor-lama",
+        description: "Paspor RI lama (bila sudah memiliki paspor RI). ",
+        type: "document",
+        required: true,
+      },
+      {
+        serviceId: "paspor-dewasa",
+        name: "fotokopi-akta-kelahiran",
+        description: "Fotokopi Akta Kelahiran.",
+        type: "copy",
+        required: true,
+      },
+
+      {
+        serviceId: "paspor-dewasa",
+        name: "fotokopi-kartu-izin-tinggal",
+        description: "Fotokopi bolak-balik kartu izin tinggal.",
+        type: "copy",
+        required: true,
+      },
+      {
+        serviceId: "paspor-dewasa",
+        name: "fotokopi-akta-perkawinan-akta-perceraian",
+        description:
+          "Fotokopi akta perkawinan atau akta perceraian (untuk yang menikah/cerai).",
+        type: "copy",
+        required: true,
+      },
+    ],
+  });
+
   type TFormWnGanda = z.infer<typeof wnGandaSchema>;
 
   const formWnGanda: TFormWnGanda = {
