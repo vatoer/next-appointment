@@ -15,7 +15,7 @@ const ServicePage = async () => {
     },
   });
 
-  console.log(layananPaspor);
+  //console.log(layananPaspor);
 
   return (
     <div className="w-full items-center">

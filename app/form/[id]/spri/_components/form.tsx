@@ -20,7 +20,10 @@ import CheckboxPersetujuan from "./persetujuan";
 
 type FormData = z.infer<typeof spriSchema>;
 
-const SpriForm = () => {
+interface ISpriFormProps {
+  bookedServiceId: string;
+}
+const SpriForm = ({ bookedServiceId }: ISpriFormProps) => {
   const [jenisPermohonan, setJenisPermohonan] = useState<JenisPermohonon>(
     "0" as JenisPermohonon
   );

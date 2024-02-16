@@ -31,8 +31,13 @@ export const CardLayanan = ({ layanan, syarat }: ICardLayananProps) => {
       console.log("Error");
     } else {
       const data = bs.payload.data;
+      const formToFill = bs.payload.formToFill;
       console.log(bs.payload);
-      //router.push(`/form/${data?.id}/spri`);
+      if (formToFill && formToFill.length > 0) {
+        const firstForm = formToFill[0];
+        router.push(`/form/${data?.id}/${firstForm.formId}`);
+      }
+      //router.push(`/form/${data?.id}/${}`);
     }
   };
   return (

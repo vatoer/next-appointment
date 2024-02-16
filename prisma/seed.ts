@@ -105,7 +105,7 @@ async function main() {
       },
       {
         formId: "wn-ganda",
-        formOrder: 1,
+        formOrder: 2,
         serviceId: "wn-ganda",
       },
       {
@@ -115,7 +115,7 @@ async function main() {
       },
       {
         formId: "pernyataan-kewarganegaraan",
-        formOrder: 1,
+        formOrder: 2,
         serviceId: "paspor-anak",
       },
       {
@@ -137,14 +137,14 @@ async function main() {
         serviceId: "wn-ganda",
         name: "form-spri",
         type: "form",
-        description: "Formulir Permohonan Paspor RI yang sudah diisi lengkap",
+        description: "Formulir Permohonan Paspor RI yang sudah diisi lengkap.",
         required: true,
       },
       {
         serviceId: "wn-ganda",
         name: "form-wn-ganda",
         description:
-          "Formulir WN Ganda yang sudah diisi lengkap sebagai permohonan kewarganegaraan ganda terbatas dan ditandangani kedua orang tua",
+          "Formulir WN Ganda yang sudah diisi lengkap sebagai permohonan kewarganegaraan ganda terbatas dan ditandangani kedua orang tua.",
         type: "form",
         required: true,
       },
@@ -152,28 +152,28 @@ async function main() {
         serviceId: "wn-ganda",
         name: "surat-pernyataan-dari-ayah-ibu-wna",
         description:
-          "Surat pernyataan dari Ayah atau Ibu WNA bahwa menyetujui anaknya memperoleh paspor Indonesia sampai batas umur 18 tahun (kecuali orang tua sudah bercerai)",
+          "Surat pernyataan dari Ayah atau Ibu WNA bahwa menyetujui anaknya memperoleh paspor Indonesia sampai batas umur 18 tahun (kecuali orang tua sudah bercerai).",
         type: "form",
         required: true,
       },
       {
         serviceId: "wn-ganda",
         name: "paspor-lama",
-        description: "Paspor RI lama (bila sudah memiliki paspor RI). ",
+        description: "Paspor RI lama (bila sudah memiliki paspor RI).",
         type: "document",
         required: false,
       },
       {
         serviceId: "wn-ganda",
         name: "fotokopi-akta-kelahiran-anak",
-        description: "Fotokopi Akta Kelahiran anak. ",
+        description: "Fotokopi Akta Kelahiran anak.",
         type: "copy",
         required: false,
       },
       {
         serviceId: "wn-ganda",
         name: "fotokopi-akta-perkawinan-orang-tua",
-        description: "Fotokopi Akta Perkawinan orang tua",
+        description: "Fotokopi Akta Perkawinan orang tua.",
         type: "copy",
         required: false,
       },
@@ -181,14 +181,14 @@ async function main() {
         serviceId: "wn-ganda",
         name: "fotokopi-paspor-orang-tua",
         description:
-          "Fotokopi paspor orang tua (halaman identitas dan catatan resmi)",
+          "Fotokopi paspor orang tua (halaman identitas dan catatan resmi).",
         type: "copy",
         required: false,
       },
       {
         serviceId: "wn-ganda",
         name: "fotokopi-kartu-izin-tinggal-orang-tua-wni",
-        description: "Fotokopi bolak-balik kartu izin tinggal orang tua WNI",
+        description: "Fotokopi bolak-balik kartu izin tinggal orang tua WNI.",
         type: "copy",
         required: false,
       },
@@ -197,35 +197,35 @@ async function main() {
         serviceId: "paspor-anak",
         name: "form-spri",
         type: "form",
-        description: "Formulir Permohonan Paspor RI yang sudah diisi lengkap",
+        description: "Formulir Permohonan Paspor RI yang sudah diisi lengkap.",
         required: true,
       },
       {
         serviceId: "paspor-anak",
         name: "surat-pernyataan-tidak-berkewarganegaraan-asing",
         description:
-          "Surat Pernyataan Tidak Berkewarganegaraan Asing yang sudah diisi lengkap",
+          "Surat Pernyataan Tidak Berkewarganegaraan Asing yang sudah diisi lengkap.",
         type: "form",
         required: true,
       },
       {
         serviceId: "paspor-anak",
         name: "paspor-lama",
-        description: "Paspor RI lama (bila sudah memiliki paspor RI). ",
+        description: "Paspor RI lama (bila sudah memiliki paspor RI).",
         type: "document",
         required: false,
       },
       {
         serviceId: "paspor-anak",
         name: "fotokopi-akta-kelahiran-anak",
-        description: "Fotokopi Akta Kelahiran anak. ",
+        description: "Fotokopi Akta Kelahiran anak.",
         type: "copy",
         required: true,
       },
       {
         serviceId: "paspor-anak",
         name: "fotokopi-akta-perkawinan-orang-tua",
-        description: "Fotokopi Akta Perkawinan orang tua",
+        description: "Fotokopi Akta Perkawinan orang tua.",
         type: "copy",
         required: true,
       },
@@ -233,21 +233,21 @@ async function main() {
         serviceId: "paspor-anak",
         name: "fotokopi-paspor-orang-tua",
         description:
-          "Fotokopi paspor orang tua (halaman identitas dan catatan resmi)",
+          "Fotokopi paspor orang tua (halaman identitas dan catatan resmi).",
         type: "copy",
         required: true,
       },
       {
         serviceId: "paspor-anak",
         name: "fotokopi-kartu-izin-tinggal-orang-tua-wni",
-        description: "Fotokopi bolak-balik kartu izin tinggal orang tua WNI",
+        description: "Fotokopi bolak-balik kartu izin tinggal orang tua WNI.",
         type: "copy",
         required: true,
       },
       {
         serviceId: "paspor-dewasa",
         name: "form-spri",
-        description: "Formulir Permohonan Paspor RI yang sudah diisi lengkap",
+        description: "Formulir Permohonan Paspor RI yang sudah diisi lengkap.",
         type: "form",
         required: true,
       },
@@ -255,14 +255,14 @@ async function main() {
         serviceId: "paspor-dewasa",
         name: "surat-pernyataan-tidak-berkewarganegaraan-asing",
         description:
-          "Surat Pernyataan Tidak Berkewarganegaraan Asing yang sudah diisi lengkap",
+          "Surat Pernyataan Tidak Berkewarganegaraan Asing yang sudah diisi lengkap.",
         type: "form",
         required: true,
       },
       {
         serviceId: "paspor-dewasa",
         name: "paspor-lama",
-        description: "Paspor RI lama (bila sudah memiliki paspor RI). ",
+        description: "Paspor RI lama (bila sudah memiliki paspor RI).",
         type: "document",
         required: true,
       },
@@ -294,32 +294,32 @@ async function main() {
 
   type TFormWnGanda = z.infer<typeof wnGandaSchema>;
 
-  const formWnGanda: TFormWnGanda = {
-    namaLengkap: "John Doe",
-    nomorPaspor: "123456789",
-    tempatLahir: "Jakarta",
-    tanggalLahir: new Date(1990, 1, 1),
-    jenisKelamin: JenisKelamin.LAKI_LAKI,
-    alamat: "Jl. Jendral Sudirman No. 1",
-    ibuNama: "Jane Doe",
-    ibuKewarganegaraan: "Indonesia",
-    ayahNama: "John Doe Sr.",
-    ayahKewarganegaraan: "Indonesia",
-    ortuStatusPerkawinan: StatusSipil.KAWIN,
-  };
+  // const formWnGanda: TFormWnGanda = {
+  //   namaLengkap: "John Doe",
+  //   nomorPaspor: "123456789",
+  //   tempatLahir: "Jakarta",
+  //   tanggalLahir: new Date(1990, 1, 1),
+  //   jenisKelamin: JenisKelamin.LAKI_LAKI,
+  //   alamat: "Jl. Jendral Sudirman No. 1",
+  //   ibuNama: "Jane Doe",
+  //   ibuKewarganegaraan: "Indonesia",
+  //   ayahNama: "John Doe Sr.",
+  //   ayahKewarganegaraan: "Indonesia",
+  //   ortuStatusPerkawinan: StatusSipil.KAWIN,
+  // };
 
-  const parsing = await wnGandaSchema.parseAsync(formWnGanda);
-  console.log(parsing);
+  // const parsing = await wnGandaSchema.parseAsync(formWnGanda);
+  // console.log(parsing);
 
-  const filledForm = await dbAppointment.filledForm.createMany({
-    data: [
-      {
-        formId: "wn-ganda",
-        createdBy: "John Doe",
-        formDataJson: formWnGanda,
-      },
-    ],
-  });
+  // const filledForm = await dbAppointment.filledForm.createMany({
+  //   data: [
+  //     {
+  //       formId: "wn-ganda",
+  //       createdBy: "John Doe",
+  //       formDataJson: formWnGanda,
+  //     },
+  //   ],
+  // });
 }
 
 main();
