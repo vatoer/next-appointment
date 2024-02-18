@@ -15,7 +15,7 @@ export const CardWnGanda = () => {
   const router = useRouter();
   const handleApply = async () => {
     console.log("Apply");
-    const bs = await bookService();
+    const bs = await bookService("wn-ganda");
 
     if (bs.errors) {
       console.log("Error");

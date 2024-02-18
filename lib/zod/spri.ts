@@ -81,7 +81,7 @@ export const spriSchema = z
     IndonesiaTelp: z.string(),
     lnAlamat: z.string().min(10),
     lnTelp: z.string(),
-    alamatEmail: z.string().email(),
+    email: z.string().email(),
     statusSipil: statusSipilSchema,
     ibuNama: z.string().min(3),
     ibuKewarganegaraan: z.string().min(3),

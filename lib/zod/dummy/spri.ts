@@ -27,7 +27,7 @@ export const dummySpri: TFormData = {
   IndonesiaTelp: "0812300000",
   lnAlamat: "alamat di luar negeri",
   lnTelp: "0812300000",
-  alamatEmail: "contoh@example.com",
+  email: "contoh@example.com",
   ibuNama: "ibunda",
   ibuKewarganegaraan: "indonesia",
   ibuTempatLahir: "surabaya",

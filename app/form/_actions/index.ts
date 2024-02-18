@@ -1,6 +1,7 @@
 "use server";
 import { dbAppointment } from "@/lib/db-appointment";
 import { spriSchema } from "@/lib/zod/spri";
+import { sptbaSchema } from "@/lib/zod/sptba";
 import { wnGandaSchema } from "@/lib/zod/wn-ganda";
 import { FilledForm } from "@/prisma/db-appointment/generated/client";
 import { ZodIssue, z } from "zod";
@@ -10,7 +11,7 @@ type TWnGanda = z.infer<typeof wnGandaSchema>;
 
 export type TInput = TSpri | TWnGanda;
 
-interface IReturnAction<TData> {
+export interface IReturnAction<TData> {
   type: string;
   payload: { data?: TData | undefined };
   errors: ZodIssue[] | string | false | Array<string> | undefined;
@@ -18,13 +19,13 @@ interface IReturnAction<TData> {
   next?: string;
 }
 
-type formOptions = "spri" | "wn-ganda";
+type formOptions = "spri" | "wn-ganda" | "sptba";
 
 export const fillForm = async <TInput>(
   formId: formOptions,
   input: TInput,
   bookedServiceId: string
-): Promise<IReturnAction<FilledForm>> => {
+): Promise<IReturnAction<FilledForm | undefined>> => {
   let parsedData: {
     success: boolean;
     data?: any;
@@ -39,6 +40,9 @@ export const fillForm = async <TInput>(
       break;
     case "wn-ganda":
       parsedData = await wnGandaSchema.spa(input);
+      break;
+    case "sptba":
+      parsedData = await sptbaSchema.spa(input);
       break;
     default:
       throw new Error("Invalid formId");
@@ -85,7 +89,9 @@ export const fillForm = async <TInput>(
     console.log(error);
     return {
       type: formId,
-      payload: {},
+      payload: {
+        data: undefined,
+      },
       errors: "Failed to create filled form",
     };
   }

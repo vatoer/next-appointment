@@ -89,9 +89,9 @@ async function main() {
         name: "wn-ganda",
       },
       {
-        id: "pernyataan-kewarganegaraan",
+        id: "sptba",
         description: "Surat Pernyataan Tidak Berkewarganegaraan Asing",
-        name: "pernyataan-kewarganegaraan",
+        name: "surat-pernyataan-tidak-berkewarganegaraan-asing",
       },
     ],
   });
@@ -114,7 +114,7 @@ async function main() {
         serviceId: "paspor-anak",
       },
       {
-        formId: "pernyataan-kewarganegaraan",
+        formId: "sptba",
         formOrder: 2,
         serviceId: "paspor-anak",
       },
@@ -124,7 +124,7 @@ async function main() {
         serviceId: "paspor-dewasa",
       },
       {
-        formId: "pernyataan-kewarganegaraan",
+        formId: "sptba",
         formOrder: 2,
         serviceId: "paspor-dewasa",
       },
@@ -202,7 +202,7 @@ async function main() {
       },
       {
         serviceId: "paspor-anak",
-        name: "surat-pernyataan-tidak-berkewarganegaraan-asing",
+        name: "form-sptba",
         description:
           "Surat Pernyataan Tidak Berkewarganegaraan Asing yang sudah diisi lengkap.",
         type: "form",
@@ -253,7 +253,7 @@ async function main() {
       },
       {
         serviceId: "paspor-dewasa",
-        name: "surat-pernyataan-tidak-berkewarganegaraan-asing",
+        name: "form-sptba",
         description:
           "Surat Pernyataan Tidak Berkewarganegaraan Asing yang sudah diisi lengkap.",
         type: "form",
@@ -291,35 +291,6 @@ async function main() {
       },
     ],
   });
-
-  type TFormWnGanda = z.infer<typeof wnGandaSchema>;
-
-  // const formWnGanda: TFormWnGanda = {
-  //   namaLengkap: "John Doe",
-  //   nomorPaspor: "123456789",
-  //   tempatLahir: "Jakarta",
-  //   tanggalLahir: new Date(1990, 1, 1),
-  //   jenisKelamin: JenisKelamin.LAKI_LAKI,
-  //   alamat: "Jl. Jendral Sudirman No. 1",
-  //   ibuNama: "Jane Doe",
-  //   ibuKewarganegaraan: "Indonesia",
-  //   ayahNama: "John Doe Sr.",
-  //   ayahKewarganegaraan: "Indonesia",
-  //   ortuStatusPerkawinan: StatusSipil.KAWIN,
-  // };
-
-  // const parsing = await wnGandaSchema.parseAsync(formWnGanda);
-  // console.log(parsing);
-
-  // const filledForm = await dbAppointment.filledForm.createMany({
-  //   data: [
-  //     {
-  //       formId: "wn-ganda",
-  //       createdBy: "John Doe",
-  //       formDataJson: formWnGanda,
-  //     },
-  //   ],
-  // });
 }
 
 main();

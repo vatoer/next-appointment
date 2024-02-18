@@ -37,6 +37,7 @@ interface IDatePickerProps {
   error: FieldError | undefined;
   className?: string;
   withYmPicker?: boolean;
+  onSelect?: (date: Date) => void;
 }
 
 export type InputDatePickerProps = IDatePickerProps & CalendarProps;
@@ -48,8 +49,7 @@ export const defaultCalendarOptions: ICalendarOptions = {
   toDate: new Date(getYear(new Date()), 11, 31),
   dateFormat: "yyyy-MM-dd", // 'dd-MM-yyyy' or 'yyyy-MM-dd
 };
-
-export const InputDatePicker = ({
+const InputDatePicker = ({
   calendarOptions = defaultCalendarOptions,
   label,
   register,
@@ -59,6 +59,7 @@ export const InputDatePicker = ({
   type = "text",
   className,
   withYmPicker = true,
+  onSelect,
   ...props
 }: InputDatePickerProps) => {
   const [date, setDate] = useState<Date | undefined>(calendarOptions.date);
@@ -77,6 +78,7 @@ export const InputDatePicker = ({
         }
       );
       setValue(name, newDateStr, { shouldValidate: true });
+      onSelect && onSelect(newDate);
     }
   };
 

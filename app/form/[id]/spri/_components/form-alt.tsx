@@ -230,8 +230,8 @@ const SpriForm = () => {
           <InputForm
             label="Email"
             register={register}
-            name="alamatEmail"
-            error={errors.alamatEmail}
+            name="email"
+            error={errors.email}
             className="md:w-full"
           />
           <SelectForm
