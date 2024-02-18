@@ -1,21 +1,19 @@
 "use server";
+import { fillForm } from "@/app/form/_actions";
 import { spriSchema } from "@/lib/zod/spri";
 import { z } from "zod";
 
 type TFormData = z.infer<typeof spriSchema>;
 
-const createSpri = async (data: TFormData) => {
-  const parse = await spriSchema.spa(data);
-  console.log(parse);
-  return {
-    type: "SPRI_CREATE",
-    payload: {
-      data: {
-        data,
-        parse: JSON.stringify(parse),
-      },
-    },
-  };
+interface IReturnAction<T> {
+  type: string;
+  payload: { data: T };
+  errors: string | false | Array<string>;
+}
+
+const createSpri = async (data: TFormData, bookedServiceId: string) => {
+  const filledForm = await fillForm<TFormData>("spri", data, bookedServiceId);
+  return filledForm;
 };
 
 const updateSpri = async (data: TFormData) => {

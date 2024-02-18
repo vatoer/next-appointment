@@ -1,0 +1,48 @@
+import { z } from "zod";
+import {
+  JenisKelamin,
+  JenisPermohonon,
+  StatusSipil,
+  spriSchema,
+} from "../spri";
+
+type TFormData = z.infer<typeof spriSchema>;
+
+export const dummySpri: TFormData = {
+  jenisPermohonan: JenisPermohonon.GANTI_PENUH,
+  namaLengkap: "John Doe",
+  jenisKelamin: JenisKelamin.LAKI_LAKI,
+  statusSipil: StatusSipil.KAWIN,
+  tanggalLahir: new Date("2000-01-01"),
+  tempatLahir: "Jakarta",
+  tinggiBadan: 160,
+  identitasNomor: "id-123",
+  identitasTanggalDikeluarkan: new Date("2020-01-01"),
+  identitasTempatDikeluarkan: "Jakarta",
+  identitasBerlakuHingga: new Date("2025-01-01"),
+  pekerjaan: "pengusaha",
+  pekerjaanAlamat: "alamat pekerjaan",
+  pekerjaanTelp: "0812300000",
+  IndonesiaAlamat: "alamat di Indonesia",
+  IndonesiaTelp: "0812300000",
+  lnAlamat: "alamat di luar negeri",
+  lnTelp: "0812300000",
+  alamatEmail: "contoh@example.com",
+  ibuNama: "ibunda",
+  ibuKewarganegaraan: "indonesia",
+  ibuTempatLahir: "surabaya",
+  ibuTanggalLahir: new Date("1970-01-01"),
+  ayahNama: "ayahanda",
+  ayahKewarganegaraan: "indonesia",
+  ayahTempatLahir: "sulawesi",
+  ayahTanggalLahir: new Date("1970-01-01"),
+  ortuAlamat: "jl PIM ortu",
+  ortuTelp: "0872300000",
+  darurat1Nama: "darurat1",
+  darurat1Alamat: "alamat darurat1",
+  darurat1Hp: "0812394",
+  darurat2Nama: "darurat2",
+  darurat2Alamat: "alamat darurat2",
+  darurat2Hp: "0812394",
+  setuju: false,
+};

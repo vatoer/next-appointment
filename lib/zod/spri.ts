@@ -75,7 +75,7 @@ export const spriSchema = z
     identitasTempatDikeluarkan: z.string().min(3),
     identitasBerlakuHingga: z.coerce.date(),
     pekerjaan: z.string().min(3),
-    pekejerjaanAlamat: z.string().min(10),
+    pekerjaanAlamat: z.string().min(10),
     pekerjaanTelp: z.string(),
     IndonesiaAlamat: z.string().min(10),
     IndonesiaTelp: z.string(),

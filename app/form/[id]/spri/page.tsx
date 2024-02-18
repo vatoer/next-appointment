@@ -2,6 +2,9 @@ import { dbAppointment } from "@/lib/db-appointment";
 import { redirect } from "next/navigation";
 import SpriForm from "./_components/form";
 
+import FormContainer from "@/components/form-container";
+import { dummySpri } from "@/lib/zod/dummy/spri";
+
 const SpriPage = async ({ params }: { params: { id: string } }) => {
   console.log(params.id);
 
@@ -23,7 +26,9 @@ const SpriPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <main className="flex flex-col items-center">
-      <SpriForm bookedServiceId={bookedService.id} />
+      <FormContainer>
+        <SpriForm bookedServiceId={bookedService.id} spriData={dummySpri} />
+      </FormContainer>
     </main>
   );
 };

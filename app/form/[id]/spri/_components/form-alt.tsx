@@ -182,8 +182,8 @@ const SpriForm = () => {
           <InputForm
             label="Alamat Kantor/Pekerjaan/Perguruan Tinggi"
             register={register}
-            name="pekejerjaanAlamat"
-            error={errors.pekejerjaanAlamat}
+            name="pekerjaanAlamat"
+            error={errors.pekerjaanAlamat}
             className="md:w-3/4"
           />
           <InputForm

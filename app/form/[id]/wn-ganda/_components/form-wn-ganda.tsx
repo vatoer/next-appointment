@@ -15,10 +15,16 @@ import { z } from "zod";
 type TFormWnGanda = z.infer<typeof wnGandaSchema>;
 
 interface IWnGandaFormProps {
+  bookedServiceId: string;
+  defaultValues?: TFormWnGanda;
   onSubmit: (data: TFormWnGanda) => void;
 }
 
-const WnGandaForm = ({ onSubmit }: IWnGandaFormProps) => {
+const WnGandaForm = ({
+  bookedServiceId,
+  defaultValues,
+  onSubmit,
+}: IWnGandaFormProps) => {
   const {
     register,
     setValue,
@@ -26,6 +32,7 @@ const WnGandaForm = ({ onSubmit }: IWnGandaFormProps) => {
     formState: { errors },
   } = useForm<TFormWnGanda>({
     resolver: zodResolver(wnGandaSchema),
+    defaultValues,
     mode: "all",
   });
 
@@ -40,7 +47,7 @@ const WnGandaForm = ({ onSubmit }: IWnGandaFormProps) => {
         <InputForm
           name="namaLengkap"
           type="text"
-          label="Nama Lengkap"
+          label="Nama Lengkap Anak"
           error={errors.namaLengkap}
           register={register}
           className="md:w-2/3"

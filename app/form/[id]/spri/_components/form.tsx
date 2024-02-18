@@ -22,8 +22,9 @@ type FormData = z.infer<typeof spriSchema>;
 
 interface ISpriFormProps {
   bookedServiceId: string;
+  spriData?: FormData;
 }
-const SpriForm = ({ bookedServiceId }: ISpriFormProps) => {
+const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
   const [jenisPermohonan, setJenisPermohonan] = useState<JenisPermohonon>(
     "0" as JenisPermohonon
   );
@@ -47,21 +48,19 @@ const SpriForm = ({ bookedServiceId }: ISpriFormProps) => {
     },
   } = useForm<FormData>({
     resolver: zodResolver(spriSchema),
+    defaultValues: spriData,
     //reValidateMode: "onChange" || "onBlur",
     mode: "all",
   });
 
   const onSubmit = async (data: FormData) => {
-    const result = await createSpri(data).then((res) => {
+    const result = await createSpri(data, bookedServiceId).then((res) => {
       console.log(res);
       if (res.type === "SPRI_CREATE") {
         //router.push("/form/" + res.payload.data.name);
         toast.success("Data berhasil disimpan");
       }
     });
-
-    console.log("oie");
-    console.log(data);
   };
 
   return (
@@ -213,8 +212,8 @@ const SpriForm = ({ bookedServiceId }: ISpriFormProps) => {
           <InputForm
             label="Alamat Pekerjaan/Perguruan Tinggi"
             register={register}
-            name="pekejerjaanAlamat"
-            error={errors.pekejerjaanAlamat}
+            name="pekerjaanAlamat"
+            error={errors.pekerjaanAlamat}
             className="md:w-2/4"
           />
           <InputForm
