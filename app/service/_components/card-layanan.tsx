@@ -26,18 +26,10 @@ export const CardLayanan = ({ layanan, syarat }: ICardLayananProps) => {
   const handleApply = async () => {
     console.log("Apply");
     const bs = await bookService(layanan.id);
-
     if (bs.errors) {
       console.log("Error");
     } else {
-      const data = bs.payload.data;
-      const formToFill = bs.payload.formToFill;
-      console.log(bs.payload);
-      if (formToFill && formToFill.length > 0) {
-        const firstForm = formToFill[0];
-        router.push(`/form/${data?.id}/${firstForm.formId}`);
-      }
-      //router.push(`/form/${data?.id}/${}`);
+      router.push(`/form/${bs.payload.data?.id}`);
     }
   };
   return (
