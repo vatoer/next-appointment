@@ -3,7 +3,7 @@
 ## setting database
 
 - database client
-  - https://dbeaver.io/
+  - <https://dbeaver.io/>
 
 setup database using postgresql
 <https://www.warp.dev/terminus/postgres-docker-compose>

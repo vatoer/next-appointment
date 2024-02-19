@@ -18,18 +18,20 @@ import { z } from "zod";
 import { createSpri, updateSpri } from "../_actions";
 import CheckboxPersetujuan from "./persetujuan";
 
-type FormData = z.infer<typeof spriSchema>;
+type TFormData = z.infer<typeof spriSchema>;
 
 interface ISpriFormProps {
   bookedServiceId: string;
-  spriData?: FormData;
+  spriData?: TFormData;
 }
 const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
   const [jenisPermohonan, setJenisPermohonan] = useState<JenisPermohonon>(
-    "0" as JenisPermohonon
+    spriData?.jenisPermohonan ?? ("0" as JenisPermohonon)
   );
 
-  const [statusSipil, setStatusSipil] = useState(0);
+  const [statusSipil, setStatusSipil] = useState(spriData?.statusSipil ?? "0");
+
+  console.log("spriData", spriData);
 
   //setJenisPermohonan("C1");
   const router = useRouter();
@@ -46,14 +48,14 @@ const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
       isValid,
       isSubmitted,
     },
-  } = useForm<FormData>({
+  } = useForm<TFormData>({
     resolver: zodResolver(spriSchema),
     defaultValues: spriData,
     //reValidateMode: "onChange" || "onBlur",
     mode: "all",
   });
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: TFormData) => {
     const result = await createSpri(data, bookedServiceId).then((res) => {
       console.log(res);
       if (res.type === "SPRI_CREATE") {
@@ -272,9 +274,10 @@ const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
             className="md:w-1/2"
             //value={statusSipil}
             onChange={(e) => {
-              setValue("statusSipil", e.target.value as StatusSipil, {
-                shouldValidate: true,
-              });
+              // setValue("statusSipil", e.target.value as StatusSipil, {
+              //   shouldValidate: true,
+              // });
+              setStatusSipil(e.target.value);
             }}
           >
             <option value="0">Pilih Status Sipil</option>
@@ -374,7 +377,7 @@ const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
             className="md:w-1/4"
           />
         </FormRow>
-        {statusSipil === 1 && (
+        {statusSipil === "1" && (
           <>
             <Separator />
             <h1 className="text-md font-semibold">Identitas Suami/istri</h1>

@@ -61,6 +61,8 @@ export const genericTanggalSchema = z.coerce
 
 export const perubahanNamaSchema = z.string().min(3).max(25);
 
+export const checkStatusSipilSchema = z.string().min(3).max(255);
+
 export const spriSchema = z
   .object({
     jenisPermohonan: jenisPermohononSchema,
@@ -142,7 +144,97 @@ export const spriSchema = z
     }
 
     return z.NEVER;
-  });
+  })
+  .superRefine(
+    (
+      {
+        statusSipil,
+        suamiIstriNama,
+        suamiIstriKewarganegaraan,
+        suamiIstriTempatLahir,
+        suamiIstriTanggalLahir,
+        suamiIstriAlamat,
+      },
+      ctx
+    ) => {
+      if (statusSipil === "1") {
+        const checksuamiIstriNama =
+          genericStringSchema.safeParse(suamiIstriNama);
+
+        if (checksuamiIstriNama.success === false) {
+          checksuamiIstriNama.error.issues.forEach((issue) => {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: issue.message,
+              path: ["suamiIstriNama"],
+            });
+          });
+          return false;
+        }
+
+        const checksuamiIstriKewarganegaraan = genericStringSchema.safeParse(
+          suamiIstriKewarganegaraan
+        );
+
+        if (checksuamiIstriKewarganegaraan.success === false) {
+          checksuamiIstriKewarganegaraan.error.issues.forEach((issue) => {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: issue.message,
+              path: ["suamiIstriKewarganegaraan"],
+            });
+          });
+          return false;
+        }
+
+        const checksuamiIstriTempatLahir = genericStringSchema.safeParse(
+          suamiIstriTempatLahir
+        );
+
+        if (checksuamiIstriTempatLahir.success === false) {
+          checksuamiIstriTempatLahir.error.issues.forEach((issue) => {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: issue.message,
+              path: ["suamiIstriTempatLahir"],
+            });
+          });
+          return false;
+        }
+
+        const checksuamiIstriTanggalLahir = genericTanggalSchema.safeParse(
+          suamiIstriTanggalLahir
+        );
+
+        if (checksuamiIstriTanggalLahir.success === false) {
+          checksuamiIstriTanggalLahir.error.issues.forEach((issue) => {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: issue.message,
+              path: ["suamiIstriTanggalLahir"],
+            });
+          });
+          return false;
+        }
+
+        const checksuamiIstriAlamat =
+          genericStringSchema.safeParse(suamiIstriAlamat);
+
+        if (checksuamiIstriAlamat.success === false) {
+          checksuamiIstriAlamat.error.issues.forEach((issue) => {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: issue.message,
+              path: ["suamiIstriAlamat"],
+            });
+          });
+          return false;
+        }
+      }
+
+      return z.NEVER;
+    }
+  );
 // .refine(
 //   (data) => {
 //     if (
