@@ -1,21 +1,21 @@
 "use server";
 import { fillForm } from "@/app/form/_actions";
-import { dbAppointment } from "@/lib/db-appointment";
 import { wnGandaSchema } from "@/lib/zod/wn-ganda";
-import { Prisma } from "@/prisma/db-appointment/generated/client";
+import { revalidatePath } from "next/cache";
 
 import { z } from "zod";
 
-type TFormData = z.infer<typeof wnGandaSchema>;
+type TFormWnGanda = z.infer<typeof wnGandaSchema>;
 
 export const createFilledFormWnGanda = async (
-  data: TFormData,
+  data: TFormWnGanda,
   bookedServiceId: string
 ) => {
-  const filledForm = await fillForm<TFormData>(
+  const filledForm = await fillForm<TFormWnGanda>(
     "wn-ganda",
     data,
     bookedServiceId
   );
+  revalidatePath(`/form/${bookedServiceId}`);
   return filledForm;
 };

@@ -97,7 +97,7 @@ export const spriSchema = z
     ortuTelp: z.string(),
     suamiIstriNama: z.string().optional(),
     suamiIstriTempatLahir: z.string().optional(),
-    suamiIstriTanggalLahir: genericTanggalSchema.optional(),
+    suamiIstriTanggalLahir: z.coerce.date().optional(),
     suamiIstriKewarganegaraan: z.string().optional(),
     suamiIstriAlamat: z.string().optional(),
     perubahanNama: z.string().optional(),

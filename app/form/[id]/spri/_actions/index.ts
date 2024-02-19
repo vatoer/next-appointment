@@ -1,6 +1,7 @@
 "use server";
 import { fillForm } from "@/app/form/_actions";
 import { StatusSipil, spriSchema } from "@/lib/zod/spri";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 type TFormData = z.infer<typeof spriSchema>;
@@ -28,6 +29,7 @@ const createSpri = async (data: TFormData, bookedServiceId: string) => {
   }
 
   const filledForm = await fillForm<TFormData>("spri", data, bookedServiceId);
+  revalidatePath(`/form/${bookedServiceId}`);
   return filledForm;
 };
 

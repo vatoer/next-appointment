@@ -1,6 +1,8 @@
 import { Checkbox } from "@/components/ui/checkbox";
+import { get } from "lodash";
 import {
   FieldError,
+  UseFormGetValues,
   UseFormRegister,
   UseFormSetValue,
   UseFormTrigger,
@@ -10,6 +12,7 @@ interface ICheckboxPersetujuanProps {
   name: string;
   register: UseFormRegister<any>;
   setValue: UseFormSetValue<any>;
+  getValue: UseFormGetValues<any>;
   error: FieldError | undefined;
   trigger: UseFormTrigger<any>;
   children: React.ReactNode;
@@ -18,6 +21,7 @@ const CheckboxPersetujuan = ({
   name,
   register,
   setValue,
+  getValue,
   error,
   trigger,
   children,
@@ -27,6 +31,7 @@ const CheckboxPersetujuan = ({
       <div className="flex flex-row gap-2 mt-4">
         <Checkbox
           id={name}
+          //checked={getValue(name)}
           {...register(name, { required: true })}
           onCheckedChange={async (e: boolean) => {
             console.log("e", e);

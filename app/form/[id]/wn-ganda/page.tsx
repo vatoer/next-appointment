@@ -11,9 +11,18 @@ import FormUpsertWnGanda from "./_components/form-upsert-wn-ganda";
 type TFormWnGanda = z.infer<typeof wnGandaSchema>;
 
 const WnGandaPage = async ({ params }: { params: { id: string } }) => {
+  let wnGandaData: TFormWnGanda | undefined;
+
   const bookedService = await dbAppointment.bookedService.findFirst({
     where: {
       id: params.id,
+    },
+    include: {
+      FilledForm: {
+        where: {
+          formId: "wn-ganda",
+        },
+      },
     },
   });
 
@@ -21,12 +30,28 @@ const WnGandaPage = async ({ params }: { params: { id: string } }) => {
     redirect("/service"); //todo make not hardcoded
   }
 
+  //jika sudah ada form yang diisi sebelumnya maka tampilkan form yang sudah diisi
+  if (bookedService.FilledForm.length > 0) {
+    const formDataJson = await wnGandaSchema.spa(
+      bookedService.FilledForm[0].formDataJson
+    );
+
+    if (formDataJson.success) {
+      wnGandaData = formDataJson.data;
+    } else {
+      console.log(formDataJson.error);
+    }
+  } else {
+    //TODO remove this dummy data when the form is ready to be used
+    wnGandaData = dummyWnGanda;
+  }
+
   return (
     <main className="flex flex-col items-center">
       <FormContainer>
         <FormUpsertWnGanda
           bookedServiceId={bookedService.id}
-          wnGandaData={dummyWnGanda}
+          wnGandaData={wnGandaData}
         />
       </FormContainer>
     </main>

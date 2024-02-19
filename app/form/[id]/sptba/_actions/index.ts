@@ -3,6 +3,7 @@ import { fillForm } from "@/app/form/_actions";
 import { dbAppointment } from "@/lib/db-appointment";
 import { sptbaSchema } from "@/lib/zod/sptba";
 import { Prisma } from "@/prisma/db-appointment/generated/client";
+import { revalidatePath } from "next/cache";
 
 import { z } from "zod";
 
@@ -13,6 +14,6 @@ export const createFilledFormSptba = async (
   bookedServiceId: string
 ) => {
   const filledForm = await fillForm<TFormData>("sptba", data, bookedServiceId);
-  //filledForm.payload.data?.formDataJson;
+  revalidatePath(`/form/${bookedServiceId}`);
   return filledForm;
 };

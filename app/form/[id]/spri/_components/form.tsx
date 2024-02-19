@@ -31,13 +31,20 @@ const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
 
   const [statusSipil, setStatusSipil] = useState(spriData?.statusSipil ?? "0");
 
-  console.log("spriData", spriData);
+  //setiap kali form diakse maka status setuju akan di reset ulang
+
+  if (spriData?.setuju) {
+    spriData.setuju = false;
+  }
+
+  //console.log("spriData", spriData);
 
   //setJenisPermohonan("C1");
   const router = useRouter();
   const {
     register,
     setValue,
+    getValues,
     trigger,
     handleSubmit,
     formState: {
@@ -56,18 +63,23 @@ const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
   });
 
   const onSubmit = async (data: TFormData) => {
-    const result = await createSpri(data, bookedServiceId).then((res) => {
-      console.log(res);
-      if (res.type === "SPRI_CREATE") {
-        //router.push("/form/" + res.payload.data.name);
-        toast.success("Data berhasil disimpan");
-      }
-    });
+    const result = await createSpri(data, bookedServiceId);
+
+    console.log(result);
+    if (result.errors) {
+      console.log(result.errors);
+      return;
+    }
+
+    console.log(result.payload.data);
+    toast.success("Form berhasil disimpan");
+    //router.push(`/form/${bookedServiceId}`);
   };
 
   return (
     <div className="py-10">
       <form
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-2 border shadow-lg p-6 rounded-md"
         noValidate
       >
@@ -518,6 +530,7 @@ const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
             register={register}
             trigger={trigger}
             setValue={setValue}
+            getValue={getValues}
             error={errors.setuju}
           >
             Saya menyatakan bahwa data yang saya isi adalah benar dan menyetujui
@@ -529,18 +542,7 @@ const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
           <Button
             className=" w-full py-6 mt-6 "
             disabled={isSubmitting}
-            type="button"
-            onClick={() => {
-              console.log("submitting");
-              console.log(
-                isDirty,
-                isValid,
-                isSubmitted,
-                isSubmitSuccessful,
-                isValid
-              );
-              handleSubmit(onSubmit)();
-            }}
+            type="submit"
           >
             Simpan dan Lanjutkan
             {isSubmitting && (

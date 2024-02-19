@@ -3,9 +3,9 @@ import { redirect } from "next/navigation";
 import SpriForm from "./_components/form";
 
 import FormContainer from "@/components/form-container";
+import { dummySpri } from "@/lib/zod/dummy/spri";
 import { spriSchema } from "@/lib/zod/spri";
 import { z } from "zod";
-//import { dummySpri } from "@/lib/zod/dummy/spri";
 
 type TFormData = z.infer<typeof spriSchema>;
 
@@ -45,6 +45,9 @@ const SpriPage = async ({ params }: { params: { id: string } }) => {
     } else {
       console.log(formDataJson.error);
     }
+  } else {
+    //TODO remove this dummy data when the form is ready to be used
+    spriData = dummySpri;
   }
 
   console.log(spriData);

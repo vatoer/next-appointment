@@ -1,6 +1,7 @@
 "use client";
 
 import { wnGandaSchema } from "@/lib/zod/wn-ganda";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 import { createFilledFormWnGanda } from "../_actions";
@@ -10,13 +11,14 @@ type TFormWnGanda = z.infer<typeof wnGandaSchema>;
 
 interface IFormUpsertWnGandaProps {
   bookedServiceId: string;
-  wnGandaData: TFormWnGanda;
+  wnGandaData?: TFormWnGanda;
 }
 
 const FormUpsertWnGanda = ({
   bookedServiceId,
   wnGandaData,
 }: IFormUpsertWnGandaProps) => {
+  const router = useRouter();
   const onSubmit = async (data: TFormWnGanda) => {
     const filledForm = await createFilledFormWnGanda(data, bookedServiceId);
     if (filledForm.errors) {
@@ -26,6 +28,7 @@ const FormUpsertWnGanda = ({
 
     console.log(filledForm.payload.data);
     toast.success("Form berhasil disimpan");
+    router.push(`/form/${bookedServiceId}`);
   };
 
   return (
