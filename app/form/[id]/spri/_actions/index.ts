@@ -12,7 +12,10 @@ interface IReturnAction<T> {
   errors: string | false | Array<string>;
 }
 
-const createSpri = async (data: TFormData, bookedServiceId: string) => {
+const createFilledFormSpri = async (
+  data: TFormData,
+  bookedServiceId: string
+) => {
   // remove unnecessary data
   if (data.jenisPermohonan.charAt(0) === "C") {
     delete data.perubahanNama;
@@ -42,4 +45,4 @@ const updateSpri = async (data: TFormData) => {
   };
 };
 
-export { createSpri, updateSpri };
+export { createFilledFormSpri, updateSpri };

@@ -31,8 +31,6 @@ const SptbaForm = ({
   const {
     register,
     setValue,
-    getValues,
-    trigger,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<TFormData>({

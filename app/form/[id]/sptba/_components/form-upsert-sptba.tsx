@@ -6,26 +6,27 @@ import { z } from "zod";
 import { createFilledFormSptba } from "../_actions";
 import SptbaForm from "./form-sptba";
 
-type TFormsptba = z.infer<typeof sptbaSchema>;
+type TFormSptba = z.infer<typeof sptbaSchema>;
 
 interface IFormUpsertSptbaProps {
   bookedServiceId: string;
-  sptbaData?: TFormsptba;
+  sptbaData?: TFormSptba;
 }
 
 const FormUpsertSptba = ({
   bookedServiceId,
   sptbaData,
 }: IFormUpsertSptbaProps) => {
-  const onSubmit = async (data: TFormsptba) => {
+  const onSubmit = async (data: TFormSptba) => {
     const filledForm = await createFilledFormSptba(data, bookedServiceId);
     if (filledForm.errors) {
       console.log(filledForm.errors);
       return;
     }
 
-    console.log(filledForm.payload.data);
+    //console.log(filledForm.payload.data);
     toast.success("Form berhasil disimpan");
+    router.push(`/form/${bookedServiceId}`);
   };
 
   return (

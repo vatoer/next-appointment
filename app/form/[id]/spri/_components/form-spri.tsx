@@ -16,6 +16,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { createFilledFormSpri, updateSpri } from "../_actions";
+import OptionsJenisKelamin from "./options-jenis-kelamin";
+import OptionsJenisPermohonan from "./options-jenis-permohonan";
+import OptionsStatusSipil from "./options-status-sipil";
 import CheckboxPersetujuan from "./persetujuan";
 
 type TFormData = z.infer<typeof spriSchema>;
@@ -23,8 +26,9 @@ type TFormData = z.infer<typeof spriSchema>;
 interface ISpriFormProps {
   bookedServiceId: string;
   spriData?: TFormData;
+  onSubmit: (data: TFormData) => void;
 }
-const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
+const SpriForm = ({ bookedServiceId, spriData, onSubmit }: ISpriFormProps) => {
   const [jenisPermohonan, setJenisPermohonan] = useState<JenisPermohonon>(
     spriData?.jenisPermohonan ?? ("0" as JenisPermohonon)
   );
@@ -37,9 +41,6 @@ const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
     spriData.setuju = false;
   }
 
-  //console.log("spriData", spriData);
-
-  //setJenisPermohonan("C1");
   const router = useRouter();
   const {
     register,
@@ -47,34 +48,12 @@ const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
     getValues,
     trigger,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-      isSubmitSuccessful,
-      isDirty,
-      isValid,
-      isSubmitted,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<TFormData>({
     resolver: zodResolver(spriSchema),
     defaultValues: spriData,
-    //reValidateMode: "onChange" || "onBlur",
     mode: "all",
   });
-
-  const onSubmit = async (data: TFormData) => {
-    const result = await createFilledFormSpri(data, bookedServiceId);
-
-    console.log(result);
-    if (result.errors) {
-      console.log(result.errors);
-      return;
-    }
-
-    console.log(result.payload.data);
-    toast.success("Form berhasil disimpan");
-    //router.push(`/form/${bookedServiceId}`);
-  };
 
   return (
     <div className="py-10">
@@ -100,19 +79,7 @@ const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
               setJenisPermohonan(e.target.value as JenisPermohonon)
             }
           >
-            <option value="0">Pilih Jenis Permohonan</option>
-            <option value="A1">Pembuatan Paspor Baru 48 Halaman</option>
-            <option value="A2">Pembuatan Paspor Baru 24 Halaman</option>
-            <option value="A3">Pembuatan SPLP</option>
-            <option value="B1">
-              Pergantian Paspor karena habis masa berlaku
-            </option>
-            <option value="B2">Pergantian Paspor karena penuh</option>
-            <option value="B3">Pergantian Paspor karena hilang</option>
-            <option value="B4">Pergantian Paspor karena rusak</option>
-            <option value="C1">Perubahan Nama</option>
-            <option value="C2">Perubahan Alamat</option>
-            <option value="C3">Perubahan Lain</option>
+            <OptionsJenisPermohonan />
           </SelectForm>
         </FormRow>
         <FormRow>
@@ -139,9 +106,7 @@ const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
             register={register}
             className="md:w-3/12"
           >
-            <option value="0">Pilih Jenis Kelamin</option>
-            <option value="1">Laki-laki</option>
-            <option value="2">Perempuan</option>
+            <OptionsJenisKelamin />
           </SelectForm>
           <InputForm
             label="Tinggi Badan (cm)"
@@ -292,11 +257,7 @@ const SpriForm = ({ bookedServiceId, spriData }: ISpriFormProps) => {
               setStatusSipil(e.target.value);
             }}
           >
-            <option value="0">Pilih Status Sipil</option>
-            <option value="1">Kawin</option>
-            <option value="2">Tidak Kawin</option>
-            <option value="3">Cerai Mati</option>
-            <option value="4">Cerai Hidup</option>
+            <OptionsStatusSipil />
           </SelectForm>
         </FormRow>
         <Separator />

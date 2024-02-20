@@ -27,7 +27,7 @@ const ListFormsForService = async ({
       <h1 className="font-semibold mb-2">daftar formulir</h1>
       <ul>
         {formsForService?.map((form) => (
-          <li key={form.formId} className="m-2 p-2 hover:bg-slate-300">
+          <li key={form.formId} className="m-2 p-2 hover:bg-slate-200/40">
             <div className="flex flex-row gap-2">
               <div className="w-1/2">{form.form.description}</div>
 
