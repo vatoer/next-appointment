@@ -35,6 +35,18 @@ const SpriPage = async ({ params }: { params: { id: string } }) => {
     redirect("/service"); //todo make not hardcoded
   }
 
+  // check if the service has a form to be filled
+  const formForService = await dbAppointment.formsForService.findFirst({
+    where: {
+      serviceId: bookedService.serviceId,
+      formId: "sptba",
+    },
+  });
+
+  if (!formForService) {
+    redirect("/service"); //todo make not hardcoded
+  }
+
   //jika sudah ada form yang diisi sebelumnya maka tampilkan form yang sudah diisi
   if (bookedService.FilledForm.length > 0) {
     const formDataJson = await spriSchema.spa(
