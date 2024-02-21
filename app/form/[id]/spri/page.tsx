@@ -1,6 +1,5 @@
 import { dbAppointment } from "@/lib/db-appointment";
 import { redirect } from "next/navigation";
-import SpriForm from "./_components/form";
 
 import FormContainer from "@/components/form-container";
 import { dummySpri } from "@/lib/zod/dummy/spri";

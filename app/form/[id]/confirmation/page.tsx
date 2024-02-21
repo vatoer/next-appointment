@@ -31,7 +31,7 @@ const ConfirmationPage = async ({ params }: { params: { id: string } }) => {
       </div>
       <p>
         Setelah yakin dengan data yang anda masukkan, silahkan klik tombol
-        "Confirm", data anda akan di kunci dan tidak dapat diubah lagi.
+        &quot;Confirm&quot;, data anda akan di kunci dan tidak dapat diubah lagi.
       </p>
       <div>
         <ConfirmButton bookedServiceId={bookedService.id} />

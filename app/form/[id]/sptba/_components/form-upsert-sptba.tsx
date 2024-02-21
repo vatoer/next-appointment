@@ -1,6 +1,7 @@
 "use client";
 
 import { sptbaSchema } from "@/lib/zod/sptba";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 import { createFilledFormSptba } from "../_actions";
@@ -17,6 +18,7 @@ const FormUpsertSptba = ({
   bookedServiceId,
   sptbaData,
 }: IFormUpsertSptbaProps) => {
+  const router = useRouter();
   const onSubmit = async (data: TFormSptba) => {
     const filledForm = await createFilledFormSptba(data, bookedServiceId);
     if (filledForm.errors) {
