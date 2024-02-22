@@ -42,3 +42,4 @@ prisma/*/migrations/*
 # untuk formulir WN-ganda variatif maka file dapat disesuaikan dengan file perwakilan
 
 /pdf-template/wn-ganda.pdf
+/pdf-template/sptba.pdf
