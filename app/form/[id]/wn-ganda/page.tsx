@@ -34,7 +34,7 @@ const WnGandaPage = async ({ params }: { params: { id: string } }) => {
   const formForService = await dbAppointment.formsForService.findFirst({
     where: {
       serviceId: bookedService.serviceId,
-      formId: "sptba",
+      formId: "wn-ganda",
     },
   });
 

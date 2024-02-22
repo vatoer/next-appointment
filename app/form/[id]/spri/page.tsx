@@ -38,7 +38,7 @@ const SpriPage = async ({ params }: { params: { id: string } }) => {
   const formForService = await dbAppointment.formsForService.findFirst({
     where: {
       serviceId: bookedService.serviceId,
-      formId: "sptba",
+      formId: "spri",
     },
   });
 
