@@ -38,3 +38,7 @@ next-env.d.ts
 
 prisma/*/generated/*
 prisma/*/migrations/*
+
+# untuk formulir WN-ganda variatif maka file dapat disesuaikan dengan file perwakilan
+
+/pdf-template/wn-ganda.pdf
