@@ -11,7 +11,7 @@ export const dummySptba: TFormData = {
   agama: "islam",
   pekerjaan: "swasta",
   lnAlamat: "dermaga 1",
-  IndonesiaTelp: "0812300000",
+  indonesiaTelp: "0812300000",
   pekerjaanTelp: "+662300000",
   lnTelp: "+332300000",
   email: "a@abc.com",

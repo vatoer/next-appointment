@@ -142,8 +142,8 @@ const SptbaForm = ({
           <InputForm
             label="Rumah"
             register={register}
-            name="IndonesiaTelp"
-            error={errors.IndonesiaTelp}
+            name="indonesiaTelp"
+            error={errors.indonesiaTelp}
             className="md:w-1/4"
           />
           <InputForm

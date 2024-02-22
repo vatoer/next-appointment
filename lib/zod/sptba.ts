@@ -12,7 +12,7 @@ export const sptbaSchema = z.object({
   agama: z.string().min(3),
   pekerjaan: z.string().min(3),
   lnAlamat: z.string().min(10),
-  IndonesiaTelp: z.string(),
+  indonesiaTelp: z.string(),
   pekerjaanTelp: z.string(),
   lnTelp: z.string().min(6),
   email: z.string().email(),
