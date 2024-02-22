@@ -27,6 +27,18 @@ export enum JenisKelamin {
   "PEREMPUAN" = "2",
 }
 
+export const statusSipilToText = (statusSipil: StatusSipil) => {
+  if (statusSipil === "1") {
+    return "Kawin";
+  } else if (statusSipil === "2") {
+    return "Tidak Kawin";
+  } else if (statusSipil === "3") {
+    return "Cerai Mati";
+  } else {
+    return "Cerai Hidup";
+  }
+};
+
 export const jenisPermohononSchema = z.nativeEnum(JenisPermohonon, {
   errorMap: (issue, ctx) => ({ message: "Pilih Jenis Permohonan" }),
 });
