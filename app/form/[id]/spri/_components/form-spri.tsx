@@ -207,15 +207,15 @@ const SpriForm = ({ bookedServiceId, spriData, onSubmit }: ISpriFormProps) => {
           <InputForm
             label="Alamat Tempat Tinggal di Indonesia"
             register={register}
-            name="IndonesiaAlamat"
-            error={errors.IndonesiaAlamat}
+            name="indonesiaAlamat"
+            error={errors.indonesiaAlamat}
             className="md:w-3/4"
           />
           <InputForm
             label="Telp/hp"
             register={register}
-            name="IndonesiaTelp"
-            error={errors.IndonesiaTelp}
+            name="indonesiaTelp"
+            error={errors.indonesiaTelp}
             className="md:w-1/4"
           />
         </FormRow>

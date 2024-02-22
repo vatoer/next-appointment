@@ -65,6 +65,7 @@ export const checkStatusSipilSchema = z.string().min(3).max(255);
 
 export const spriSchema = z
   .object({
+    perwakilan: z.string().min(3).optional(),
     jenisPermohonan: jenisPermohononSchema,
     namaLengkap: z.string().min(3),
     jenisKelamin: jenisKelaminSchema,
@@ -79,8 +80,8 @@ export const spriSchema = z
     pekerjaan: z.string().min(3),
     pekerjaanAlamat: z.string().min(10),
     pekerjaanTelp: z.string(),
-    IndonesiaAlamat: z.string().min(10),
-    IndonesiaTelp: z.string(),
+    indonesiaAlamat: z.string().min(10),
+    indonesiaTelp: z.string(),
     lnAlamat: z.string().min(10),
     lnTelp: z.string(),
     email: z.string().email(),
