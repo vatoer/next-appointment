@@ -42,18 +42,20 @@ const ListFormsForService = async ({
                     </Link>
                     <Link
                       className="underline text-blue-500"
-                      href={`/form/${bookedServiceId}/${form.formId}`}
+                      href={`/form/${bookedServiceId}/${form.formId}/download`}
                     >
                       Download Draft
                     </Link>
                   </div>
                 ) : (
-                  <Link
-                    className="underline text-blue-500"
-                    href={`/form/${bookedServiceId}/${form.formId}`}
-                  >
-                    Download Formulir Final
-                  </Link>
+                  <div>
+                    <Link
+                      className="underline text-blue-500"
+                      href={`/form/${bookedServiceId}/${form.formId}/download`}
+                    >
+                      Download Formulir Final
+                    </Link>
+                  </div>
                 )
               ) : (
                 <div>
