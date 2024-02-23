@@ -1,3 +1,19 @@
 # TODO
 
 - [ ] add authentication
+
+## appointment
+
+### user - customer
+
+- [ ] user can select date
+- [ ] user can select slot on date
+- [ ] user can change appointment before finalized
+- [ ] user can submit selected slot
+
+### user - admin
+
+- [ ] user can set day off calendar
+- [ ] user can set slot time in minutes
+- [ ] user can set break time on each day
+- [ ] user can allocate max service on slot

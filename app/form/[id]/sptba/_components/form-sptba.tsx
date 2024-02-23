@@ -1,6 +1,6 @@
 "use client";
 
-import InputDatePicker from "@/components/date-picker.tsx/input-date-picker";
+import InputDatePicker from "@/components/date-picker/input-date-picker";
 import FormRow from "@/components/form-row";
 import InputForm from "@/components/input-form";
 import SelectForm from "@/components/select-form";
