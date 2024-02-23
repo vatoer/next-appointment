@@ -35,7 +35,7 @@ const FormUpsertSptba = ({
     <div>
       <SptbaForm
         bookedServiceId={bookedServiceId}
-        defaultValues={sptbaData}
+        sptbaData={sptbaData}
         onSubmit={onSubmit}
       />
     </div>

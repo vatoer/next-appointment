@@ -19,12 +19,12 @@ type TFormData = z.infer<typeof sptbaSchema>;
 
 interface ISptbaFormProps {
   bookedServiceId: string;
-  defaultValues?: TFormData;
+  sptbaData?: TFormData;
   onSubmit: (data: TFormData) => void;
 }
 const SptbaForm = ({
   bookedServiceId,
-  defaultValues,
+  sptbaData,
   onSubmit,
 }: ISptbaFormProps) => {
   const router = useRouter();
@@ -35,12 +35,14 @@ const SptbaForm = ({
     formState: { errors, isSubmitting },
   } = useForm<TFormData>({
     resolver: zodResolver(sptbaSchema),
-    defaultValues,
+    defaultValues: sptbaData,
     mode: "all",
   });
 
   const [isTerlambat, setIsTerlambat] = useState(false);
-  const [berlakuHingga, setBerlakuHingga] = useState<Date | null>(null);
+  const [berlakuHingga, setBerlakuHingga] = useState<Date | null>(
+    sptbaData?.pasporBerlakuHingga || null
+  );
 
   useEffect(() => {
     if (berlakuHingga) {

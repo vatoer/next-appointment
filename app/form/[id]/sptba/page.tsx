@@ -62,7 +62,7 @@ const SptbaPage = async ({ params }: { params: { id: string } }) => {
       <FormContainer>
         <FormUpsertSptba
           bookedServiceId={bookedService.id}
-          sptbaData={dummySptba}
+          sptbaData={sptbaData}
         />
       </FormContainer>
     </main>

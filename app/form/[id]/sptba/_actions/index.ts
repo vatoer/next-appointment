@@ -13,6 +13,19 @@ export const createFilledFormSptba = async (
   data: TFormData,
   bookedServiceId: string
 ) => {
+  // remove unnecessary data
+  const currentDate = new Date();
+  const threeMonthsAgo = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() - 3,
+    currentDate.getDate()
+  );
+
+  data.alasanKeterlambatan =
+    data.pasporBerlakuHingga < threeMonthsAgo
+      ? data.alasanKeterlambatan
+      : undefined;
+
   const filledForm = await fillForm<TFormData>("sptba", data, bookedServiceId);
   revalidatePath(`/form/${bookedServiceId}`);
   return filledForm;
