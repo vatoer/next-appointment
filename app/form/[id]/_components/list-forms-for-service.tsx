@@ -43,6 +43,7 @@ const ListFormsForService = async ({
                     <Link
                       className="underline text-blue-500"
                       href={`/form/${bookedServiceId}/${form.formId}/download`}
+                      target="_blank"
                     >
                       Download Draft
                     </Link>
@@ -52,6 +53,7 @@ const ListFormsForService = async ({
                     <Link
                       className="underline text-blue-500"
                       href={`/form/${bookedServiceId}/${form.formId}/download`}
+                      target="_blank"
                     >
                       Download Formulir Final
                     </Link>
