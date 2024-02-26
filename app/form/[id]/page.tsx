@@ -1,5 +1,6 @@
 import { dbAppointment } from "@/lib/db-appointment";
 import { redirect } from "next/navigation";
+import ButtonConfirm from "./_components/button-confirm";
 import ListFormsForService from "./_components/list-forms-for-service";
 
 const FormIdPage = async ({ params }: { params: { id: string } }) => {
@@ -21,6 +22,7 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
           bookedServiceId={bookedService.id}
           serviceId={bookedService.serviceId}
         />
+        <ButtonConfirm bookedServiceId={bookedService.id} />
       </div>
     </div>
   );
