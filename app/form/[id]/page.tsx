@@ -5,6 +5,7 @@ import {
   ServiceForm,
 } from "@/prisma/db-appointment/generated/client";
 import { redirect } from "next/navigation";
+import { isAllrequiredFormFilled } from "./_actions/queries/filledForm";
 import ButtonAppointment from "./_components/button-appointment";
 import ButtonConfirm from "./_components/button-confirm";
 import ListFormsForService from "./_components/list-forms-for-service";
@@ -32,6 +33,32 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
       },
     },
   });
+
+  const isAllRequiredFormsFilled = await dbAppointment.serviceForm.findMany({
+    where: {
+      serviceId: bookedService.serviceId,
+      form: {
+        filledForms: {
+          some: {
+            status: "final",
+          },
+        },
+      },
+    },
+    include: {
+      form: {
+        include: {
+          filledForms: {
+            where: { bookedServiceId: bookedService.id },
+          },
+        },
+      },
+    },
+  });
+
+  const filledForms = await isAllrequiredFormFilled(bookedService.id);
+
+  console.log("filledForms", filledForms);
 
   return (
     <div>

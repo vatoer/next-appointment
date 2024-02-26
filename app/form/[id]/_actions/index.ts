@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 
 export const confirmFilledForms = async (bookedServiceId: string) => {
   //TODO implement user authentication
+  //TODO check if all required forms are filled
   try {
     const filledForms = await dbAppointment.filledForm.updateMany({
       where: {
