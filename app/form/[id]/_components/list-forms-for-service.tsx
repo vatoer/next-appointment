@@ -1,38 +1,49 @@
 import { dbAppointment } from "@/lib/db-appointment";
+import {
+  FilledForm,
+  Form,
+  ServiceForm,
+} from "@/prisma/db-appointment/generated/client";
 import Link from "next/link";
 
-interface IListFormsForServiceProps {
+// const serviceForms = await dbAppointment.serviceForm.findMany({
+//   where: {
+//     serviceId,
+//   },
+//   include: {
+//     form: {
+//       include: {
+//         filledForms: { where: { bookedServiceId } },
+//       },
+//     },
+//   },
+// });
+
+type TServiceForms = ServiceForm & {
+  form: Form & { filledForms: FilledForm[] };
+};
+
+interface IListServiceFormProps<T> {
   bookedServiceId: string;
   serviceId: string;
+  forms: T[];
 }
-const ListFormsForService = async ({
+const ListServiceForm = async ({
+  forms,
   bookedServiceId,
   serviceId,
-}: IListFormsForServiceProps) => {
-  const formsForService = await dbAppointment.formsForService.findMany({
-    where: {
-      serviceId,
-    },
-    include: {
-      form: {
-        include: {
-          FilledForm: { where: { bookedServiceId } },
-        },
-      },
-    },
-  });
-
+}: IListServiceFormProps<TServiceForms>) => {
   return (
     <div>
       <h1 className="font-semibold mb-2">daftar formulir</h1>
       <ul>
-        {formsForService?.map((form) => (
+        {forms?.map((form) => (
           <li key={form.formId} className="m-2 p-2 hover:bg-slate-200/40">
             <div className="flex flex-row gap-2">
               <div className="w-1/2">{form.form.description}</div>
 
-              {form.form.FilledForm.length > 0 ? (
-                form.form.FilledForm[0].status !== "final" ? (
+              {form.form.filledForms.length > 0 ? (
+                form.form.filledForms[0].status !== "final" ? (
                   <div className="gap-2 flex flex-auto">
                     <Link
                       className="underline text-blue-500"
@@ -77,4 +88,4 @@ const ListFormsForService = async ({
   );
 };
 
-export default ListFormsForService;
+export default ListServiceForm;

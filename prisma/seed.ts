@@ -96,7 +96,7 @@ async function main() {
     ],
   });
 
-  const formsForService = await dbAppointment.formsForService.createMany({
+  const serviceForm = await dbAppointment.serviceForm.createMany({
     data: [
       {
         formId: "spri",

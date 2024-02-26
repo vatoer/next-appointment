@@ -1,5 +1,11 @@
 import { dbAppointment } from "@/lib/db-appointment";
+import {
+  FilledForm,
+  Form,
+  ServiceForm,
+} from "@/prisma/db-appointment/generated/client";
 import { redirect } from "next/navigation";
+import ButtonAppointment from "./_components/button-appointment";
 import ButtonConfirm from "./_components/button-confirm";
 import ListFormsForService from "./_components/list-forms-for-service";
 
@@ -14,15 +20,30 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
     redirect("/service"); //todo make not hardcoded
   }
 
+  const serviceForms = await dbAppointment.serviceForm.findMany({
+    where: {
+      serviceId: bookedService.serviceId,
+    },
+    include: {
+      form: {
+        include: {
+          filledForms: { where: { bookedServiceId: bookedService.id } },
+        },
+      },
+    },
+  });
+
   return (
     <div>
       <h1>Silakan mengisi formulir berikut</h1>
       <div>
         <ListFormsForService
+          forms={serviceForms}
           bookedServiceId={bookedService.id}
           serviceId={bookedService.serviceId}
         />
         <ButtonConfirm bookedServiceId={bookedService.id} />
+        <ButtonAppointment bookedServiceId={bookedService.id} />
       </div>
     </div>
   );

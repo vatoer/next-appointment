@@ -11,7 +11,7 @@ const ServicePage = async () => {
       categoryId: "paspor",
     },
     include: {
-      ServiceRequirement: true,
+      serviceRequirements: true,
     },
   });
 
@@ -34,7 +34,7 @@ const ServicePage = async () => {
           <CardLayanan
             key={service.id}
             layanan={service}
-            syarat={service.ServiceRequirement}
+            syarat={service.serviceRequirements}
           />
         ))}
       </div>

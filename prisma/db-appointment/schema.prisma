@@ -9,11 +9,11 @@ datasource db {
 }
 
 model Form {
-  id              String            @id @default(cuid())
-  name            String
-  description     String?
-  FilledForm      FilledForm[]
-  FormsForService FormsForService[]
+  id           String        @id @default(cuid())
+  name         String
+  description  String?
+  filledForms  FilledForm[]
+  serviceForms ServiceForm[]
 }
 
 model FilledForm {
@@ -41,18 +41,18 @@ model BookedService {
   createdBy       String
   createdAt       DateTime     @default(now())
   updatedAt       DateTime?    @updatedAt
-  FilledForm      FilledForm[]
+  filledForms     FilledForm[]
 }
 
 model Service {
-  id                 String               @id @default(cuid())
-  name               String
-  description        String?
-  ServiceRequirement ServiceRequirement[]
-  BookedService      BookedService[]
-  FormsForService    FormsForService[]
-  Category           Category?            @relation(fields: [categoryId], references: [id])
-  categoryId         String?
+  id                  String               @id @default(cuid())
+  name                String
+  description         String?
+  serviceRequirements ServiceRequirement[]
+  bookedServices      BookedService[]
+  serviceForms        ServiceForm[]
+  category            Category?            @relation(fields: [categoryId], references: [id])
+  categoryId          String?
 }
 
 model Category {
@@ -61,7 +61,7 @@ model Category {
   services Service[]
 }
 
-model FormsForService {
+model ServiceForm {
   formId    String
   serviceId String
   formOrder Int?
@@ -72,14 +72,14 @@ model FormsForService {
 }
 
 model ServiceRequirement {
-  id                            String                          @id @default(uuid())
-  name                          String
-  type                          String
-  required                      Boolean                         @default(false)
-  description                   String?
-  serviceId                     String
-  service                       Service                         @relation(fields: [serviceId], references: [id])
-  ServiceRequirementTranslation ServiceRequirementTranslation[]
+  id                             String                          @id @default(uuid())
+  name                           String
+  type                           String
+  required                       Boolean                         @default(false)
+  description                    String?
+  serviceId                      String
+  service                        Service                         @relation(fields: [serviceId], references: [id])
+  serviceRequirementTranslations ServiceRequirementTranslation[]
 }
 
 model ServiceRequirementTranslation {

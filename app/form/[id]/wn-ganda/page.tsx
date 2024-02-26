@@ -18,7 +18,7 @@ const WnGandaPage = async ({ params }: { params: { id: string } }) => {
       id: params.id,
     },
     include: {
-      FilledForm: {
+      filledForms: {
         where: {
           formId: "wn-ganda",
         },
@@ -31,21 +31,21 @@ const WnGandaPage = async ({ params }: { params: { id: string } }) => {
   }
 
   // check if the service has a form to be filled
-  const formForService = await dbAppointment.formsForService.findFirst({
+  const serviceForm = await dbAppointment.serviceForm.findFirst({
     where: {
       serviceId: bookedService.serviceId,
       formId: "wn-ganda",
     },
   });
 
-  if (!formForService) {
+  if (!serviceForm) {
     redirect("/service"); //todo make not hardcoded
   }
 
   //jika sudah ada form yang diisi sebelumnya maka tampilkan form yang sudah diisi
-  if (bookedService.FilledForm.length > 0) {
+  if (bookedService.filledForms.length > 0) {
     const formDataJson = await wnGandaSchema.spa(
-      bookedService.FilledForm[0].formDataJson
+      bookedService.filledForms[0].formDataJson
     );
 
     if (formDataJson.success) {

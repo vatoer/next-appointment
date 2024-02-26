@@ -16,7 +16,7 @@ export const bookService = async (serviceId: string) => {
       },
     });
 
-    const formToFill = await dbAppointment.formsForService.findMany({
+    const formToFill = await dbAppointment.serviceForm.findMany({
       where: {
         serviceId,
       },
