@@ -110,7 +110,7 @@ export const spriSchema = z
     ortuTelp: z.string(),
     suamiIstriNama: z.string().optional(),
     suamiIstriTempatLahir: z.string().optional(),
-    suamiIstriTanggalLahir: z.coerce.date().optional(),
+    suamiIstriTanggalLahir: z.string().optional(), // ini harusnya date cuman kalo di zod begitu date dia g terima string kosong jadinya invalid jadi parsenya pake fungsi superRefine
     suamiIstriKewarganegaraan: z.string().optional(),
     suamiIstriAlamat: z.string().optional(),
     perubahanNama: z.string().optional(),
@@ -171,6 +171,8 @@ export const spriSchema = z
       ctx
     ) => {
       if (statusSipil === "1") {
+        let isValidSuamiIstri = true;
+        console.log("masuk sini");
         const checksuamiIstriNama =
           genericStringSchema.safeParse(suamiIstriNama);
 
@@ -182,7 +184,8 @@ export const spriSchema = z
               path: ["suamiIstriNama"],
             });
           });
-          return false;
+          //return false;
+          isValidSuamiIstri = isValidSuamiIstri && false;
         }
 
         const checksuamiIstriKewarganegaraan = genericStringSchema.safeParse(
@@ -197,7 +200,8 @@ export const spriSchema = z
               path: ["suamiIstriKewarganegaraan"],
             });
           });
-          return false;
+          //return false;
+          isValidSuamiIstri = isValidSuamiIstri && false;
         }
 
         const checksuamiIstriTempatLahir = genericStringSchema.safeParse(
@@ -212,7 +216,8 @@ export const spriSchema = z
               path: ["suamiIstriTempatLahir"],
             });
           });
-          return false;
+          //return false;
+          isValidSuamiIstri = isValidSuamiIstri && false;
         }
 
         const checksuamiIstriTanggalLahir = genericTanggalSchema.safeParse(
@@ -227,7 +232,8 @@ export const spriSchema = z
               path: ["suamiIstriTanggalLahir"],
             });
           });
-          return false;
+          //return false;
+          isValidSuamiIstri = isValidSuamiIstri && false;
         }
 
         const checksuamiIstriAlamat =
@@ -241,8 +247,11 @@ export const spriSchema = z
               path: ["suamiIstriAlamat"],
             });
           });
-          return false;
+          //return false;
+          isValidSuamiIstri = isValidSuamiIstri && false;
         }
+
+        return isValidSuamiIstri;
       }
 
       return z.NEVER;

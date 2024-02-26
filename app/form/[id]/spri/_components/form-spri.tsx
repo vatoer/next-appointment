@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { createFilledFormSpri, updateSpri } from "../_actions";
+import FormIdentitasSuamiIstri from "./form-identitas-suami-istri";
 import OptionsJenisKelamin from "./options-jenis-kelamin";
 import OptionsJenisPermohonan from "./options-jenis-permohonan";
 import OptionsStatusSipil from "./options-status-sipil";
@@ -350,53 +351,13 @@ const SpriForm = ({ bookedServiceId, spriData, onSubmit }: ISpriFormProps) => {
             className="md:w-1/4"
           />
         </FormRow>
-        {statusSipil === "1" && (
-          <>
-            <Separator />
-            <h1 className="text-md font-semibold">Identitas Suami/istri</h1>
-            <FormRow>
-              <InputForm
-                label="Nama Suami/Istri"
-                register={register}
-                name="suamiIstriNama"
-                error={errors.suamiIstriNama}
-                className="md:w-2/3"
-              />
-              <InputForm
-                label="Kewarganegaraan"
-                register={register}
-                name="suamiIstriKewarganegaraan"
-                error={errors.suamiIstriKewarganegaraan}
-                className="md:w-1/3"
-              />
-            </FormRow>
-            <FormRow>
-              <InputForm
-                label="Tempat Lahir"
-                register={register}
-                name="suamiIstriTempatLahir"
-                error={errors.suamiIstriTempatLahir}
-                className="md:w-2/3"
-              />
-              <InputDatePicker
-                label="Tanggal Lahir"
-                register={register}
-                setValue={setValue}
-                name="suamiIstriTanggalLahir"
-                error={errors.suamiIstriTanggalLahir}
-                className="md:w-1/3"
-              />
-            </FormRow>
-            <FormRow>
-              <InputForm
-                label="Alamat"
-                register={register}
-                name="suamiIstriAlamat"
-                error={errors.suamiIstriAlamat}
-              />
-            </FormRow>
-          </>
-        )}
+
+        <FormIdentitasSuamiIstri
+          statusSipil={statusSipil}
+          register={register}
+          setValue={setValue}
+          errors={errors}
+        />
 
         {jenisPermohonan && jenisPermohonan.charAt(0) === "C" && (
           <>
