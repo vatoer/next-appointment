@@ -5,10 +5,11 @@ import {
   ServiceForm,
 } from "@/prisma/db-appointment/generated/client";
 import { redirect } from "next/navigation";
-import { isAllrequiredFormFilled } from "./_actions/queries/filledForm";
+import { filledForms, serviceForms } from "./_actions/queries/filledForm";
 import ButtonAppointment from "./_components/button-appointment";
 import ButtonConfirm from "./_components/button-confirm";
 import ListFormsForService from "./_components/list-forms-for-service";
+import ListServiceForm from "./_components/list-service-form";
 
 const FormIdPage = async ({ params }: { params: { id: string } }) => {
   const bookedService = await dbAppointment.bookedService.findFirst({
@@ -21,56 +22,32 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
     redirect("/service"); //todo make not hardcoded
   }
 
-  const serviceForms = await dbAppointment.serviceForm.findMany({
-    where: {
-      serviceId: bookedService.serviceId,
-    },
-    include: {
-      form: {
-        include: {
-          filledForms: { where: { bookedServiceId: bookedService.id } },
-        },
-      },
-    },
-  });
+  // find  service forms
 
-  const isAllRequiredFormsFilled = await dbAppointment.serviceForm.findMany({
-    where: {
-      serviceId: bookedService.serviceId,
-      form: {
-        filledForms: {
-          some: {
-            status: "final",
-          },
-        },
-      },
-    },
-    include: {
-      form: {
-        include: {
-          filledForms: {
-            where: { bookedServiceId: bookedService.id },
-          },
-        },
-      },
-    },
-  });
+  const sfs = await serviceForms(bookedService.id);
 
-  const filledForms = await isAllrequiredFormFilled(bookedService.id);
+  const ffs = await filledForms(bookedService.id);
 
-  console.log("filledForms", filledForms);
+  //console.log("filledForms", ffs);
+  const parsedFfs = JSON.stringify(ffs);
 
   return (
     <div>
       <h1>Silakan mengisi formulir berikut</h1>
       <div>
-        <ListFormsForService
+        {/* <ListFormsForService
           forms={serviceForms}
           bookedServiceId={bookedService.id}
           serviceId={bookedService.serviceId}
+        /> */}
+        <ListServiceForm
+          bookedServiceId={bookedService.id}
+          serviceForms={sfs}
         />
-        <ButtonConfirm bookedServiceId={bookedService.id} />
-        <ButtonAppointment bookedServiceId={bookedService.id} />
+        <ButtonConfirm
+          filledForm={parsedFfs}
+          bookedServiceId={bookedService.id}
+        />
       </div>
     </div>
   );
