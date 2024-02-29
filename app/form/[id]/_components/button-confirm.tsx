@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { confirmFilledForms } from "../_actions";
 import { IFilledForm } from "../_actions/queries/filledForm";
 
@@ -40,6 +41,17 @@ const ButtonConfirm = ({
         disabled={!(obj.final === obj.totalForms)}
       >
         Buat Janji Temu
+      </Button>
+
+      <Button
+        className=""
+        variant={"default"}
+        onClick={() => {}}
+        disabled={!(obj.final === obj.totalForms)}
+      >
+        <Link href={`/booked-service/${bookedServiceId}/appointment`}>
+          Buat Janji Temu
+        </Link>
       </Button>
     </div>
   );
