@@ -25,6 +25,7 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
   // find  service forms
 
   const sfs = await serviceForms(bookedService.id);
+  console.log("serviceForms", sfs);
 
   const ffs = await filledForms(bookedService.id);
 

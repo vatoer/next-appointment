@@ -20,19 +20,29 @@ const ButtonConfirm = ({
     console.log(cfmFilledForms);
   };
 
-  if (obj.filled < obj.totalForms) {
-    return (
-      <Button className="" variant={"default"} disabled>
-        Please fill all forms
+  return (
+    <div className="flex flex-row gap-2">
+      <Button
+        className=""
+        variant={"default"}
+        onClick={handleSubmit}
+        disabled={
+          !(obj.filled === obj.totalForms) || obj.final === obj.totalForms
+        }
+      >
+        Konfirmasi formulir
       </Button>
-    );
-  } else {
-    return (
-      <Button className="" variant={"default"} onClick={handleSubmit}>
-        Confirm Form
+
+      <Button
+        className=""
+        variant={"default"}
+        onClick={() => {}}
+        disabled={!(obj.final === obj.totalForms)}
+      >
+        Buat Janji Temu
       </Button>
-    );
-  }
+    </div>
+  );
 };
 
 export default ButtonConfirm;
