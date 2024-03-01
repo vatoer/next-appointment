@@ -64,7 +64,10 @@ export const Slot = ({
       onClick={handleClick}
     >
       <span>
-        {start.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} -{" "}
+        {start.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+      </span>
+      <span className="hidden md:block"> - </span>
+      <span className="hidden md:block">
         {addMinutes(start, minutes).toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",

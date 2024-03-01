@@ -30,7 +30,14 @@ export const SlotPickedForm = ({
           </div>
         </>
       ) : (
-        "Pick a slot to schedule an appointment"
+        <>
+          <span>Pick a slot to schedule an appointment</span>
+          <div>
+            <Button disabled={slotPicked ? false : true}>
+              Schedule my appointment
+            </Button>
+          </div>
+        </>
       )}
     </div>
   );

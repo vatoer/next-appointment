@@ -15,9 +15,7 @@ const AppointmentIdPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="flex flex-col items-center text-center">
-      <h1>Appointment Page</h1>
-      <p>This is the appointment page</p>
-      <div className="w-full flex">
+      <div className="w-full">
         <AppointmentForm bookedServiceId={bookedService.id} />
       </div>
     </div>
