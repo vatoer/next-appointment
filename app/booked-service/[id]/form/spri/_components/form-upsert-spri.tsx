@@ -25,11 +25,11 @@ const FormUpsertSpri = ({
 
     //console.log(filledForm.payload.data);
     toast.success("Form berhasil disimpan");
-    router.push(`/form/${bookedServiceId}`);
+    router.push(`.`);
   };
 
   return (
-    <div>
+    <div className="w-full">
       <SpriForm
         bookedServiceId={bookedServiceId}
         spriData={spriData}

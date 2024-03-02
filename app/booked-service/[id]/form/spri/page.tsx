@@ -65,7 +65,7 @@ const SpriPage = async ({ params }: { params: { id: string } }) => {
   console.log(spriData);
 
   return (
-    <main className="flex flex-col items-center">
+    <main className="w-full">
       <FormContainer>
         <FormUpsertSpri
           bookedServiceId={bookedService.id}

@@ -57,10 +57,10 @@ const SpriForm = ({ bookedServiceId, spriData, onSubmit }: ISpriFormProps) => {
   });
 
   return (
-    <div className="py-10">
+    <div className="w-full">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-2 border shadow-lg p-6 rounded-md"
+        className="flex flex-col gap-2 rounded-md"
         noValidate
       >
         <h1 className="text-2xl font-semibold mb-4 w-full text-center">

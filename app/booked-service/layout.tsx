@@ -13,7 +13,7 @@ const FormLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         <div className="w-full lg:w-5/6 2xl:w-7/12 p-0 shadow-lg">
           <Steps />
         </div>
-        <div className="w-full lg:w-5/6 2xl:w-7/12 p-6 shadow-lg">
+        <div className="w-full lg:w-5/6 2xl:w-7/12 p-6 shadow-lg ">
           {children}
         </div>
       </main>

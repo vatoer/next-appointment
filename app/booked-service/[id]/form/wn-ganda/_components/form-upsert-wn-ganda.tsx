@@ -28,7 +28,7 @@ const FormUpsertWnGanda = ({
 
     //console.log(filledForm.payload.data);
     toast.success("Form berhasil disimpan");
-    router.push(`/form/${bookedServiceId}`);
+    router.push(`.`);
   };
 
   return (

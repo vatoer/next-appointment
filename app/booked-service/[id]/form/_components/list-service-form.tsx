@@ -12,15 +12,15 @@ export const ListServiceForm = ({
   return (
     <div>
       <ul>
-        {serviceForms?.map((form) => (
-          <li key={form.id} className="">
+        {serviceForms?.map((form, i) => (
+          <li key={i} className="">
             <div className="flex flex-row gap-2">
               <div className="w-1/2">{form.description}</div>
 
               <div>
                 <Link
                   className="underline text-blue-500"
-                  href={`/form/${bookedServiceId}/${form.formId}`}
+                  href={`form/${form.formId}`}
                 >
                   {!form.status && "Fill Form"}
                   {form.status && form.status !== "final"

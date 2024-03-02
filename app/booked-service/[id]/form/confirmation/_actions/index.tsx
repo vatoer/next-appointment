@@ -1,6 +1,6 @@
 "use server";
 
-import { IReturnAction } from "@/app/form/_actions";
+import { IReturnAction } from "@/app/booked-service/[id]/form/_actions";
 import { dbAppointment } from "@/lib/db-appointment";
 import { FilledForm } from "@/prisma/db-appointment/generated/client";
 import { revalidatePath } from "next/cache";
