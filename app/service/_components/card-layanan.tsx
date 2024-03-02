@@ -29,7 +29,7 @@ export const CardLayanan = ({ layanan, syarat }: ICardLayananProps) => {
     if (bs.errors) {
       console.log("Error");
     } else {
-      router.push(`/form/${bs.payload.data?.id}`);
+      router.push(`/booked-service/${bs.payload.data?.id}/form`);
     }
   };
   return (
