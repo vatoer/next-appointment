@@ -31,7 +31,7 @@ export const ListServiceForm = ({
               <div>
                 <Link
                   className="underline text-blue-500"
-                  href={`/form/${bookedServiceId}/${form.formId}/download`}
+                  href={`form/${form.formId}/download`}
                 >
                   Download {form.status}
                 </Link>

@@ -40,18 +40,7 @@ const ButtonConfirm = ({
         onClick={() => {}}
         disabled={!(obj.final === obj.totalForms)}
       >
-        Buat Janji Temu
-      </Button>
-
-      <Button
-        className=""
-        variant={"default"}
-        onClick={() => {}}
-        disabled={!(obj.final === obj.totalForms)}
-      >
-        <Link href={`/booked-service/${bookedServiceId}/appointment`}>
-          Buat Janji Temu
-        </Link>
+        <Link href={`appointment`}>Buat Janji Temu</Link>
       </Button>
     </div>
   );
