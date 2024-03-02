@@ -17,6 +17,10 @@ const SlotPicker = ({
   const slotPicked = useSlot((state) => state.dt); // using hooks
   //const offDays = useDaysOff(); // using hooks
   const onSelect = useDatePicker((state) => state.setDate); // using hooks
+  const handleOnSchedule = (data: { slotPicked: Date }) => {
+    console.log(data);
+    onSchedule(data.slotPicked);
+  };
 
   // get 6 months from now
   const toDate = new Date();
@@ -25,9 +29,7 @@ const SlotPicker = ({
   return (
     <div className="w-full flex flex-col">
       <div className="flex flex-col items-center gap-2 m-2">
-        <div className="text-2xl font-bold">
-          <SlotPickedForm slotPicked={slotPicked} onSchedule={onSchedule} />
-        </div>
+        <SlotPickedForm slotPicked={slotPicked} onSchedule={handleOnSchedule} />
       </div>
       <div className="flex flex-col gap-2">
         <div className="w-full">
