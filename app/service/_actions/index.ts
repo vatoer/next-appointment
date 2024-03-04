@@ -1,6 +1,6 @@
 "use server";
 import { dbAppointment } from "@/lib/db-appointment";
-import { Prisma } from "@/prisma/db-appointment/generated/client";
+import { Prisma, StepName } from "@/prisma/db-appointment/generated/client";
 
 export interface IBookServiceParams {
   serviceId: string;
@@ -13,6 +13,7 @@ export const bookService = async (serviceId: string) => {
       data: {
         serviceId,
         createdBy: "tes",
+        status: StepName.FORM_FILLING,
       },
     });
 

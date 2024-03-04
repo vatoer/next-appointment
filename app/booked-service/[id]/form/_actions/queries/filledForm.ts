@@ -1,5 +1,5 @@
 import { dbAppointment } from "@/lib/db-appointment";
-import { Prisma } from "@/prisma/db-appointment/generated/client";
+import { FormStatus, Prisma } from "@/prisma/db-appointment/generated/client";
 
 export interface IServiceForm {
   id: number;
@@ -41,7 +41,28 @@ export interface IFilledForm {
   final: number;
   totalForms: number;
 }
-export const filledForms = async (bookedServiceId: string) => {
+
+/**
+ * Summary
+ *
+ * find sum of filled and final forms for a bookedServiceId
+ * 
+ * @example
+ * 
+ * const { filled, final, totalForms } = filledForms('your-booked-service-id');
+ * 
+ * console.log(Object.prototype.toString.call(filled)); //  [object Decimal]
+* @remarks
+The [object Decimal] output indicates that filled and totalForms are  instances of a Decimal type, not standard JavaScript numbers. This is common when dealing with databases or other systems that require more precision than JavaScript's standard Number type can provide.
+
+* If you want to compare these Decimal instances, you'll need to convert them to standard JavaScript numbers or strings first. Most Decimal libraries provide methods to do this.
+
+* @example 
+* console.log(filled.toString() == totalForms.toString());
+ */
+export const filledForms = async (
+  bookedServiceId: string
+): Promise<IFilledForm> => {
   const result = await dbAppointment.$queryRaw<IFilledForm[]>`
     with 
       cte1 as (
@@ -91,7 +112,7 @@ export const filledForms = async (bookedServiceId: string) => {
         from
           cte1
         where
-          cte1.status = 'final'
+          cte1.status = 'FINAL'
       )
       select
         sum(filled) as filled,
@@ -101,5 +122,13 @@ export const filledForms = async (bookedServiceId: string) => {
       cte3   
     `;
 
-  return result[0];
+  const ffs = result[0];
+
+  // const { filled, final, totalForms } = ffs;
+  // console.log(typeof filled); // Outputs: object
+  // console.log(Object.prototype.toString.call(filled)); //  [object Decimal]
+  // console.log(typeof totalForms); /// Outputs: object
+  // console.log(Object.prototype.toString.call(totalForms)); //  [object Decimal]
+  // If you want to compare these Decimal instances, you'll need to convert them to standard JavaScript numbers or strings first. Most Decimal libraries provide methods to do this.
+  return ffs;
 };

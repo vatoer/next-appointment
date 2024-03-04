@@ -5,6 +5,7 @@ import { dbAppointment } from "@/lib/db-appointment";
 import { dummySptba } from "@/lib/zod/dummy/sptba";
 import { sptbaSchema } from "@/lib/zod/sptba";
 import { redirect } from "next/navigation";
+import BookedServiceIdContainer from "../../_components/container";
 import FormUpsertSptba from "./_components/form-upsert-sptba";
 
 type TFormSptba = z.infer<typeof sptbaSchema>;
@@ -58,14 +59,14 @@ const SptbaPage = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <main className="flex flex-col items-center">
+    <BookedServiceIdContainer bookedServiceId={bookedService.id}>
       <FormContainer>
         <FormUpsertSptba
           bookedServiceId={bookedService.id}
           sptbaData={sptbaData}
         />
       </FormContainer>
-    </main>
+    </BookedServiceIdContainer>
   );
 };
 

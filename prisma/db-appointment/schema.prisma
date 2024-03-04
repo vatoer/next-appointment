@@ -8,6 +8,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum FormStatus {
+  DRAFT
+  FINAL
+}
+
+enum StepName {
+  INIT
+  FORM_FILLING
+  FORM_CONFIRMATION
+  APPOINTMENT
+  DOCUMENT_UPLOAD
+  VISIT
+  PAYMENT
+  PROCESSING
+  COMPLETED
+  REJECTED
+  NEEDS_MORE_INFO
+}
+
 model Form {
   id           String        @id @default(cuid())
   name         String
@@ -22,7 +41,7 @@ model FilledForm {
   bookedServiceId String
   bookedService   BookedService @relation(fields: [bookedServiceId], references: [id])
   formDataJson    Json
-  status          String        @default("draft")
+  status          FormStatus    @default(DRAFT)
   createdBy       String
   createdAt       DateTime      @default(now())
   updatedAt       DateTime?     @updatedAt
@@ -37,11 +56,12 @@ model BookedService {
   appointmentDate DateTime?
   serviceId       String
   service         Service      @relation(fields: [serviceId], references: [id])
-  status          String?
+  status          StepName?    @default(FORM_FILLING)
   createdBy       String
   createdAt       DateTime     @default(now())
   updatedAt       DateTime?    @updatedAt
   filledForms     FilledForm[]
+  BookedStep      BookedStep[]
 }
 
 model Service {
@@ -53,6 +73,30 @@ model Service {
   serviceForms        ServiceForm[]
   category            Category?            @relation(fields: [categoryId], references: [id])
   categoryId          String?
+  steps               Step[]
+}
+
+model Step {
+  id          Int          @id @default(autoincrement())
+  name        StepName     @default(FORM_FILLING)
+  description String
+  sequence    Int
+  createdAt   DateTime     @default(now())
+  serviceId   String
+  service     Service      @relation(fields: [serviceId], references: [id])
+  bookedSteps BookedStep[]
+
+  @@unique([serviceId, sequence])
+  @@unique([serviceId, name])
+}
+
+model BookedStep {
+  id              Int           @id @default(autoincrement())
+  completedAt     DateTime?
+  stepId          Int
+  step            Step          @relation(fields: [stepId], references: [id])
+  bookedServiceId String
+  bookedService   BookedService @relation(fields: [bookedServiceId], references: [id])
 }
 
 model Category {

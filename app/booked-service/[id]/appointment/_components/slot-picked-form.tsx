@@ -41,6 +41,7 @@ export const SlotPickedForm = ({
     if (slotPicked) {
       setValue("slotPicked", slotPicked);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slotPicked]);
 
   return (
@@ -120,7 +121,9 @@ export const SlotPickedForm = ({
         </>
       ) : (
         <>
-          <span>Pick a slot to schedule an appointment</span>
+          <span className="font-semibold m-2">
+            Pick a slot to schedule an appointment
+          </span>
           <div>
             <Button disabled={slotPicked ? false : true}>
               Schedule my appointment

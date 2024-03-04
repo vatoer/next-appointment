@@ -1,6 +1,6 @@
 "use server";
 import { dbAppointment } from "@/lib/db-appointment";
-import { Prisma } from "@/prisma/db-appointment/generated/client";
+import { Prisma, StepName } from "@/prisma/db-appointment/generated/client";
 
 export interface IReturnAction<TData> {
   type: string;
@@ -21,7 +21,7 @@ export const scheduleAppointment = async (
       where: { id: bookedServiceId },
       data: {
         appointmentDate: date,
-        status: "scheduled",
+        status: StepName.VISIT, // next step is visit
         updatedAt: new Date(),
       },
     });

@@ -5,6 +5,7 @@ import FormContainer from "@/components/form-container";
 import { dummySpri } from "@/lib/zod/dummy/spri";
 import { spriSchema } from "@/lib/zod/spri";
 import { z } from "zod";
+import BookedServiceIdContainer from "../../_components/container";
 import FormUpsertSpri from "./_components/form-upsert-spri";
 
 type TFormData = z.infer<typeof spriSchema>;
@@ -65,14 +66,14 @@ const SpriPage = async ({ params }: { params: { id: string } }) => {
   console.log(spriData);
 
   return (
-    <main className="w-full">
+    <BookedServiceIdContainer bookedServiceId={bookedService.id}>
       <FormContainer>
         <FormUpsertSpri
           bookedServiceId={bookedService.id}
           spriData={spriData}
         />
       </FormContainer>
-    </main>
+    </BookedServiceIdContainer>
   );
 };
 

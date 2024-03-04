@@ -1,4 +1,4 @@
-"use client";
+import { dbAppointment } from "@/lib/db-appointment";
 import { cn } from "@/lib/utils";
 import { random } from "lodash";
 
@@ -41,23 +41,34 @@ export const Step = ({ active, label }: IStepProps) => {
   );
 };
 
-export const Steps = () => {
-  const steps = [
-    "Isi Formulir",
-    "Konfirmasi Formulir",
-    "Buat Janji",
-    "Dokumen Pendukung",
-    "Datang ke Kantor",
-    "Proses",
-    "Selesai",
-  ];
+export const Steps = async ({
+  bookedServiceId,
+}: {
+  bookedServiceId: string;
+}) => {
+  const bookedService = await dbAppointment.bookedService.findUnique({
+    where: {
+      id: bookedServiceId,
+    },
+    include: {
+      service: {
+        select: {
+          steps: true,
+        },
+      },
+    },
+  });
+
   const active = [true, false, false, false, false, false, false];
   //const randomActives = steps.map(() => random(0, 1) === 1);
   return (
     <div className="hidden md:w-full md:max-w-full md:flex gap-0 flex-wrap flex-row items-center bg-slate-400">
-      {steps.map((step, i) => (
-        <div key={i} className={`w-1/${steps.length}`}>
-          <Step active={active[i]} label={step} />
+      {bookedService?.service.steps.map((step, i) => (
+        <div key={i} className={`w-1/${bookedService?.service.steps.length}`}>
+          <Step
+            active={bookedService.status == step.name}
+            label={step.description}
+          />
         </div>
       ))}
     </div>

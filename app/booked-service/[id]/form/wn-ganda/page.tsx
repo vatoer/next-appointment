@@ -6,6 +6,7 @@ import WnGandaForm from "./_components/form-wn-ganda";
 import { dbAppointment } from "@/lib/db-appointment";
 import { dummyWnGanda } from "@/lib/zod/dummy/wn-ganda";
 import { redirect } from "next/navigation";
+import BookedServiceIdContainer from "../../_components/container";
 import FormUpsertWnGanda from "./_components/form-upsert-wn-ganda";
 
 type TFormWnGanda = z.infer<typeof wnGandaSchema>;
@@ -59,14 +60,14 @@ const WnGandaPage = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <main className="flex flex-col items-center">
+    <BookedServiceIdContainer bookedServiceId={bookedService.id}>
       <FormContainer>
         <FormUpsertWnGanda
           bookedServiceId={bookedService.id}
           wnGandaData={wnGandaData}
         />
       </FormContainer>
-    </main>
+    </BookedServiceIdContainer>
   );
 };
 

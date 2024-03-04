@@ -3,9 +3,14 @@ import { dbAppointment } from "@/lib/db-appointment";
 import { spriSchema } from "@/lib/zod/spri";
 import { sptbaSchema } from "@/lib/zod/sptba";
 import { wnGandaSchema } from "@/lib/zod/wn-ganda";
-import { FilledForm } from "@/prisma/db-appointment/generated/client";
+import {
+  FilledForm,
+  FormStatus,
+  StepName,
+} from "@/prisma/db-appointment/generated/client";
 import { revalidatePath } from "next/cache";
 import { ZodIssue, z } from "zod";
+import { filledForms, serviceForms } from "./queries/filledForm";
 
 type TSpri = z.infer<typeof spriSchema>;
 type TWnGanda = z.infer<typeof wnGandaSchema>;
@@ -71,14 +76,36 @@ export const fillForm = async <TInput>(
         formId: formId,
         formDataJson: parsedData.data,
         bookedServiceId: bookedServiceId,
-        status: "draft",
+        status: FormStatus.DRAFT,
         createdBy: "metoo",
       },
       update: {
         formDataJson: parsedData.data,
-        status: "draft",
+        status: FormStatus.DRAFT,
       },
     });
+
+    /**
+     * Check if all forms are filled
+     * if all forms are filled, update bookedService status to FORM_CONFIRMATION
+     */
+
+    if (filledForm) {
+      const { filled, totalForms } = await filledForms(bookedServiceId);
+      if (filled.toString() == totalForms.toString()) {
+        const updatedBookedService = await dbAppointment.bookedService.update({
+          where: {
+            id: bookedServiceId,
+          },
+          data: {
+            status: StepName.FORM_CONFIRMATION,
+          },
+        });
+      } else {
+        //do not update bookedService status
+      }
+    }
+
     return {
       type: formId,
       payload: {
@@ -102,19 +129,32 @@ export const confirmFilledForms = async (bookedServiceId: string) => {
   //TODO implement user authentication
   //TODO check if all required forms are filled
   try {
-    const filledForms = await dbAppointment.filledForm.updateMany({
-      where: {
-        bookedServiceId: bookedServiceId,
-      },
-      data: {
-        status: "final",
-      },
-    });
-    revalidatePath(`/form/${bookedServiceId}`);
+    let filledForms;
+
+    const transaction = await dbAppointment.$transaction([
+      dbAppointment.filledForm.updateMany({
+        where: {
+          bookedServiceId: bookedServiceId,
+        },
+        data: {
+          status: FormStatus.FINAL,
+        },
+      }),
+      dbAppointment.bookedService.update({
+        where: {
+          id: bookedServiceId,
+        },
+        data: {
+          status: StepName.APPOINTMENT, // next step will be appointment
+        },
+      }),
+    ]);
+
+    revalidatePath(`.`);
     return {
       type: "CONFIRM_FORMS_FOR_SERVICE",
       payload: {
-        data: filledForms,
+        data: transaction,
       },
       errors: false,
     };

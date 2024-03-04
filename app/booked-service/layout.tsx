@@ -9,11 +9,8 @@ const FormLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <Navbar />
         </div>
       </div>
-      <main className="pt-[36px] flex flex-col items-center w-full h-full">
-        <div className="w-full lg:w-5/6 2xl:w-7/12 p-0 shadow-lg">
-          <Steps />
-        </div>
-        <div className="w-full lg:w-5/6 2xl:w-7/12 p-6 shadow-lg ">
+      <main className="pt-[36px] flex flex-col items-center w-full h-full ">
+        <div className="w-full lg:w-5/6 2xl:w-7/12 shadow-lg pb-12">
           {children}
         </div>
       </main>

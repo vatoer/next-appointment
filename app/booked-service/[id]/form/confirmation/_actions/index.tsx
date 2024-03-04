@@ -16,7 +16,7 @@ export const setStatusFilledForm = async (filledFormId: string) => {
       id: filledFormId,
     },
     data: {
-      status: "final",
+      status: "FINAL",
     },
   });
   return filledForm;

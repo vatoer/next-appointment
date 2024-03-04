@@ -1,5 +1,7 @@
+import FormContainer from "@/components/form-container";
 import { dbAppointment } from "@/lib/db-appointment";
 import { redirect } from "next/navigation";
+import BookedServiceIdContainer from "../_components/container";
 import AppointmentForm from "./_components/appointment-form";
 
 const AppointmentIdPage = async ({ params }: { params: { id: string } }) => {
@@ -14,11 +16,11 @@ const AppointmentIdPage = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <div className="flex flex-col items-center text-center">
-      <div className="w-full">
+    <BookedServiceIdContainer bookedServiceId={bookedService.id}>
+      <FormContainer>
         <AppointmentForm bookedServiceId={bookedService.id} />
-      </div>
-    </div>
+      </FormContainer>
+    </BookedServiceIdContainer>
   );
 };
 

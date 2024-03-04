@@ -2,6 +2,7 @@ import { dbAppointment } from "@/lib/db-appointment";
 import {
   FilledForm,
   Form,
+  FormStatus,
   ServiceForm,
 } from "@/prisma/db-appointment/generated/client";
 import Link from "next/link";
@@ -43,7 +44,7 @@ const ListServiceForm = async ({
               <div className="w-1/2">{form.form.description}</div>
 
               {form.form.filledForms.length > 0 ? (
-                form.form.filledForms[0].status !== "final" ? (
+                form.form.filledForms[0].status !== FormStatus.FINAL ? (
                   <div className="gap-2 flex flex-auto">
                     <Link
                       className="underline text-blue-500"
