@@ -1,5 +1,7 @@
 import FormContainer from "@/components/form-container";
 import { dbAppointment } from "@/lib/db-appointment";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
 import { redirect } from "next/navigation";
 import BookedServiceIdContainer from "../_components/container";
 import { serviceForms } from "../form/_actions/queries/filledForm";
@@ -22,14 +24,25 @@ const VisitPage = async ({ params }: { params: { id: string } }) => {
     <BookedServiceIdContainer bookedServiceId={bookedService.id}>
       <FormContainer>
         <div className="py-4">
-          Anda telah membuat janji temu, silakan donwload formulir yang telah
-          diisi, dan bawa ke KBRI pada hari yang telah ditentukan. jangan lupa
-          membawa dokumen pendukung lainnya.
+          <p>
+            Anda telah membuat janji temu pada tanggal{" "}
+            <span className="font-semibold">
+              {format(bookedService.appointmentDate!, "PPP", { locale: id })}
+            </span>
+          </p>
+          <p>
+            Silakan donwload formulir yang telah diisi, dan bawa ke KBRI pada
+            hari yang telah ditentukan.
+          </p>
         </div>
         <ListServiceForm
           bookedServiceId={bookedService.id}
           serviceForms={sfs}
         />
+
+        <div className="py-4">
+          Jangan lupa membawa dokumen pendukung lainnya.
+        </div>
       </FormContainer>
     </BookedServiceIdContainer>
   );

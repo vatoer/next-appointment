@@ -11,38 +11,33 @@ export const ListServiceForm = ({
   serviceForms,
 }: IListServiceFormProps) => {
   return (
-    <div className=" w-full">
-      <ul>
-        {serviceForms?.map((form, i) => (
-          <li key={i} className="">
-            <div className="flex flex-row gap-2">
-              <div className="grow">{form.description}</div>
-
-              <div>
-                <Link
-                  className="underline text-blue-500"
-                  href={`form/${form.formId}`}
-                >
-                  {!form.status && "Fill Form"}
-                  {form.status && form.status !== FormStatus.FINAL
-                    ? "Perbarui formulir"
-                    : ""}
-                </Link>
-              </div>
-              <div>
-                {form.status && (
-                  <Link
-                    className="underline text-blue-500"
-                    href={`form/${form.formId}/download`}
-                  >
-                    Download {form.status?.toLowerCase()}
-                  </Link>
-                )}
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+    <div className=" w-full flex-col flex">
+      {serviceForms?.map((form, i) => (
+        <div key={i} className="w-full flex flex-row gap-2 hover:bg-slate-200 ">
+          <div className="w-1/2">{form.description}</div>
+          <div>
+            <Link
+              className="underline text-blue-500"
+              href={`form/${form.formId}`}
+            >
+              {!form.status && "Fill Form"}
+              {form.status && form.status !== FormStatus.FINAL
+                ? "Perbarui formulir"
+                : ""}
+            </Link>
+          </div>
+          <div>
+            {form.status && (
+              <Link
+                className="underline text-blue-500"
+                href={`form/${form.formId}/download`}
+              >
+                Download {form.status?.toLowerCase()}
+              </Link>
+            )}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
