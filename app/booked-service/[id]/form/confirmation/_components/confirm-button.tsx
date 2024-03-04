@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { FormStatus } from "@/prisma/db-appointment/generated/client";
 import { setStatusAllFilledForm } from "../_actions";
 
 interface IConfirmButtonProps {
@@ -10,7 +11,7 @@ const ConfirmButton = ({ bookedServiceId }: IConfirmButtonProps) => {
   const handleConfirm = async () => {
     const confirmFilledForm = await setStatusAllFilledForm(
       bookedServiceId,
-      "final"
+      FormStatus.FINAL
     );
   };
 

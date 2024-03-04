@@ -1,5 +1,6 @@
 import { dbAppointment } from "@/lib/db-appointment";
 import { JenisPermohonon, spriSchema } from "@/lib/zod/spri";
+import { FormStatus } from "@/prisma/db-appointment/generated/client";
 import { format } from "date-fns/format";
 import { readFile, writeFile } from "fs/promises";
 import { cookies } from "next/headers";
@@ -578,7 +579,7 @@ export async function GET(
     }
 
     // if draft, add watermark
-    if (filledForm.status !== "final") {
+    if (filledForm.status !== FormStatus.FINAL) {
       const { width, height } = firstPage.getSize();
       firstPage.drawText("DRAFT", {
         x: 50,

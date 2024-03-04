@@ -2,7 +2,10 @@
 
 import { IReturnAction } from "@/app/booked-service/[id]/form/_actions";
 import { dbAppointment } from "@/lib/db-appointment";
-import { FilledForm } from "@/prisma/db-appointment/generated/client";
+import {
+  FilledForm,
+  FormStatus,
+} from "@/prisma/db-appointment/generated/client";
 import { revalidatePath } from "next/cache";
 
 export const getFilledForms = async (bookedServiceId: string) => {
@@ -24,7 +27,7 @@ export const setStatusFilledForm = async (filledFormId: string) => {
 
 export const setStatusAllFilledForm = async (
   bookedServiceId: string,
-  status: "draft" | "final"
+  status: FormStatus
 ): Promise<IReturnAction<string>> => {
   //console.log(bookedServiceId);
   try {

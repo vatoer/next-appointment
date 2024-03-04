@@ -1,6 +1,7 @@
 import { dbAppointment } from "@/lib/db-appointment";
 import { StatusSipil, statusSipilToText } from "@/lib/zod/spri";
 import { sptbaSchema } from "@/lib/zod/sptba";
+import { FormStatus } from "@/prisma/db-appointment/generated/client";
 import { format, setDefaultOptions } from "date-fns";
 import { ar, enUS, es, fr, id, ru } from "date-fns/locale";
 import { promises } from "fs";
@@ -49,7 +50,7 @@ export async function GET(
       return new NextResponse("error", { status: 400 });
     }
     formData = formDataJson.data;
-    isFinal = filledForm.status === "final";
+    isFinal = filledForm.status === FormStatus.FINAL;
   } catch (error) {
     console.log(error);
     return new NextResponse("error", { status: 400 });
