@@ -10,7 +10,7 @@ const FormLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         </div>
       </div>
       <main className="pt-[36px] flex flex-col items-center w-full h-full ">
-        <div className="w-full lg:w-5/6 2xl:w-7/12 shadow-lg pb-12">
+        <div className="w-full min-h-screen pb-12 lg:w-5/6 2xl:w-7/12 shadow-lg">
           {children}
         </div>
       </main>
