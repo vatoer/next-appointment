@@ -22,10 +22,12 @@ export default auth((req) => {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
+  // if the route is an Auth route, we don't need to redirect
   if (isApiAuthRoute) {
     return;
   }
 
+  // if the route is an Auth route and is log in, redirect to the default route
   if (isAuthRoute) {
     if (isLoggenIn) {
       return Response.redirect(new URL(DEFAULT_ROUTE_AFTER_LOGIN, nextUrl));
