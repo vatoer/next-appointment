@@ -1,9 +1,10 @@
 import { PrismaClient } from "@/prisma/db-appointment/generated/client";
 
 declare global {
-  var prisma: PrismaClient | undefined;
+  var prismaDbAppointment: PrismaClient | undefined;
 }
 
-export const dbAppointment = global.prisma || new PrismaClient();
+export const dbAppointment = global.prismaDbAppointment || new PrismaClient();
 
-if (process.env.NODE_ENV !== "production") global.prisma = dbAppointment;
+if (process.env.NODE_ENV !== "production")
+  global.prismaDbAppointment = dbAppointment;

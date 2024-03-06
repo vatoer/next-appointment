@@ -25,15 +25,4 @@ export const register = async (data: TRegister) => {
 
   delete (newUser as any).password;
   return { user: newUser };
-
-  // try {
-  //   const newUser = await userCreate(data);
-  //   return { user: newUser };
-  // } catch (error) {
-  //   console.log("[error userCreate]", Object.prototype.toString.call(error));
-  //   if (error instanceof Prisma.PrismaClientKnownRequestError) {
-  //     return { error: "Email already exists" };
-  //   }
-  //   return { error: "Unknown error" };
-  // }
 };

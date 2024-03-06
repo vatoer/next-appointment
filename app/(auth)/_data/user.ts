@@ -26,10 +26,11 @@ export const userCreate = async (
     });
     return user;
   } catch (error) {
-    console.log("[error userCreate]", Object.prototype.toString.call(error));
-    //console.log(error);
+    // what object is error?
+    //console.log("[error]", Object.prototype.toString.call(error));
+    console.log("[error]", error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log(error);
+      //console.log(error.code);
       return { error: "Email already exists" };
     }
 

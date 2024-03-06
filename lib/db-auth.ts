@@ -1,9 +1,9 @@
 import { PrismaClient } from "@/prisma/db-auth/generated/client";
 
 declare global {
-  var prisma: PrismaClient | undefined;
+  var prismaDbAuth: PrismaClient | undefined;
 }
 
-export const dbAuth = global.prisma || new PrismaClient();
+export const dbAuth = global.prismaDbAuth || new PrismaClient();
 
-if (process.env.NODE_ENV !== "production") global.prisma = dbAuth;
+if (process.env.NODE_ENV !== "production") global.prismaDbAuth = dbAuth;
