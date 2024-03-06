@@ -2,10 +2,7 @@
 import * as z from "zod";
 
 import { DEFAULT_ROUTE_AFTER_LOGIN } from "@/routes";
-import { de } from "date-fns/locale";
 import { AuthError } from "next-auth";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { signIn } from "../../auth";
 import { LoginSchema } from "../_schema/login";
 type TLogin = z.infer<typeof LoginSchema>;

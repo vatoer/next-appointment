@@ -2,7 +2,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import authConfig from "./auth.config";
 
-import { dbAuth } from "@/lib/db-auth";
+import { dbAppointment as dbAuth } from "@/lib/db-appointment";
 
 export const {
   handlers: { GET, POST },

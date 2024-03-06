@@ -83,9 +83,9 @@ const RegisterForm = () => {
         />
         <FormError message={error} />
 
-        <Button className=" w-full py-6" disabled={isLoading} type="submit">
+        <Button className=" w-full py-6" disabled={isPending} type="submit">
           Register
-          {isLoading && (
+          {isPending && (
             <Loader className="ml-2 spin-in" size={24} color="white" />
           )}
         </Button>
