@@ -1,4 +1,5 @@
 import { dbAuth } from "@/lib/db-auth";
+import { Prisma, User } from "@/prisma/db-auth/generated/client";
 import bcrypt from "bcryptjs";
 import { TRegister } from "../signup/_schema/register";
 
@@ -11,7 +12,9 @@ export const getUserByEmail = async (email: string) => {
   return user;
 };
 
-export const userCreate = async (data: TRegister) => {
+export const userCreate = async (
+  data: TRegister
+): Promise<User | { error: string }> => {
   try {
     const password = await bcrypt.hash(data.password, 10);
     const user = await dbAuth.user.create({
@@ -23,6 +26,13 @@ export const userCreate = async (data: TRegister) => {
     });
     return user;
   } catch (error) {
-    return error;
+    console.log("[error userCreate]", Object.prototype.toString.call(error));
+    //console.log(error);
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.log(error);
+      return { error: "Email already exists" };
+    }
+
+    return { error: "Unknown error" };
   }
 };

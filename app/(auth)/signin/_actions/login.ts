@@ -36,8 +36,7 @@ export const login = async (data: TLogin) => {
         default:
           return { error: "Something went wrong" };
       }
-
-      throw error;
     }
+    throw error;
   }
 };

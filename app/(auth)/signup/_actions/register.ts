@@ -19,14 +19,11 @@ export const register = async (data: TRegister) => {
   const { email, password } = validateFields.data;
 
   const newUser = await userCreate(data);
-  if (newUser instanceof Prisma.PrismaClientKnownRequestError) {
-    return { error: "Email already exists" };
+  if ("error" in newUser) {
+    return { error: newUser.error };
   }
 
-  if (newUser instanceof Error) {
-    return { error: "Unknown error" };
-  }
-
+  delete (newUser as any).password;
   return { user: newUser };
 
   // try {

@@ -5,10 +5,12 @@ import { FcGoogle } from "react-icons/fc";
 
 interface IButtonWithGoogleProps {
   callbackUrl?: string;
+  disabled?: boolean;
 }
 
 export const ButtonWithGoogle = ({
   callbackUrl = "/",
+  disabled = false,
 }: IButtonWithGoogleProps) => {
   const handleLoginWithGoogle = () => {
     signIn("google", { callbackUrl });

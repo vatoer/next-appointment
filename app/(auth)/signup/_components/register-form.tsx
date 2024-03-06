@@ -6,8 +6,10 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { ButtonWithGoogle } from "../../_components/button-with-google";
+import { FormError } from "../../_components/form-error";
 import InputForm from "../../_components/input-form";
 import { register as registerUser } from "../_actions/register";
 import { RegisterSchema, TRegister } from "../_schema/register";
@@ -15,6 +17,8 @@ import { RegisterSchema, TRegister } from "../_schema/register";
 const RegisterForm = () => {
   const callbackUrl = useSearchParams().get("callbackUrl") ?? "/";
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | undefined>("");
 
   const {
     register,
@@ -29,14 +33,13 @@ const RegisterForm = () => {
     resolver: zodResolver(RegisterSchema),
   });
 
-  const onSubmit = async (data: TRegister) => {
-    console.log(data);
-    try {
+  const onSubmit = (data: TRegister) => {
+    startTransition(async () => {
       const response = await registerUser(data);
-      console.log("response", response);
-    } catch (error) {
-      console.log(error);
-    }
+      if (response?.error) {
+        setError(response.error);
+      }
+    });
   };
 
   return (
@@ -78,6 +81,8 @@ const RegisterForm = () => {
           error={errors.password}
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
         />
+        <FormError message={error} />
+
         <Button className=" w-full py-6" disabled={isLoading} type="submit">
           Register
           {isLoading && (

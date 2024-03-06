@@ -7,9 +7,10 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { ButtonWithGoogle } from "../../_components/button-with-google";
+import { FormError } from "../../_components/form-error";
 import InputForm from "../../_components/input-form";
 import { login } from "../_actions/login";
 import { LoginSchema, TLogin } from "../_schema/login";
@@ -18,6 +19,7 @@ const LoginForm = () => {
   const callbackUrl = useSearchParams().get("callbackUrl") ?? "/";
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | undefined>("");
 
   const {
     register,
@@ -31,15 +33,12 @@ const LoginForm = () => {
     resolver: zodResolver(LoginSchema),
   });
 
-  const onSubmit = async (data: TLogin) => {
-    startTransition(() => {
-      login(data).then((data) => {
-        if (data?.error) {
-          console.log(data.error);
-          return;
+  const onSubmit = (data: TLogin) => {
+    startTransition(async () => {
+      login(data).then((response) => {
+        if (response?.error) {
+          setError(response.error);
         }
-        // console.log("Login success");
-        router.push(DEFAULT_ROUTE_AFTER_LOGIN);
       });
     });
   };
@@ -76,16 +75,17 @@ const LoginForm = () => {
           error={errors.password}
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
         />
-        <Button className=" w-full py-6" disabled={isLoading} type="submit">
+        <FormError message={error} />
+        <Button className=" w-full py-6" disabled={isPending} type="submit">
           Sign in
-          {isLoading && (
+          {isPending && (
             <Loader className="ml-2 spin-in" size={24} color="white" />
           )}
         </Button>
         <div className="flex items-center before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
           <p className="text-center font-semibold mx-4 mb-0">OR</p>
         </div>
-        <ButtonWithGoogle callbackUrl={callbackUrl} />
+        <ButtonWithGoogle disabled={isPending} callbackUrl={callbackUrl} />
         <Link
           href="/signup"
           className={buttonVariants({
