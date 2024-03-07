@@ -1,5 +1,6 @@
 import CardLayananPaspor from "@/app/service/_components/card-layanan-paspor";
 import { dbAppointment } from "@/lib/db-appointment";
+import { bookedServiceStatusToRoute } from "@/routes";
 import Link from "next/link";
 import Card from "../service/_components/card";
 import ListLayananPaspor from "../service/_components/list-layanan-paspor";
@@ -27,15 +28,13 @@ const BookedServicePage = async () => {
                 </div>
                 {bookedService.map((bs) => {
                   const firstPart = bs.id.split("-")[0];
+                  const href = bookedServiceStatusToRoute(bs.id, bs.status);
                   return (
                     <div key={bs.id} className="flex flex-row">
                       <div className="w-1/3 p-2 border">{firstPart}</div>
 
                       <div className="w-1/3 p-2 border">
-                        <Link
-                          className="text-blue-500 underline"
-                          href={`/booked-service/${bs.id}`}
-                        >
+                        <Link className="text-blue-500 underline" href={href}>
                           <div>{bs.service.description}</div>
                         </Link>
                       </div>

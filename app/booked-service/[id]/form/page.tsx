@@ -4,6 +4,7 @@ import {
   FilledForm,
   Form,
   ServiceForm,
+  StepName,
 } from "@/prisma/db-appointment/generated/client";
 import { redirect } from "next/navigation";
 import BookedServiceIdContainer from "../_components/container";
@@ -45,10 +46,13 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
           serviceForms={sfs}
         />
 
-        <ButtonConfirm
-          filledForm={parsedFfs}
-          bookedServiceId={bookedService.id}
-        />
+        <div className="flex flex-row gap-4">
+          <ButtonConfirm
+            filledForm={parsedFfs}
+            bookedServiceId={bookedService.id}
+          />
+          <ButtonAppointment bookedService={bookedService} />
+        </div>
       </FormContainer>
     </BookedServiceIdContainer>
   );

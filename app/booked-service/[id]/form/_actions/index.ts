@@ -10,6 +10,7 @@ import {
 } from "@/prisma/db-appointment/generated/client";
 import { revalidatePath } from "next/cache";
 import { ZodIssue, z } from "zod";
+import { getFilledForm } from "./queries/booked-service";
 import { filledForms, serviceForms } from "./queries/filledForm";
 
 type TSpri = z.infer<typeof spriSchema>;
@@ -61,6 +62,18 @@ export const fillForm = async <TInput>(
       type: formId,
       payload: { data: undefined },
       errors: parsedData.error?.errors,
+    };
+  }
+
+  // check if the form is already confirmed
+  const filledForm = await getFilledForm(bookedServiceId, formId);
+  if (filledForm?.status == FormStatus.FINAL) {
+    return {
+      type: formId,
+      payload: {
+        data: filledForm,
+      },
+      errors: "Form has been confirmed",
     };
   }
 

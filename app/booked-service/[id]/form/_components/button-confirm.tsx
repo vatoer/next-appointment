@@ -33,15 +33,6 @@ const ButtonConfirm = ({
       >
         Konfirmasi formulir
       </Button>
-
-      <Button
-        className=""
-        variant={"default"}
-        onClick={() => {}}
-        disabled={!(obj.final === obj.totalForms)}
-      >
-        <Link href={`appointment`}>Buat Janji Temu</Link>
-      </Button>
     </div>
   );
 };
