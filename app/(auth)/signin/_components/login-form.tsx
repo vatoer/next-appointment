@@ -51,52 +51,53 @@ const LoginForm = () => {
           alt="Logo"
           width={72}
           height={72}
-          className="mx-auto rounded-full"
+          className="mx-auto rounded-full hidden md:block"
         />
-      </div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4"
-        noValidate
-      >
-        <InputForm
-          id="email"
-          label="Email"
-          type="text"
-          register={register}
-          error={errors.email}
-          pattern="/^[^\s@]+@[^\s@]+\.[^\s@]+$/"
-        />
-        <InputForm
-          id="password"
-          label="password"
-          type="password"
-          register={register}
-          error={errors.password}
-          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-        />
-        <FormError message={error} />
-        <Button className=" w-full py-6" disabled={isPending} type="submit">
-          Sign in
-          {isPending && (
-            <Loader className="ml-2 spin-in" size={24} color="white" />
-          )}
-        </Button>
-        <div className="flex items-center before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
-          <p className="text-center font-semibold mx-4 mb-0">OR</p>
-        </div>
-        <ButtonWithGoogle disabled={isPending} callbackUrl={callbackUrl} />
-        <Link
-          href="/signup"
-          className={buttonVariants({
-            variant: "link",
-            className: "gap-1.5 w-full text-blue-500",
-          })}
+
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4"
+          noValidate
         >
-          {`Don't have an account? Sign up`}
-          <ArrowRight className="h-4 w-4 ml-1" />
-        </Link>
-      </form>
+          <InputForm
+            id="email"
+            label="Email"
+            type="text"
+            register={register}
+            error={errors.email}
+            pattern="/^[^\s@]+@[^\s@]+\.[^\s@]+$/"
+          />
+          <InputForm
+            id="password"
+            label="password"
+            type="password"
+            register={register}
+            error={errors.password}
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+          />
+          <FormError message={error} />
+          <Button className=" w-full py-6" disabled={isPending} type="submit">
+            Sign in
+            {isPending && (
+              <Loader className="ml-2 spin-in" size={24} color="white" />
+            )}
+          </Button>
+          <div className="flex items-center before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
+            <p className="text-center font-semibold mx-4 mb-0">OR</p>
+          </div>
+          <ButtonWithGoogle disabled={isPending} callbackUrl={callbackUrl} />
+          <Link
+            href="/signup"
+            className={buttonVariants({
+              variant: "link",
+              className: "gap-1.5 w-full text-blue-500",
+            })}
+          >
+            {`Don't have an account? Sign up`}
+            <ArrowRight className="h-4 w-4 ml-1" />
+          </Link>
+        </form>
+      </div>
     </>
   );
 };

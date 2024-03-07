@@ -26,7 +26,7 @@ export const apiAuthPrefix: string = "/api/auth";
  * Default route for the application after a user logs in.
  * @type {string}
  */
-export const DEFAULT_ROUTE_AFTER_LOGIN: string = "/settings";
+export const DEFAULT_ROUTE_AFTER_LOGIN: string = "/booked-service";
 
 export const ROUTE_BOOKED_SERVICE = "/booked-service";
 
