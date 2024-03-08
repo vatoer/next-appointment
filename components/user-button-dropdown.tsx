@@ -13,6 +13,13 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
+function getInitials(name: string) {
+  return name
+    .split(" ")
+    .map((word) => word[0].toUpperCase())
+    .join("");
+}
+
 interface IUserButtonProps {
   user: {
     name?: string | null;
@@ -23,9 +30,11 @@ interface IUserButtonProps {
 const UserButtonDropdown = ({ user }: IUserButtonProps) => (
   <DropdownMenu>
     <DropdownMenuTrigger className="items-center flex outline-none">
-      <Avatar className="w-6 h-6">
+      <Avatar className="w-9 h-9">
         <AvatarImage src={user.image ?? "/images/avatar.svg"} sizes="9" />
-        <AvatarFallback className="w-6 h-6 text-sm">CN</AvatarFallback>
+        <AvatarFallback className="w-9 h-9 text-sm">
+          {getInitials(user.name ?? user.email ?? "Guest")}
+        </AvatarFallback>
       </Avatar>
     </DropdownMenuTrigger>
     <DropdownMenuContent>

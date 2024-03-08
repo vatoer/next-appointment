@@ -15,6 +15,10 @@ async function main() {
         id: "suket",
         name: "Surat Keterangan",
       },
+      {
+        id: "legalisasi",
+        name: "Legalisasi",
+      },
     ],
   });
 
@@ -73,6 +77,25 @@ async function main() {
         id: "barang-pindahan",
         description: "Surat Keterangan Barang Pindahan",
         name: "Surat Keterangan Barang Pindahan",
+      },
+      {
+        categoryId: "legalisasi",
+        id: "apostille-akte-kelahiran",
+        description:
+          "Legalisasi-Apostille Akte Kelahiran/Kutipan Akte Kelahiran/Surat Keterangan Lahir/Surat Kenal Lahir/Akte Pernikahan dari Indonesia",
+        name: "Legalisasi-Apostille Akte Kelahiran",
+      },
+      {
+        categoryId: "legalisasi",
+        id: "legalisasi-surat-kuasa",
+        description: "Legalisasi Surat Kuasa (WNI ke WNI)",
+        name: "Legalisasi Surat Kuasa",
+      },
+      {
+        categoryId: "legalisasi",
+        id: "legalisasi-dokumen-setempat",
+        description: "Legalisasi Dokumen Setempat",
+        name: "Legalisasi Dokumen Setempat",
       },
     ],
   });

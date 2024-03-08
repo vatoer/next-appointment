@@ -3,6 +3,7 @@ import { dbAppointment } from "@/lib/db-appointment";
 import { bookedServiceStatusToRoute } from "@/routes";
 import Link from "next/link";
 import Card from "../service/_components/card";
+import ListLayananCategory from "../service/_components/list-layanan-category";
 import ListLayananPaspor from "../service/_components/list-layanan-paspor";
 import BookedServiceTable from "./_components/booked-service-table";
 
@@ -18,7 +19,10 @@ const BookedServicePage = async () => {
       <Card title="Daftar Pengajuan Layanan">
         <div>
           {bookedService.length === 0 ? (
-            <div>Anda belum mempunyai riwayat pengajuan layanan</div>
+            <div>
+              <p>Anda belum mempunyai riwayat pengajuan layanan</p>
+              <p>Silakan pilih layanan yang tersedia di bawah ini</p>
+            </div>
           ) : (
             <div>
               <BookedServiceTable data={bookedService} />
@@ -27,21 +31,30 @@ const BookedServicePage = async () => {
         </div>
       </Card>
 
-      <div className="w-full md:grid grid-cols-2 gap-8">
+      <div className="w-full md:grid md:grid-cols-3 gap-8">
         <div>
           <Card title="Layanan Paspor">
             <div>
               <div className="flex flex-col">
-                <ListLayananPaspor />
+                <ListLayananCategory categoryId="paspor" />
               </div>
             </div>
           </Card>
         </div>
         <div>
-          <Card title="Layanan Kekonsuleran">
+          <Card title="Layanan Dokumen">
             <div>
               <div className="flex flex-col">
-                <ListLayananPaspor />
+                <ListLayananCategory categoryId="suket" />
+              </div>
+            </div>
+          </Card>
+        </div>
+        <div>
+          <Card title="Layanan Legalisasi">
+            <div>
+              <div className="flex flex-col">
+                <ListLayananCategory categoryId="legalisasi" />
               </div>
             </div>
           </Card>

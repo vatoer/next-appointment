@@ -3,11 +3,16 @@ import { cn } from "@/lib/utils";
 import { getServiceByCategory } from "../_data/service";
 import CardLayanan from "./card-layanan";
 
-export const CardLayananPaspor = async () => {
-  const layananPaspor = await getServiceByCategory("paspor");
+interface ICardLayananCategorynProps {
+  category: string;
+}
+export const CardLayananCategory = async ({
+  category,
+}: ICardLayananCategorynProps) => {
+  const layananPaspor = await getServiceByCategory(category);
 
   return (
-    <div className={cn("w-full grid md:grid-cols-3 gap-2")}>
+    <div className={cn("w-full grid md:grid-cols-3 gap-8")}>
       {layananPaspor.map((service) => (
         <CardLayanan
           key={service.id}
@@ -19,4 +24,4 @@ export const CardLayananPaspor = async () => {
   );
 };
 
-export default CardLayananPaspor;
+export default CardLayananCategory;

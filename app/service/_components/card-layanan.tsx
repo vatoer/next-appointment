@@ -1,16 +1,16 @@
-"use client";
+import { auth } from "@/app/(auth)/auth";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import {
   Service,
   ServiceRequirement,
 } from "@/prisma/db-appointment/generated/client";
-import { useRouter } from "next/navigation";
-import { bookService } from "../_actions";
+import Link from "next/link";
 import Card from "./card";
 import CardButton from "./card-button";
 import CardContent from "./card-content";
@@ -21,17 +21,10 @@ interface ICardLayananProps {
   syarat: ServiceRequirement[];
 }
 
-export const CardLayanan = ({ layanan, syarat }: ICardLayananProps) => {
-  const router = useRouter();
-  const handleApply = async () => {
-    console.log("Apply");
-    const bs = await bookService(layanan.id);
-    if (bs.errors) {
-      console.log("Error");
-    } else {
-      router.push(`/booked-service/${bs.payload.data?.id}/form`);
-    }
-  };
+export const CardLayanan = async ({ layanan, syarat }: ICardLayananProps) => {
+  const session = await auth();
+  const user = session?.user;
+
   return (
     <Card title={layanan.name}>
       <CardContent>
@@ -43,7 +36,12 @@ export const CardLayanan = ({ layanan, syarat }: ICardLayananProps) => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <CardButton title="Apply" onClick={handleApply} />
+        <div className="flex flex-row gap-2">
+          {user && <CardButton serviceId={layanan.id} title="Apply" />}
+          <Button className="my-5" variant={"outline"}>
+            <Link href={`/service/${layanan.id}`}>Read More</Link>
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

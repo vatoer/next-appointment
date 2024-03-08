@@ -94,7 +94,7 @@ const RegisterForm = () => {
         </div>
         <ButtonWithGoogle callbackUrl={callbackUrl} />
         <Link
-          href="/sigin"
+          href="/signin"
           className={buttonVariants({
             variant: "link",
             className: "gap-1.5 w-full text-blue-500",

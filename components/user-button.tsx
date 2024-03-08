@@ -46,7 +46,7 @@ UserButton.Login = function UserButtonLogin() {
 UserButton.Skeleton = function UserButtonSkeleton() {
   return (
     <div className="flex items-center gap-x-2">
-      <Skeleton className="w-9 h-9 rounded-full" />
+      <Skeleton className="w-16 h-16 rounded-full" />
     </div>
   );
 };
