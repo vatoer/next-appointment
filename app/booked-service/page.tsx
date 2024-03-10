@@ -1,10 +1,6 @@
-import CardLayananPaspor from "@/app/service/_components/card-layanan-paspor";
 import { dbAppointment } from "@/lib/db-appointment";
-import { bookedServiceStatusToRoute } from "@/routes";
-import Link from "next/link";
 import Card from "../service/_components/card";
 import ListLayananCategory from "../service/_components/list-layanan-category";
-import ListLayananPaspor from "../service/_components/list-layanan-paspor";
 import BookedServiceTable from "./_components/booked-service-table";
 
 const BookedServicePage = async () => {

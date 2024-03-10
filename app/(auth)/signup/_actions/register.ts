@@ -1,9 +1,7 @@
 "use server";
-import * as z from "zod";
-
-import { Prisma } from "@/prisma/db-auth/generated/client";
 import { DEFAULT_ROUTE_AFTER_LOGIN } from "@/routes";
 import { AuthError } from "next-auth";
+import * as z from "zod";
 import { userCreate } from "../../_data/user";
 import { signIn } from "../../auth";
 import { RegisterSchema } from "../_schema/register";

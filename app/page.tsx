@@ -1,15 +1,12 @@
 import { Navbar } from "@/components/navigations/navbar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import React from "react";
 import { auth } from "./(auth)/auth";
 import LoginForm from "./(auth)/signin/_components/login-form";
 import RegisterForm from "./(auth)/signup/_components/register-form";
 import Card from "./service/_components/card";
 import CardLayananCategory from "./service/_components/card-layanan-category";
-import CardLayananPaspor from "./service/_components/card-layanan-paspor";
 import ListLayananCategory from "./service/_components/list-layanan-category";
-import ListLayananPaspor from "./service/_components/list-layanan-paspor";
 
 const LandingPage = async () => {
   const session = await auth();
@@ -46,6 +43,9 @@ const LandingPage = async () => {
               <div className="flex gap-4">
                 <Button className="bg-green-500 hover:bg-green-700 text-white font-bold">
                   Browse All Service
+                </Button>
+                <Button className="md:hidden bg-blue-500 hover:bg-blue-700 text-white font-bold">
+                  Sign up
                 </Button>
               </div>
             </div>

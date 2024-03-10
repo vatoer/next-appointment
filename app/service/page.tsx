@@ -1,8 +1,5 @@
 import { dbAppointment } from "@/lib/db-appointment";
-import Card from "./_components/card";
-import CardContent from "./_components/card-content";
 import CardLayanan from "./_components/card-layanan";
-import CardWnGanda from "./_components/card-wn-ganda";
 import SyaratUmum from "./_components/syarat-umum";
 
 const ServicePage = async () => {
