@@ -1,5 +1,6 @@
 import { auth } from "@/app/(auth)/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,13 +34,12 @@ export const UserButton = async () => {
 
 UserButton.Login = function UserButtonLogin() {
   return (
-    <Link
-      href="/signin"
-      className="flex items-center gap-x-2 rounded-md bg-slate-500 text-white"
-    >
-      <User size={16} />
-      <span>Login</span>
-    </Link>
+    <Button variant={"ghost"}>
+      <Link href="/signin" className="flex items-center gap-x-2 rounded-md">
+        <User size={16} />
+        <span>Sign in</span>
+      </Link>
+    </Button>
   );
 };
 

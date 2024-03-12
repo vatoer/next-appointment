@@ -1,4 +1,5 @@
 import FormContainer from "@/components/form-container";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { dbAppointment } from "@/lib/db-appointment";
 import {
   FilledForm,
@@ -6,7 +7,19 @@ import {
   ServiceForm,
   StepName,
 } from "@/prisma/db-appointment/generated/client";
+import {
+  HandHelpingIcon,
+  InfoIcon,
+  MessageCircleQuestion,
+  RocketIcon,
+} from "lucide-react";
 import { redirect } from "next/navigation";
+import {
+  FaHandPointLeft,
+  FaInfo,
+  FaNfcDirectional,
+  FaRegHandPointRight,
+} from "react-icons/fa6";
 import BookedServiceIdContainer from "../_components/container";
 import { Steps } from "../_components/step";
 import { filledForms, serviceForms } from "./_actions/queries/filledForm";
@@ -39,12 +52,20 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
   return (
     <BookedServiceIdContainer bookedServiceId={bookedService.id}>
       <FormContainer>
-        <h1>Silakan mengisi formulir berikut</h1>
+        <Alert className="mb-4">
+          <FaRegHandPointRight className="h-4 w-4" />
+          <AlertTitle>Petunjuk!</AlertTitle>
+          <AlertDescription>
+            <h1>Silakan Isi Formulir Berikut</h1>
+          </AlertDescription>
+        </Alert>
 
-        <ListServiceForm
-          bookedServiceId={bookedService.id}
-          serviceForms={sfs}
-        />
+        <div className="mb-4">
+          <ListServiceForm
+            bookedServiceId={bookedService.id}
+            serviceForms={sfs}
+          />
+        </div>
 
         <div className="flex flex-row gap-4">
           <ButtonConfirm

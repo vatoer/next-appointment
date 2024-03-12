@@ -14,16 +14,16 @@ export const Step = ({ active, label }: IStepProps) => {
       {/* <div
         className={cn(
           `w-0 h-0 
-          border-t-[40px] border-t-slate-400
+          border-t-[40px] border-t-pickled-bluewood-200
           border-l-[50px] border-l-transparent
-          border-b-[40px] border-b-slate-400`,
-          active && "border-t-slate-500 border-b-slate-500"
+          border-b-[40px] border-b-pickled-bluewood-200`,
+          active && "border-t-pickled-bluewood-500 border-b-pickled-bluewood-500"
         )}
       /> */}
       <div
         className={cn(
           " flex items-center pl-2 relative",
-          active && "bg-slate-500"
+          active && "bg-pickled-bluewood-500"
         )}
       >
         <span className="font-semibold text-wrap text-slate-800 ">{label}</span>
@@ -32,9 +32,9 @@ export const Step = ({ active, label }: IStepProps) => {
         className={cn(
           `w-0 h-0 
           border-t-[32px] border-t-transparent 
-          border-l-[15px] border-l-slate-400
+          border-l-[15px] border-l-pickled-bluewood-200
           border-b-[32px] border-b-transparent`,
-          active && "border-l-slate-500"
+          active && "border-l-pickled-bluewood-500"
         )}
       />
     </div>
@@ -62,7 +62,7 @@ export const Steps = async ({
   const active = [true, false, false, false, false, false, false];
   //const randomActives = steps.map(() => random(0, 1) === 1);
   return (
-    <div className="hidden md:w-full md:max-w-full md:flex gap-0 flex-wrap flex-row items-center bg-slate-400">
+    <div className="hidden md:w-full md:max-w-full md:flex gap-0 flex-wrap flex-row items-center bg-pickled-bluewood-200">
       {bookedService?.service.steps.map((step, i) => (
         <div key={i} className={`w-1/${bookedService?.service.steps.length}`}>
           <Step

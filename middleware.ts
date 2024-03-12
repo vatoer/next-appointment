@@ -17,9 +17,17 @@ export default auth((req) => {
   const isLoggenIn = !!req.auth;
 
   console.log("[MIDDLEWARE]", nextUrl.pathname);
+  console.log("[MIDDLEWARE PATHNAME]", nextUrl.pathname.split("/"));
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+
+  // check if the route is a public route or sub route
+  const isPublicRoute =
+    publicRoutes.includes(nextUrl.pathname) ||
+    publicRoutes.some(
+      (route) => nextUrl.pathname.startsWith(route) && route !== "/"
+    );
+
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   // if the route is an Auth route, we don't need to redirect
