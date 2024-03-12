@@ -1,31 +1,12 @@
 import FormContainer from "@/components/form-container";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { dbAppointment } from "@/lib/db-appointment";
-import {
-  FilledForm,
-  Form,
-  ServiceForm,
-  StepName,
-} from "@/prisma/db-appointment/generated/client";
-import {
-  HandHelpingIcon,
-  InfoIcon,
-  MessageCircleQuestion,
-  RocketIcon,
-} from "lucide-react";
 import { redirect } from "next/navigation";
-import {
-  FaHandPointLeft,
-  FaInfo,
-  FaNfcDirectional,
-  FaRegHandPointRight,
-} from "react-icons/fa6";
+import { FaRegHandPointRight } from "react-icons/fa6";
 import BookedServiceIdContainer from "../_components/container";
-import { Steps } from "../_components/step";
 import { filledForms, serviceForms } from "./_actions/queries/filledForm";
 import ButtonAppointment from "./_components/button-appointment";
 import ButtonConfirm from "./_components/button-confirm";
-import ListFormsForService from "./_components/list-forms-for-service";
 import ListServiceForm from "./_components/list-service-form";
 
 const FormIdPage = async ({ params }: { params: { id: string } }) => {

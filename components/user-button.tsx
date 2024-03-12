@@ -18,6 +18,7 @@ import UserButtonDropdown from "./user-button-dropdown";
 
 export const UserButton = async () => {
   const session = await auth();
+  //console.log("[USER BUTTON ] Session", session);
 
   // if (!session) {
   //   return <UserButton.Skeleton />;

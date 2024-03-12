@@ -1,4 +1,5 @@
 "use server";
+import { auth } from "@/app/(auth)/auth";
 import { dbAppointment } from "@/lib/db-appointment";
 import { Prisma, StepName } from "@/prisma/db-appointment/generated/client";
 
@@ -8,11 +9,22 @@ export interface IBookServiceParams {
 
 export const bookService = async (serviceId: string) => {
   console.log("Book Service");
+  const session = await auth();
+  const user = session?.user;
+  console.log("User", user);
+
+  if (!user?.id) {
+    return {
+      type: "CREATE_BOOKING",
+      payload: {},
+      errors: "UNAUTHORIZED",
+    };
+  }
   try {
     const bookedService = await dbAppointment.bookedService.create({
       data: {
         serviceId,
-        createdBy: "tes",
+        createdBy: user.id,
         status: StepName.FORM_FILLING,
       },
     });

@@ -1,9 +1,9 @@
 "use client";
+import { bookService } from "@/app/booked-service/_actions";
 import { Button } from "@/components/ui/button";
 import { bookedServiceStatusToRoute } from "@/routes";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { bookService } from "../_actions";
 
 interface ICardButtonProps {
   serviceId: string;

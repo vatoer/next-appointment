@@ -1,15 +1,17 @@
 import { Separator } from "@/components/ui/separator";
 import { dbAppointment } from "@/lib/db-appointment";
+import { auth } from "../(auth)/auth";
 import Card from "../(public)/service/_components/card";
 import ListLayananCategory from "../(public)/service/_components/list-layanan-category";
 import BookedServiceTable from "./_components/booked-service-table";
+import { getBookedServiceByUserId } from "./_data";
 
 const BookedServicePage = async () => {
-  const bookedService = await dbAppointment.bookedService.findMany({
-    include: {
-      service: true,
-    },
-  });
+  const session = await auth();
+  const userId = session?.user?.id!; // pasti ada karena sudah di auth
+  //console.log("userId", session?.user?.id);
+
+  const bookedService = await getBookedServiceByUserId(userId);
 
   return (
     <div className="p-2 flex flex-col justify-between gap-8 ">

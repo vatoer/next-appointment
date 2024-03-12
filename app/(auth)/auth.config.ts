@@ -29,7 +29,11 @@ export default {
             return null;
           }
 
-          return user;
+          //return user;
+          return {
+            ...user,
+            perwakilan: "perwakilan", // bagaimana cara mendapatkan perwakilan dari user?
+          };
         }
 
         return null;
@@ -48,7 +52,7 @@ export default {
           throw new Error("Google account missing email");
         }
         const img = (image as string) ?? "no-image.png";
-        const user = await dbAppointment.user.upsert({
+        const gUser = await dbAppointment.user.upsert({
           where: {
             email,
           },
@@ -62,10 +66,28 @@ export default {
             name: profile.name,
           },
         });
-        console.log("user", user);
+        user.id = gUser.id;
+        //user.perwakilan = "perwakilan google"; // bagaimana cara set mendapatkan perwakilan klo login dari google?
+        //console.log("user", user);
         return true;
       }
       return true;
+    },
+    async session({ session, token }) {
+      //console.log("session", session);
+      //console.log("token", token);
+      session.user.id = token.sub as string;
+      session.user.perwakilan = token.perwakilan as string;
+      return session;
+    },
+    async jwt({ token, user, account, profile }) {
+      //console.log("[jwt] token", token);
+      //console.log("[jwt] account", account);
+      if (user) {
+        //token.id = user.id;
+        token.perwakilan = user.perwakilan;
+      }
+      return token;
     },
   },
 } satisfies NextAuthConfig;
