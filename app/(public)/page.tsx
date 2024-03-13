@@ -32,7 +32,7 @@ const LandingPage = async () => {
             </p>
 
             <div className="flex gap-4">
-              <Button className="bg-green-500 hover:bg-green-700 text-white font-bold">
+              <Button>
                 <Link href="/service">Browse All Service</Link>
               </Button>
               <Button className="md:hidden bg-blue-500 hover:bg-blue-700 text-white font-bold">

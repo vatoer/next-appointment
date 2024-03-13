@@ -37,7 +37,11 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
           <FaRegHandPointRight className="h-4 w-4" />
           <AlertTitle>Petunjuk!</AlertTitle>
           <AlertDescription>
-            <h1>Silakan Isi Formulir Berikut</h1>
+            <ol className="list-decimal">
+              <li>Isi semua formulir berikut</li>
+              <li>Konfirmasi formulir yang telah diisi</li>
+              <li>Buat janji temu</li>
+            </ol>
           </AlertDescription>
         </Alert>
 

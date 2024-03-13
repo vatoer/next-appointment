@@ -32,11 +32,11 @@ const BookedServicePage = async () => {
         </Card>
       </div>
 
-      <div className="bg-pickled-bluewood-50  flex flex-col  items-center justify-center rounded-lg p-0 pb-28">
-        <h1 className="h-[48px] text-lg text-center text-primary font-semibold">
+      <div className="bg-blue-900/70  flex flex-col  items-center justify-center rounded-lg p-2 pb-28">
+        <h1 className="bg-blue-900/80 p-2 rounded-lg w-full h-[48px] text-lg text-center text-background font-semibold">
           Daftar Layanan Tersedia
         </h1>
-        <div className="w-full md:grid md:grid-cols-3 gap-8 flexf flex-col">
+        <div className="w-full md:grid md:grid-cols-3 gap-8 flexf flex-col p-4">
           <div className="my-1">
             <Card title="Layanan Paspor">
               <div>

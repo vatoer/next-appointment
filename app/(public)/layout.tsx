@@ -16,7 +16,7 @@ const FormLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         </div>
       </div>
       <main className="pt-[48px] flex flex-col items-center w-full h-full ">
-        <div className="w-full pb-12 shadow-lg bg-pickled-bluewood-50 h-full rounded-lg">
+        <div className="w-full pb-12 shadow-lg bg-blue-50 h-full rounded-lg">
           {children}
         </div>
       </main>

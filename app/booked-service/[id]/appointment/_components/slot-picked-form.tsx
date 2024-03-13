@@ -1,5 +1,6 @@
 import CheckboxPersetujuan from "@/components/checkbox-persetujuan";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { register } from "module";
 import { useEffect } from "react";
@@ -125,7 +126,13 @@ export const SlotPickedForm = ({
             Pick a slot to schedule an appointment
           </span>
           <div>
-            <Button disabled={slotPicked ? false : true}>
+            <Button
+              className={cn(
+                "bg-muted-foreground",
+                slotPicked ? "" : "cursor-not-allowed"
+              )}
+              disabled={slotPicked ? false : true}
+            >
               Schedule my appointment
             </Button>
           </div>
