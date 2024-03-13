@@ -59,7 +59,7 @@ export const TopNavigationMenu = ({ categories }: ITopNavigationMenuProps) => {
         ))}
 
         <NavigationMenuItem>
-          <Link href="/booked-service" legacyBehavior passHref>
+          <Link href="/booked-service" legacyBehavior passHref replace>
             <NavigationMenuLink className="bg-transparent hover:bg-transparent focus:bg-transparent hover:underline">
               Booked
             </NavigationMenuLink>

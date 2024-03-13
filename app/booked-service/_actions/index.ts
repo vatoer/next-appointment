@@ -2,6 +2,7 @@
 import { auth } from "@/app/(auth)/auth";
 import { dbAppointment } from "@/lib/db-appointment";
 import { Prisma, StepName } from "@/prisma/db-appointment/generated/client";
+import { revalidatePath } from "next/cache";
 
 export interface IBookServiceParams {
   serviceId: string;
@@ -40,6 +41,8 @@ export const bookService = async (serviceId: string) => {
         formId: true,
       },
     });
+
+    revalidatePath("/booked-service"); // fixme: revalidate path
 
     return {
       type: "CREATE_BOOKING",
