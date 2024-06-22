@@ -1,6 +1,6 @@
 import { FormStatus } from "@/prisma/db-appointment/generated/client";
 import Link from "next/link";
-import { IServiceForm } from "../_actions/queries/filledForm";
+import { IServiceForm } from "../../../../../data/filledForm";
 
 interface IListServiceFormProps {
   bookedServiceId: string;

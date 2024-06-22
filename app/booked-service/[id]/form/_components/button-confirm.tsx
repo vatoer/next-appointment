@@ -1,8 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { IFilledForm } from "../../../../../data/filledForm";
 import { confirmFilledForms } from "../_actions";
-import { IFilledForm } from "../_actions/queries/filledForm";
 
 interface IButtonConfirmProps {
   bookedServiceId: string;

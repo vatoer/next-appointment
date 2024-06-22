@@ -7,11 +7,11 @@ import { dbAppointment } from "@/lib/db-appointment";
 import { dummyWnGanda } from "@/lib/zod/dummy/wn-ganda";
 import { FormStatus } from "@/prisma/db-appointment/generated/client";
 import { redirect } from "next/navigation";
-import BookedServiceIdContainer from "../../_components/container";
 import {
   getBookedService,
   getServiceForm,
-} from "../_actions/queries/booked-service";
+} from "../../../../../data/booked-service";
+import BookedServiceIdContainer from "../../_components/container";
 import FormUpsertWnGanda from "./_components/form-upsert-wn-ganda";
 
 type TFormWnGanda = z.infer<typeof wnGandaSchema>;

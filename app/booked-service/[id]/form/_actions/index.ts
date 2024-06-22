@@ -10,8 +10,8 @@ import {
 } from "@/prisma/db-appointment/generated/client";
 import { revalidatePath } from "next/cache";
 import { ZodIssue, z } from "zod";
-import { getFilledForm } from "./queries/booked-service";
-import { filledForms, serviceForms } from "./queries/filledForm";
+import { getFilledForm } from "../../../../../data/booked-service";
+import { filledForms, serviceForms } from "../../../../../data/filledForm";
 
 type TSpri = z.infer<typeof spriSchema>;
 type TWnGanda = z.infer<typeof wnGandaSchema>;

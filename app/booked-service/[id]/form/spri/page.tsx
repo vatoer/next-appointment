@@ -6,11 +6,11 @@ import { dummySpri } from "@/lib/zod/dummy/spri";
 import { spriSchema } from "@/lib/zod/spri";
 import { FormStatus } from "@/prisma/db-appointment/generated/client";
 import { z } from "zod";
-import BookedServiceIdContainer from "../../_components/container";
 import {
   getBookedService,
   getServiceForm,
-} from "../_actions/queries/booked-service";
+} from "../../../../../data/booked-service";
+import BookedServiceIdContainer from "../../_components/container";
 import FormUpsertSpri from "./_components/form-upsert-spri";
 
 type TFormData = z.infer<typeof spriSchema>;

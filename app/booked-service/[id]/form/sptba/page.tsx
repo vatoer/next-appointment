@@ -6,11 +6,11 @@ import { dummySptba } from "@/lib/zod/dummy/sptba";
 import { sptbaSchema } from "@/lib/zod/sptba";
 import { FormStatus } from "@/prisma/db-appointment/generated/client";
 import { redirect } from "next/navigation";
-import BookedServiceIdContainer from "../../_components/container";
 import {
   getBookedService,
   getServiceForm,
-} from "../_actions/queries/booked-service";
+} from "../../../../../data/booked-service";
+import BookedServiceIdContainer from "../../_components/container";
 import FormUpsertSptba from "./_components/form-upsert-sptba";
 
 type TFormSptba = z.infer<typeof sptbaSchema>;
