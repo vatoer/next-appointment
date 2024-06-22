@@ -1,6 +1,6 @@
 import { dbAppointment } from "@/lib/db-appointment";
 import { cn } from "@/lib/utils";
-import { getServiceByCategory } from "../_data/service";
+import { getServiceByCategory } from "../../../../data/service";
 import CardLayanan from "./card-layanan";
 
 export const CardLayananPaspor = async () => {

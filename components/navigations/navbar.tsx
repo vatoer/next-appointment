@@ -1,19 +1,5 @@
 "use server";
-import {
-  getCategories,
-  getServiceByCategory,
-  getServices,
-} from "@/app/(public)/service/_data/service";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import Link from "next/link";
+import { getCategories } from "@/data/service";
 import { UserButton } from "../user-button";
 import { TopNavigationMenu } from "./navigation-menu";
 

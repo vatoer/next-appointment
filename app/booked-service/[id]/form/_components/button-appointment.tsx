@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
-import {
-  BookedService,
-  StepName,
-} from "@/prisma/db-appointment/generated/client";
 import { bookedServiceStatusToRoute } from "@/routes";
+import { BookedService, StepName } from "@prisma-appointmendDb/client";
 import Link from "next/link";
 
 interface IButtonAppointmentProps {

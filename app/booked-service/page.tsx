@@ -1,10 +1,8 @@
-import { Separator } from "@/components/ui/separator";
-import { dbAppointment } from "@/lib/db-appointment";
+import { getBookedServiceByUserId } from "@/data/booked-service";
 import { auth } from "../(auth)/auth";
 import Card from "../(public)/service/_components/card";
 import ListLayananCategory from "../(public)/service/_components/list-layanan-category";
 import BookedServiceTable from "./_components/booked-service-table";
-import { getBookedServiceByUserId } from "./_data";
 
 const BookedServicePage = async () => {
   const session = await auth();

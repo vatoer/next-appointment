@@ -1,9 +1,9 @@
 import FormContainer from "@/components/form-container";
+import { getBookedServiceForms } from "@/data/filledForm";
 import { dbAppointment } from "@/lib/db-appointment";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { redirect } from "next/navigation";
-import { serviceForms } from "../../../../data/filledForm";
 import BookedServiceIdContainer from "../_components/container";
 import ListServiceForm from "../form/_components/list-service-form";
 
@@ -18,7 +18,7 @@ const VisitPage = async ({ params }: { params: { id: string } }) => {
     redirect("/service"); //todo make not hardcoded
   }
 
-  const sfs = await serviceForms(bookedService.id);
+  const sfs = await getBookedServiceForms(bookedService.id);
 
   return (
     <BookedServiceIdContainer bookedServiceId={bookedService.id}>

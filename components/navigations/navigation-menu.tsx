@@ -2,7 +2,6 @@
 import Link from "next/link";
 import * as React from "react";
 
-import { getServiceByCategory } from "@/app/(public)/service/_data/service";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,11 +9,9 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { Category, Service } from "@/prisma/db-appointment/generated/client";
-import { Home } from "lucide-react";
+import { Category, Service } from "@prisma-appointmendDb/client";
 
 interface ITopNavigationMenuProps {
   categories: Array<

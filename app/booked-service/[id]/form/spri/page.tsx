@@ -2,14 +2,11 @@ import { dbAppointment } from "@/lib/db-appointment";
 import { redirect } from "next/navigation";
 
 import FormContainer from "@/components/form-container";
+import { getBookedService, getServiceForm } from "@/data/booked-service";
 import { dummySpri } from "@/lib/zod/dummy/spri";
 import { spriSchema } from "@/lib/zod/spri";
-import { FormStatus } from "@/prisma/db-appointment/generated/client";
+import { FormStatus } from "@prisma-appointmendDb/client";
 import { z } from "zod";
-import {
-  getBookedService,
-  getServiceForm,
-} from "../../../../../data/booked-service";
 import BookedServiceIdContainer from "../../_components/container";
 import FormUpsertSpri from "./_components/form-upsert-spri";
 
@@ -39,7 +36,7 @@ const SpriPage = async ({ params }: { params: { id: string } }) => {
   //jika sudah ada form yang diisi sebelumnya maka tampilkan form yang sudah diisi
   if (bookedService.filledForms.length > 0) {
     //jika sudah final maka redirect ke halaman download
-    if (bookedService.filledForms[0].status === FormStatus.FINAL) {
+    if (bookedService.filledForms[0].status === FormStatus.CONFIRMED) {
       redirect(`/booked-service/${bookedService.id}/form/spri/download`);
     }
 

@@ -1,17 +1,13 @@
 "use server";
+import { getFilledForm } from "@/data/booked-service";
+import { calculateTotalForms } from "@/data/filledForm";
 import { dbAppointment } from "@/lib/db-appointment";
 import { spriSchema } from "@/lib/zod/spri";
 import { sptbaSchema } from "@/lib/zod/sptba";
 import { wnGandaSchema } from "@/lib/zod/wn-ganda";
-import {
-  FilledForm,
-  FormStatus,
-  StepName,
-} from "@/prisma/db-appointment/generated/client";
+import { FilledForm, FormStatus, StepName } from "@prisma-appointmendDb/client";
 import { revalidatePath } from "next/cache";
 import { ZodIssue, z } from "zod";
-import { getFilledForm } from "../../../../../data/booked-service";
-import { filledForms, serviceForms } from "../../../../../data/filledForm";
 
 type TSpri = z.infer<typeof spriSchema>;
 type TWnGanda = z.infer<typeof wnGandaSchema>;
@@ -67,7 +63,7 @@ export const fillForm = async <TInput>(
 
   // check if the form is already confirmed
   const filledForm = await getFilledForm(bookedServiceId, formId);
-  if (filledForm?.status == FormStatus.FINAL) {
+  if (filledForm?.status == FormStatus.CONFIRMED) {
     return {
       type: formId,
       payload: {
@@ -104,7 +100,7 @@ export const fillForm = async <TInput>(
      */
 
     if (filledForm) {
-      const { filled, totalForms } = await filledForms(bookedServiceId);
+      const { filled, totalForms } = await calculateTotalForms(bookedServiceId);
       if (filled.toString() == totalForms.toString()) {
         const updatedBookedService = await dbAppointment.bookedService.update({
           where: {
@@ -150,7 +146,7 @@ export const confirmFilledForms = async (bookedServiceId: string) => {
           bookedServiceId: bookedServiceId,
         },
         data: {
-          status: FormStatus.FINAL,
+          status: FormStatus.CONFIRMED,
         },
       }),
       dbAppointment.bookedService.update({

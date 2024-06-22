@@ -1,4 +1,4 @@
-import { StepName } from "./prisma/db-appointment/generated/client";
+import { StepName } from "@prisma-appointmendDb/client";
 
 /**
  * An array of public routes.

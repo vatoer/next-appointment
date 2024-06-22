@@ -1,4 +1,4 @@
-import { ServiceRequirement } from "@/prisma/db-appointment/generated/client";
+import { ServiceRequirement } from "@prisma-appointmendDb/client";
 
 // interface ICardListSyaratProps {
 //   syarat: string[];

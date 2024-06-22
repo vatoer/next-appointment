@@ -1,5 +1,5 @@
 import { dbAppointment } from "@/lib/db-appointment";
-import { FilledForm, Form } from "@/prisma/db-appointment/generated/client";
+import { FilledForm, Form } from "@prisma-appointmendDb/client";
 import Link from "next/link";
 
 type TFilledForm = FilledForm & { form: Form };

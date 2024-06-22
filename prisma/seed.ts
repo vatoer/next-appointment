@@ -1,8 +1,8 @@
 import { dbAppointment } from "@/lib/db-appointment";
 import { JenisKelamin, StatusSipil } from "@/lib/zod/spri";
 import { wnGandaSchema } from "@/lib/zod/wn-ganda";
+import { StepName } from "@prisma-appointmendDb/client";
 import { z } from "zod";
-import { StepName } from "./db-appointment/generated/client";
 
 async function main() {
   const category = await dbAppointment.category.createMany({

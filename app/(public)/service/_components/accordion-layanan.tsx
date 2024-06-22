@@ -4,10 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Service,
-  ServiceRequirement,
-} from "@/prisma/db-appointment/generated/client";
+import { Service, ServiceRequirement } from "@prisma-appointmendDb/client";
 import CardButton from "./card-button";
 import ListSyarat from "./list-syarat";
 

@@ -1,10 +1,10 @@
-import { FormStatus } from "@/prisma/db-appointment/generated/client";
+import { BookedServiceForms } from "@/data/filledForm";
+import { FormStatus } from "@prisma-appointmendDb/client";
 import Link from "next/link";
-import { IServiceForm } from "../../../../../data/filledForm";
 
 interface IListServiceFormProps {
   bookedServiceId: string;
-  serviceForms: IServiceForm[];
+  serviceForms: BookedServiceForms[];
 }
 export const ListServiceForm = ({
   bookedServiceId,
@@ -21,7 +21,7 @@ export const ListServiceForm = ({
               href={`form/${form.formId}`}
             >
               {!form.status && "Fill Form"}
-              {form.status && form.status !== FormStatus.FINAL
+              {form.status && form.status !== FormStatus.CONFIRMED
                 ? "Perbarui formulir"
                 : ""}
             </Link>

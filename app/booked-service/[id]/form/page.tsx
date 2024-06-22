@@ -1,9 +1,9 @@
 import FormContainer from "@/components/form-container";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { calculateTotalForms, getBookedServiceForms } from "@/data/filledForm";
 import { dbAppointment } from "@/lib/db-appointment";
 import { redirect } from "next/navigation";
 import { FaRegHandPointRight } from "react-icons/fa6";
-import { filledForms, serviceForms } from "../../../../data/filledForm";
 import BookedServiceIdContainer from "../_components/container";
 import ButtonAppointment from "./_components/button-appointment";
 import ButtonConfirm from "./_components/button-confirm";
@@ -22,10 +22,10 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
 
   // find  service forms
 
-  const sfs = await serviceForms(bookedService.id);
+  const sfs = await getBookedServiceForms(bookedService.id);
   //console.log("serviceForms", sfs);
 
-  const ffs = await filledForms(bookedService.id);
+  const ffs = await calculateTotalForms(bookedService.id);
 
   //console.log("filledForms", ffs);
   const parsedFfs = JSON.stringify(ffs);

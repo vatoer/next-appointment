@@ -3,14 +3,11 @@ import { wnGandaSchema } from "@/lib/zod/wn-ganda";
 import { z } from "zod";
 import WnGandaForm from "./_components/form-wn-ganda";
 
+import { getBookedService, getServiceForm } from "@/data/booked-service";
 import { dbAppointment } from "@/lib/db-appointment";
 import { dummyWnGanda } from "@/lib/zod/dummy/wn-ganda";
-import { FormStatus } from "@/prisma/db-appointment/generated/client";
+import { FormStatus } from "@prisma-appointmendDb/client";
 import { redirect } from "next/navigation";
-import {
-  getBookedService,
-  getServiceForm,
-} from "../../../../../data/booked-service";
 import BookedServiceIdContainer from "../../_components/container";
 import FormUpsertWnGanda from "./_components/form-upsert-wn-ganda";
 
@@ -36,7 +33,7 @@ const WnGandaPage = async ({ params }: { params: { id: string } }) => {
   //jika sudah ada form yang diisi sebelumnya maka tampilkan form yang sudah diisi
   if (bookedService.filledForms.length > 0) {
     //jika sudah final maka redirect ke halaman download
-    if (bookedService.filledForms[0].status === FormStatus.FINAL) {
+    if (bookedService.filledForms[0].status === FormStatus.CONFIRMED) {
       redirect(`/booked-service/${bookedService.id}/form/wn-ganda/download`);
     }
     const formDataJson = await wnGandaSchema.spa(

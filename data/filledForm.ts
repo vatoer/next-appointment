@@ -1,7 +1,7 @@
 import { dbAppointment } from "@/lib/db-appointment";
-import { FormStatus, Prisma } from "@/prisma/db-appointment/generated/client";
+import { FormStatus, Prisma } from "@prisma-appointmendDb/client";
 
-export interface IServiceForm {
+export interface BookedServiceForms {
   id: number;
   formId: number;
   name: string;
@@ -29,27 +29,27 @@ const queryCteX = (bookedServiceId: string) => {
   `;
 };
 
-export const serviceForms = async (bookedServiceId: string) => {
+export const getBookedServiceForms = async (bookedServiceId: string) => {
   const cte = queryCteX(bookedServiceId);
-  const result = await dbAppointment.$queryRaw<IServiceForm[]>(cte);
+  const result = await dbAppointment.$queryRaw<BookedServiceForms[]>(cte);
 
   return result;
 };
 
-export interface IFilledForm {
+export interface FormsTotalResult {
   filled: number;
-  final: number;
+  confirmed: number;
   totalForms: number;
 }
 
 /**
  * Summary
  *
- * find sum of filled and final forms for a bookedServiceId
+ * find sum of filled and confirmed forms for a bookedServiceId
  * 
  * @example
  * 
- * const { filled, final, totalForms } = filledForms('your-booked-service-id');
+ * const { filled, confirmed, totalForms } = calculateTotalForms'your-booked-service-id');
  * 
  * console.log(Object.prototype.toString.call(filled)); //  [object Decimal]
 * @remarks
@@ -60,10 +60,10 @@ The [object Decimal] output indicates that filled and totalForms are  instances 
 * @example 
 * console.log(filled.toString() == totalForms.toString());
  */
-export const filledForms = async (
+export const calculateTotalForms = async (
   bookedServiceId: string
-): Promise<IFilledForm> => {
-  const result = await dbAppointment.$queryRaw<IFilledForm[]>`
+): Promise<FormsTotalResult> => {
+  const result = await dbAppointment.$queryRaw<FormsTotalResult[]>`
     with 
       cte1 as (
       select a."formId", a.name, a.description , b.id, b.status 
@@ -91,14 +91,14 @@ export const filledForms = async (
       cte3 as (
         select
           0 as filled,
-          0 as final,
+          0 as confirmed,
           "totalForms"
         from
           cte2
         union
         select
           count(*) as filled,
-          0 as final,
+          0 as confirmed,
           0 as "totalForms"
         from
           cte1
@@ -107,16 +107,16 @@ export const filledForms = async (
         union
         select
           0 as filled,
-          count(*) as final,
+          count(*) as confirmed,
           0 as "totalForms"
         from
           cte1
         where
-          cte1.status = 'FINAL'
+          cte1.status = 'CONFIRMED'
       )
       select
         sum(filled) as filled,
-        sum(final) as final,
+        sum(confirmed) as confirmed,
         sum("totalForms") as "totalForms"
       from
       cte3   
@@ -124,7 +124,7 @@ export const filledForms = async (
 
   const ffs = result[0];
 
-  // const { filled, final, totalForms } = ffs;
+  // const { filled, confirmed, totalForms } = ffs;
   // console.log(typeof filled); // Outputs: object
   // console.log(Object.prototype.toString.call(filled)); //  [object Decimal]
   // console.log(typeof totalForms); /// Outputs: object

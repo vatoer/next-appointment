@@ -1,5 +1,5 @@
 import { dbAppointment as dbAuth } from "@/lib/db-appointment";
-import { Prisma, User } from "@/prisma/db-appointment/generated/client";
+import { Prisma, User } from "@prisma-appointmendDb/client";
 import bcrypt from "bcryptjs";
 import { TRegister } from "../signup/_schema/register";
 

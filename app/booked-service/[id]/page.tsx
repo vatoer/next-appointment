@@ -1,6 +1,6 @@
 import { dbAppointment } from "@/lib/db-appointment";
-import { StepName } from "@/prisma/db-appointment/generated/client";
 import { bookedServiceStatusToRoute } from "@/routes";
+import { StepName } from "@prisma-appointmendDb/client";
 import { redirect } from "next/navigation";
 
 /**

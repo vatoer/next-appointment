@@ -2,7 +2,7 @@
 import { fillForm } from "@/app/booked-service/[id]/form/_actions";
 import { dbAppointment } from "@/lib/db-appointment";
 import { sptbaSchema } from "@/lib/zod/sptba";
-import { Prisma } from "@/prisma/db-appointment/generated/client";
+import { Prisma } from "@prisma-appointmendDb/client";
 import { revalidatePath } from "next/cache";
 
 import { z } from "zod";

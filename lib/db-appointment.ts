@@ -1,4 +1,4 @@
-import { PrismaClient } from "@/prisma/db-appointment/generated/client";
+import { PrismaClient } from "@prisma-appointmendDb/client";
 
 declare global {
   var prismaDbAppointment: PrismaClient | undefined;

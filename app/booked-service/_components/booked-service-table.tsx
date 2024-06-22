@@ -1,8 +1,5 @@
-import {
-  BookedService,
-  Service,
-} from "@/prisma/db-appointment/generated/client";
 import { bookedServiceStatusToRoute } from "@/routes";
+import { BookedService, Service } from "@prisma-appointmendDb/client";
 import Link from "next/link";
 
 interface IBookedServiceTableProps {

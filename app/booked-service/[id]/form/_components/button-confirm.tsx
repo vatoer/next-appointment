@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { FormsTotalResult } from "@/data/filledForm";
 import Link from "next/link";
-import { IFilledForm } from "../../../../../data/filledForm";
 import { confirmFilledForms } from "../_actions";
 
 interface IButtonConfirmProps {
@@ -12,7 +12,7 @@ const ButtonConfirm = ({
   bookedServiceId,
   filledForm,
 }: IButtonConfirmProps) => {
-  const obj: IFilledForm = JSON.parse(filledForm);
+  const obj: FormsTotalResult = JSON.parse(filledForm);
   console.log(obj);
 
   const handleSubmit = async () => {
@@ -28,7 +28,7 @@ const ButtonConfirm = ({
         variant={"default"}
         onClick={handleSubmit}
         disabled={
-          !(obj.filled === obj.totalForms) || obj.final === obj.totalForms
+          !(obj.filled === obj.totalForms) || obj.confirmed === obj.totalForms
         }
       >
         Konfirmasi formulir

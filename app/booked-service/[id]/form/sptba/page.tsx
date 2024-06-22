@@ -1,15 +1,12 @@
 import FormContainer from "@/components/form-container";
 import { z } from "zod";
 
+import { getBookedService, getServiceForm } from "@/data/booked-service";
 import { dbAppointment } from "@/lib/db-appointment";
 import { dummySptba } from "@/lib/zod/dummy/sptba";
 import { sptbaSchema } from "@/lib/zod/sptba";
-import { FormStatus } from "@/prisma/db-appointment/generated/client";
+import { FormStatus } from "@prisma-appointmendDb/client";
 import { redirect } from "next/navigation";
-import {
-  getBookedService,
-  getServiceForm,
-} from "../../../../../data/booked-service";
 import BookedServiceIdContainer from "../../_components/container";
 import FormUpsertSptba from "./_components/form-upsert-sptba";
 
@@ -35,7 +32,7 @@ const SptbaPage = async ({ params }: { params: { id: string } }) => {
   //jika sudah ada form yang diisi sebelumnya maka tampilkan form yang sudah diisi
   if (bookedService.filledForms.length > 0) {
     //jika sudah final maka redirect ke halaman download
-    if (bookedService.filledForms[0].status === FormStatus.FINAL) {
+    if (bookedService.filledForms[0].status === FormStatus.CONFIRMED) {
       redirect(`/booked-service/${bookedService.id}/form/sptba/download`);
     }
 

@@ -1,7 +1,7 @@
 "use server";
 import { auth } from "@/app/(auth)/auth";
 import { dbAppointment } from "@/lib/db-appointment";
-import { Prisma, StepName } from "@/prisma/db-appointment/generated/client";
+import { Prisma, StepName } from "@prisma-appointmendDb/client";
 
 export interface IBookServiceParams {
   serviceId: string;
