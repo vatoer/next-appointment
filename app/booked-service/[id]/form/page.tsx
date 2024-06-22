@@ -2,10 +2,12 @@ import FormContainer from "@/components/form-container";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { calculateTotalForms, getBookedServiceForms } from "@/data/filledForm";
 import { dbAppointment } from "@/lib/db-appointment";
+import { StepName } from "@prisma-appointmendDb/client";
 import { redirect } from "next/navigation";
 import { FaRegHandPointRight } from "react-icons/fa6";
 import BookedServiceIdContainer from "../_components/container";
 import ButtonAppointment from "./_components/button-appointment";
+
 import ButtonConfirm from "./_components/button-confirm";
 import ListServiceForm from "./_components/list-service-form";
 
@@ -50,6 +52,7 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
 
         <div className="flex flex-row gap-4">
           <ButtonConfirm
+            active={bookedService.status === StepName.FORM_CONFIRMATION}
             filledForm={parsedFfs}
             bookedServiceId={bookedService.id}
           />

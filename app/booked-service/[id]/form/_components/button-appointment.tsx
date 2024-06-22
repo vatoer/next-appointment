@@ -10,9 +10,12 @@ const ButtonAppointment = ({ bookedService }: IButtonAppointmentProps) => {
   const enabled =
     bookedService.status === StepName.APPOINTMENT &&
     bookedService.appointmentDate === null;
+
+  if (!enabled) return null;
+
   return (
     // create button to link to appointment page
-    <Button disabled={!enabled}>
+    <Button>
       <Link
         href={bookedServiceStatusToRoute(
           bookedService.id,

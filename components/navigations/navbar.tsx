@@ -6,7 +6,7 @@ import { TopNavigationMenu } from "./navigation-menu";
 export const Navbar = async () => {
   const categories = await getCategories();
   return (
-    <nav className="flex w-full ">
+    <nav className="flex w-full">
       <div className="grow">
         <TopNavigationMenu categories={categories} />
       </div>

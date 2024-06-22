@@ -18,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main>{children}</main>
-        <Toaster />
+        <main className="flex flex-col items-center">
+          <div className="w-full lg:w-2/3 border-2 ">{children}</div>
+          <Toaster />
+        </main>
       </body>
     </html>
   );

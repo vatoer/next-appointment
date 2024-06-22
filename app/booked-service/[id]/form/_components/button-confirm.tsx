@@ -1,17 +1,20 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { FormsTotalResult } from "@/data/filledForm";
-import Link from "next/link";
 import { confirmFilledForms } from "../_actions";
 
 interface IButtonConfirmProps {
+  active: boolean;
   bookedServiceId: string;
   filledForm: string;
 }
 const ButtonConfirm = ({
+  active,
   bookedServiceId,
   filledForm,
 }: IButtonConfirmProps) => {
+  if (!active) return null;
+
   const obj: FormsTotalResult = JSON.parse(filledForm);
   console.log(obj);
 
@@ -21,19 +24,15 @@ const ButtonConfirm = ({
     console.log(cfmFilledForms);
   };
 
+  const enabled =
+    obj.filled === obj.totalForms || obj.confirmed === obj.totalForms;
+
+  if (!enabled) return null;
+
   return (
-    <div className="flex flex-row gap-2">
-      <Button
-        className=""
-        variant={"default"}
-        onClick={handleSubmit}
-        disabled={
-          !(obj.filled === obj.totalForms) || obj.confirmed === obj.totalForms
-        }
-      >
-        Konfirmasi formulir
-      </Button>
-    </div>
+    <Button className="" variant={"default"} onClick={handleSubmit}>
+      Konfirmasi formulir
+    </Button>
   );
 };
 
