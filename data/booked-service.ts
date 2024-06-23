@@ -59,3 +59,19 @@ export const getBookedServiceByUserId = async (userId: string) => {
   });
   return services;
 };
+
+export const getBookedServiceAndRequirement = async (id: string) => {
+  const bookedService = await dbAppointment.bookedService.findFirst({
+    where: {
+      id,
+    },
+    include: {
+      service: {
+        include: {
+          serviceRequirements: true,
+        },
+      },
+    },
+  });
+  return bookedService;
+};

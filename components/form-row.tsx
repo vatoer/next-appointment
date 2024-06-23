@@ -2,7 +2,7 @@ const FormRow = ({
   title,
   children,
 }: {
-  title?: string;
+  title?: string | null;
   children: React.ReactNode;
 }) => (
   <div className="has-[:focus]:bg-gray-200 flex flex-col px-2 ">

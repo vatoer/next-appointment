@@ -20,7 +20,7 @@ export const ListServiceForm = ({
               className="underline text-blue-500"
               href={`form/${form.formId}`}
             >
-              {!form.status && "Fill Form"}
+              {!form.status && `Fill Form ${form.form_id}`}
               {form.status && form.status !== FormStatus.CONFIRMED
                 ? "Perbarui formulir"
                 : ""}
@@ -31,8 +31,10 @@ export const ListServiceForm = ({
               <Link
                 className="underline text-blue-500"
                 href={`form/${form.formId}/download`}
+                target="_blank"
               >
-                Download {form.status?.toLowerCase()}
+                {form.status === FormStatus.CONFIRMED && "Download formulir"}
+                {form.status === FormStatus.DRAFT && "Lihat draft formulir"}
               </Link>
             )}
           </div>

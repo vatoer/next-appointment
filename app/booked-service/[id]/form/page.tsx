@@ -6,7 +6,6 @@ import { StepName } from "@prisma-appointmendDb/client";
 import { redirect } from "next/navigation";
 import { FaRegHandPointRight } from "react-icons/fa6";
 import BookedServiceIdContainer from "../_components/container";
-import ButtonAppointment from "./_components/button-appointment";
 
 import { bookedServiceStatusToRoute } from "@/routes";
 import ButtonConfirm from "./_components/button-confirm";
@@ -65,13 +64,6 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
           <ButtonConfirm
             active={bookedService.status === StepName.FORM_CONFIRMATION}
             bookedServiceId={bookedService.id}
-          />
-          <ButtonAppointment
-            active={
-              bookedService.status === StepName.APPOINTMENT &&
-              bookedService.appointmentDate === null
-            }
-            bookedService={bookedService}
           />
         </div>
       </FormContainer>

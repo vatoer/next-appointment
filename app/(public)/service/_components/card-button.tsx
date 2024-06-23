@@ -18,7 +18,7 @@ const CardButton = ({ serviceId, title }: ICardButtonProps) => {
     console.log("Apply");
     const bs = await bookService(serviceId);
     if (bs.errors) {
-      console.log("Error");
+      console.log("Error", bs.errors);
     } else {
       if (!bs.payload.data) {
         toast.error("Failed to book service");

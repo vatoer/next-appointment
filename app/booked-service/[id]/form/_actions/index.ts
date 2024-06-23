@@ -154,7 +154,7 @@ export const confirmFilledForms = async (bookedServiceId: string) => {
           id: bookedServiceId,
         },
         data: {
-          status: StepName.APPOINTMENT, // next step will be appointment
+          status: StepName.DOCUMENT_UPLOAD, // next step will be appointment
         },
       }),
     ]);

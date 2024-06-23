@@ -1,9 +1,10 @@
 import { dbAppointment } from "@/lib/db-appointment";
-import { FormStatus, Prisma } from "@prisma-appointmendDb/client";
+import { Prisma } from "@prisma-appointmendDb/client";
 
 export interface BookedServiceForms {
   id: number;
   formId: number;
+  form_id: number;
   name: string;
   description: string;
   status: string;
@@ -11,27 +12,28 @@ export interface BookedServiceForms {
 
 const queryCteX = (bookedServiceId: string) => {
   return Prisma.sql`
-  select a."formId", a.name, a.description , b.id, b.status 
+  select a.form_id, a.form_id as "formId", a.name, a.description , b.id, b.status 
   from (
-    select sf."formId" , f."name", f.description from "BookedService" bs
-    inner join "Service" s on s.id = bs."serviceId" 
-    inner join "ServiceForm" sf on sf."serviceId" = s.id 
-    inner join "Form" f on sf."formId" = f.id 
+    select sf.form_id , f.name, f.description from booked_services bs
+    inner join services s on s.id = bs.service_id 
+    inner join service_forms sf on sf.service_id = s.id 
+    inner join forms f on sf.form_id = f.id 
     where
       bs.id = ${bookedServiceId}
   ) a 
   left outer join (
-    select ff."formId", ff.id, ff.status  from "FilledForm" ff 
-    inner join "BookedService" bs ON bs.id = ff."bookedServiceId" 
+    select ff.form_id, ff.id, ff.status  from filled_forms ff 
+    inner join booked_services bs ON bs.id = ff.booked_service_id
     where
       bs.id = ${bookedServiceId}
-  ) b on a."formId" = b."formId"
+  ) b on a.form_id = b.form_id
   `;
 };
 
 export const getBookedServiceForms = async (bookedServiceId: string) => {
   const cte = queryCteX(bookedServiceId);
   const result = await dbAppointment.$queryRaw<BookedServiceForms[]>(cte);
+  //console.log(result);
 
   return result;
 };
@@ -66,21 +68,21 @@ export const calculateTotalForms = async (
   const result = await dbAppointment.$queryRaw<FormsTotalResult[]>`
     with 
       cte1 as (
-      select a."formId", a.name, a.description , b.id, b.status 
+      select a.form_id, a.name, a.description , b.id, b.status 
         from (
-          select sf."formId" , f."name", f.description from "BookedService" bs
-          inner join "Service" s on s.id = bs."serviceId" 
-          inner join "ServiceForm" sf on sf."serviceId" = s.id 
-          inner join "Form" f on sf."formId" = f.id 
+          select sf.form_id , f.name, f.description from booked_services bs
+          inner join services s on s.id = bs.service_id 
+          inner join service_forms sf on sf.service_id = s.id 
+          inner join forms f on sf.form_id = f.id 
           where
             bs.id = ${bookedServiceId}
         ) a 
         left outer join (
-          select ff."formId", ff.id, ff.status  from "FilledForm" ff 
-          inner join "BookedService" bs ON bs.id = ff."bookedServiceId" 
+          select ff.form_id, ff.id, ff.status  from filled_forms ff 
+          inner join booked_services bs ON bs.id = ff.booked_service_id
           where
             bs.id = ${bookedServiceId}
-        ) b on a."formId" = b."formId"
+        ) b on a.form_id = b.form_id
       ), 
       cte2 as (
       select

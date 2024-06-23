@@ -12,6 +12,18 @@ export const getServiceByCategory = async (categoryId: string) => {
   return service;
 };
 
+export const getServiceById = async (id: string) => {
+  const service = await dbAppointment.service.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      serviceRequirements: true,
+    },
+  });
+  return service;
+};
+
 export const getServices = async () => {
   const services = await dbAppointment.service.findMany({
     include: {
