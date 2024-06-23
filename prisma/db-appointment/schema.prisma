@@ -44,7 +44,7 @@ model Form {
 
 model FilledForm {
   id              String        @id @default(uuid())
-  formId          String
+  formId          String        @map("form_id")
   bookedServiceId String        @map("booked_service_id")
   bookedService   BookedService @relation(fields: [bookedServiceId], references: [id])
   formDataJson    Json          @map("form_data_json")
