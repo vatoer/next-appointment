@@ -1,8 +1,5 @@
 import { dbAppointment } from "@/lib/db-appointment";
-import { JenisKelamin, StatusSipil } from "@/lib/zod/spri";
-import { wnGandaSchema } from "@/lib/zod/wn-ganda";
 import { StepName } from "@prisma-appointmendDb/client";
-import { z } from "zod";
 
 async function main() {
   const category = await dbAppointment.category.createMany({
@@ -124,127 +121,127 @@ async function main() {
     data: [
       {
         serviceId: "paspor-dewasa",
-        sequence: 1,
+        sequence: 5,
         name: StepName.FORM_FILLING,
         description: "Pengisian Formulir",
       },
       {
         serviceId: "paspor-dewasa",
-        sequence: 2,
+        sequence: 10,
         name: StepName.FORM_CONFIRMATION,
         description: "Konfirmasi Formulir",
       },
       {
         serviceId: "paspor-dewasa",
-        sequence: 3,
-        name: StepName.APPOINTMENT,
-        description: "Pembuatan Janji Temu",
-      },
-      {
-        serviceId: "paspor-dewasa",
-        sequence: 4,
+        sequence: 15,
         name: StepName.DOCUMENT_UPLOAD,
         description: "Unggah Dokumen",
       },
       {
         serviceId: "paspor-dewasa",
-        sequence: 5,
+        sequence: 20,
+        name: StepName.APPOINTMENT,
+        description: "Pembuatan Janji Temu",
+      },
+      {
+        serviceId: "paspor-dewasa",
+        sequence: 25,
         name: StepName.VISIT,
         description: "Kunjungan ke Perwakilan RI",
       },
       {
         serviceId: "paspor-dewasa",
-        sequence: 6,
+        sequence: 30,
         name: StepName.PROCESSING,
         description: "Proses",
       },
       {
         serviceId: "paspor-dewasa",
-        sequence: 7,
+        sequence: 35,
         name: StepName.COMPLETED,
         description: "Selesai",
       },
       {
         serviceId: "paspor-anak",
-        sequence: 1,
+        sequence: 5,
         name: StepName.FORM_FILLING,
         description: "Pengisian Formulir",
       },
       {
         serviceId: "paspor-anak",
-        sequence: 2,
+        sequence: 10,
         name: StepName.FORM_CONFIRMATION,
         description: "Konfirmasi Formulir",
       },
       {
         serviceId: "paspor-anak",
-        sequence: 3,
-        name: StepName.APPOINTMENT,
-        description: "Pembuatan Janji Temu",
-      },
-      {
-        serviceId: "paspor-anak",
-        sequence: 4,
+        sequence: 15,
         name: StepName.DOCUMENT_UPLOAD,
         description: "Unggah Dokumen",
       },
       {
         serviceId: "paspor-anak",
-        sequence: 5,
+        sequence: 20,
+        name: StepName.APPOINTMENT,
+        description: "Pembuatan Janji Temu",
+      },
+      {
+        serviceId: "paspor-anak",
+        sequence: 25,
         name: StepName.VISIT,
         description: "Kunjungan ke Perwakilan RI",
       },
       {
         serviceId: "paspor-anak",
-        sequence: 6,
+        sequence: 30,
         name: StepName.PROCESSING,
         description: "Proses",
       },
       {
         serviceId: "paspor-anak",
-        sequence: 7,
+        sequence: 35,
         name: StepName.COMPLETED,
         description: "Selesai",
       },
       {
         serviceId: "wn-ganda",
-        sequence: 1,
+        sequence: 5,
         name: StepName.FORM_FILLING,
         description: "Pengisian Formulir",
       },
       {
         serviceId: "wn-ganda",
-        sequence: 2,
+        sequence: 10,
         name: StepName.FORM_CONFIRMATION,
         description: "Konfirmasi Formulir",
       },
       {
         serviceId: "wn-ganda",
-        sequence: 3,
-        name: StepName.APPOINTMENT,
-        description: "Pembuatan Janji Temu",
-      },
-      {
-        serviceId: "wn-ganda",
-        sequence: 4,
+        sequence: 15,
         name: StepName.DOCUMENT_UPLOAD,
         description: "Unggah Dokumen",
       },
       {
         serviceId: "wn-ganda",
-        sequence: 5,
+        sequence: 20,
+        name: StepName.APPOINTMENT,
+        description: "Pembuatan Janji Temu",
+      },
+      {
+        serviceId: "wn-ganda",
+        sequence: 25,
         name: StepName.VISIT,
         description: "Kunjungan ke Perwakilan RI",
       },
       {
         serviceId: "wn-ganda",
-        sequence: 6,
+        sequence: 30,
         name: StepName.PROCESSING,
         description: "Proses",
       },
       {
         serviceId: "wn-ganda",
-        sequence: 7,
+        sequence: 35,
         name: StepName.COMPLETED,
         description: "Selesai",
       },

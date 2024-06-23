@@ -12,20 +12,24 @@ datasource db {
 enum FormStatus {
   DRAFT
   CONFIRMED
+
+  @@map("form_status")
 }
 
 enum StepName {
   INIT
   FORM_FILLING
   FORM_CONFIRMATION
-  APPOINTMENT
   DOCUMENT_UPLOAD
+  APPOINTMENT
   VISIT
   PAYMENT
   PROCESSING
   COMPLETED
   REJECTED
   NEEDS_MORE_INFO
+
+  @@map("step_names")
 }
 
 model Form {
@@ -34,36 +38,41 @@ model Form {
   description  String?
   filledForms  FilledForm[]
   serviceForms ServiceForm[]
+
+  @@map("forms")
 }
 
 model FilledForm {
   id              String        @id @default(uuid())
   formId          String
-  bookedServiceId String
+  bookedServiceId String        @map("booked_service_id")
   bookedService   BookedService @relation(fields: [bookedServiceId], references: [id])
-  formDataJson    Json
+  formDataJson    Json          @map("form_data_json")
   status          FormStatus    @default(DRAFT)
-  createdBy       String
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime?     @updatedAt
+  createdBy       String        @map("created_by")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime?     @updatedAt @map("updated_at")
   form            Form          @relation(fields: [formId], references: [id])
 
   @@unique([formId, bookedServiceId])
+  @@map("filled_forms")
 }
 
 model BookedService {
   id              String       @id @default(uuid())
   code            String?
-  appointmentDate DateTime?
-  serviceId       String
+  appointmentDate DateTime?    @map("appointment_date")
+  serviceId       String       @map("service_id")
   service         Service      @relation(fields: [serviceId], references: [id])
   status          StepName     @default(FORM_FILLING)
-  createdBy       String
+  createdBy       String       @map("created_by")
   user            User         @relation(fields: [createdBy], references: [id])
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime?    @updatedAt
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime?    @updatedAt @map("updated_at")
   filledForms     FilledForm[]
   bookedSteps     BookedStep[]
+
+  @@map("booked_services")
 }
 
 model Service {
@@ -74,8 +83,10 @@ model Service {
   bookedServices      BookedService[]
   serviceForms        ServiceForm[]
   category            Category?            @relation(fields: [categoryId], references: [id])
-  categoryId          String?
+  categoryId          String?              @map("category_id")
   steps               Step[]
+
+  @@map("services")
 }
 
 model Step {
@@ -83,38 +94,47 @@ model Step {
   name        StepName     @default(FORM_FILLING)
   description String
   sequence    Int
-  createdAt   DateTime     @default(now())
-  serviceId   String
+  createdAt   DateTime     @default(now()) @map("created_at")
+  serviceId   String       @map("service_id")
   service     Service      @relation(fields: [serviceId], references: [id])
   bookedSteps BookedStep[]
 
   @@unique([serviceId, sequence])
   @@unique([serviceId, name])
+  @@map("steps")
 }
 
 model BookedStep {
   id              Int           @id @default(autoincrement())
-  completedAt     DateTime?
-  stepId          Int
+  completedAt     DateTime?     @map("completed_at")
+  stepId          Int           @map("step_id")
   step            Step          @relation(fields: [stepId], references: [id])
-  bookedServiceId String
+  bookedServiceId String        @map("booked_service_id")
   bookedService   BookedService @relation(fields: [bookedServiceId], references: [id])
+
+  @@unique([stepId, bookedServiceId])
+  @@map("booked_steps")
 }
 
 model Category {
-  id       String    @id @default(cuid())
-  name     String
-  services Service[]
+  id        String    @id @default(cuid())
+  name      String
+  services  Service[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  @@map("categories")
 }
 
 model ServiceForm {
-  formId    String
-  serviceId String
-  formOrder Int?
+  formId    String  @map("form_id")
+  serviceId String  @map("service_id")
+  formOrder Int?    @map("form_order")
   form      Form    @relation(fields: [formId], references: [id])
   service   Service @relation(fields: [serviceId], references: [id])
 
   @@id([formId, serviceId])
+  @@map("service_forms")
 }
 
 model ServiceRequirement {
@@ -123,9 +143,11 @@ model ServiceRequirement {
   type                           String
   required                       Boolean                         @default(false)
   description                    String?
-  serviceId                      String
+  serviceId                      String                          @map("service_id")
   service                        Service                         @relation(fields: [serviceId], references: [id])
   serviceRequirementTranslations ServiceRequirementTranslation[]
+
+  @@map("service_requirements")
 }
 
 model ServiceRequirementTranslation {
@@ -134,8 +156,10 @@ model ServiceRequirementTranslation {
   description          String?
   language             String
   locale               String?
-  serviceRequirementId String
+  serviceRequirementId String             @map("service_requirement_id")
   serviceRequirement   ServiceRequirement @relation(fields: [serviceRequirementId], references: [id])
+
+  @@map("service_requirement_translations")
 }
 
 // Model definitions for authentication
@@ -147,29 +171,32 @@ model ServiceRequirementTranslation {
 
 model Account {
   id                String  @id @default(cuid())
-  userId            String
+  userId            String  @unique @map("user_id")
   type              String
   provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
+  providerAccountId String  @map("provider_account_id")
+  refreshToken      String? @map("refresh_token") @db.Text
+  accessToken       String? @map("access_token") @db.Text
+  expiresAt         Int?    @map("expires_at")
+  tokenType         String? @map("token_type")
   scope             String?
-  id_token          String? @db.Text
-  session_state     String?
+  idToken           String? @map("id_token") @db.Text
+  sessionState      String? @map("session_state")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@map("accounts")
 }
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
 }
 
 model User {
@@ -177,13 +204,15 @@ model User {
   name           String?
   email          String?         @unique
   password       String?
-  emailVerified  DateTime?
+  emailVerified  DateTime?       @map("email_verified")
   image          String?
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
   accounts       Account[]
   sessions       Session[]
   bookedServices BookedService[]
+
+  @@map("users")
 }
 
 model VerificationToken {
@@ -192,4 +221,5 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+  @@map("verification_tokens")
 }
