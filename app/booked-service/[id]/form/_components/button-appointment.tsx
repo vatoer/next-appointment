@@ -1,18 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { bookedServiceStatusToRoute } from "@/routes";
-import { BookedService, StepName } from "@prisma-appointmendDb/client";
+import { BookedService } from "@prisma-appointmendDb/client";
 import Link from "next/link";
 
 interface IButtonAppointmentProps {
+  active: boolean;
+
   bookedService: BookedService;
 }
-const ButtonAppointment = ({ bookedService }: IButtonAppointmentProps) => {
-  const enabled =
-    bookedService.status === StepName.APPOINTMENT &&
-    bookedService.appointmentDate === null;
-
-  if (!enabled) return null;
-
+const ButtonAppointment = ({
+  active,
+  bookedService,
+}: IButtonAppointmentProps) => {
+  if (!active) return null;
   return (
     // create button to link to appointment page
     <Button>

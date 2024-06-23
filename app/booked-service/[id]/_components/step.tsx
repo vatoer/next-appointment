@@ -1,6 +1,5 @@
 import { dbAppointment } from "@/lib/db-appointment";
 import { cn } from "@/lib/utils";
-import { random } from "lodash";
 
 //https://dev.to/jetthoughts/how-to-create-triangles-in-tailwindcss-2in
 
@@ -53,7 +52,11 @@ export const Steps = async ({
     include: {
       service: {
         select: {
-          steps: true,
+          steps: {
+            orderBy: {
+              sequence: "asc",
+            },
+          },
         },
       },
     },

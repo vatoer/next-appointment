@@ -1,12 +1,11 @@
 import FormContainer from "@/components/form-container";
-import { z } from "zod";
-
 import { getBookedService, getServiceForm } from "@/data/booked-service";
-import { dbAppointment } from "@/lib/db-appointment";
 import { dummySptba } from "@/lib/zod/dummy/sptba";
 import { sptbaSchema } from "@/lib/zod/sptba";
-import { FormStatus } from "@prisma-appointmendDb/client";
+import { bookedServiceStatusToRoute } from "@/routes";
+import { FormStatus, StepName } from "@prisma-appointmendDb/client";
 import { redirect } from "next/navigation";
+import { z } from "zod";
 import BookedServiceIdContainer from "../../_components/container";
 import FormUpsertSptba from "./_components/form-upsert-sptba";
 
@@ -19,6 +18,16 @@ const SptbaPage = async ({ params }: { params: { id: string } }) => {
 
   if (!bookedService) {
     redirect("/service"); //todo make not hardcoded
+  }
+
+  //check if bookedService is in form filling status or form confirmation status
+  if (
+    bookedService.status !== StepName.FORM_FILLING &&
+    bookedService.status !== StepName.FORM_CONFIRMATION
+  ) {
+    redirect(
+      bookedServiceStatusToRoute(bookedService.id, bookedService.status)
+    );
   }
 
   // check if the service has a form to be filled

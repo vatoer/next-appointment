@@ -8,6 +8,7 @@ import { FaRegHandPointRight } from "react-icons/fa6";
 import BookedServiceIdContainer from "../_components/container";
 import ButtonAppointment from "./_components/button-appointment";
 
+import { bookedServiceStatusToRoute } from "@/routes";
 import ButtonConfirm from "./_components/button-confirm";
 import ListServiceForm from "./_components/list-service-form";
 
@@ -20,6 +21,16 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
 
   if (!bookedService) {
     redirect("/service"); //todo make not hardcoded
+  }
+
+  //check if bookedService is in form filling status or form confirmation status
+  if (
+    bookedService.status !== StepName.FORM_FILLING &&
+    bookedService.status !== StepName.FORM_CONFIRMATION
+  ) {
+    redirect(
+      bookedServiceStatusToRoute(bookedService.id, bookedService.status)
+    );
   }
 
   // find  service forms
@@ -53,10 +64,15 @@ const FormIdPage = async ({ params }: { params: { id: string } }) => {
         <div className="flex flex-row gap-4">
           <ButtonConfirm
             active={bookedService.status === StepName.FORM_CONFIRMATION}
-            filledForm={parsedFfs}
             bookedServiceId={bookedService.id}
           />
-          <ButtonAppointment bookedService={bookedService} />
+          <ButtonAppointment
+            active={
+              bookedService.status === StepName.APPOINTMENT &&
+              bookedService.appointmentDate === null
+            }
+            bookedService={bookedService}
+          />
         </div>
       </FormContainer>
     </BookedServiceIdContainer>
