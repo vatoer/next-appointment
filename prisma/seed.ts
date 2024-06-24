@@ -439,7 +439,7 @@ async function main() {
         description:
           "Fotokopi akta perkawinan atau akta perceraian (untuk yang menikah/cerai).",
         type: "copy",
-        required: true,
+        required: false,
       },
     ],
   });

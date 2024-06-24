@@ -49,6 +49,7 @@ const UploadPage = async ({ params }: { params: { id: string } }) => {
         />
         <h1 className="text-l font-bold my-4">Upload Dokumen Pendukung</h1>
         <FormUploadRequirements
+          maxFileSize={1 * 1024 * 1024}
           requirements={bookedService.service.serviceRequirements}
         />
       </FormContainer>

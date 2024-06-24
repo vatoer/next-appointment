@@ -12,6 +12,7 @@ const Requirement = ({ requirement }: RequirementProps) => {
       <FormRow title={requirement.description + required}>
         <input
           type="file"
+          name={requirement.id}
           className="w-full p-2 border-2 border-gray-300"
           accept="image/*,.pdf"
           max={1 * 1024 * 1024}
